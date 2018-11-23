@@ -1,7 +1,7 @@
 {
   "name": "u-date-picker",
   "description": "\"\" datePicker plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "yc_1209 <892541788@qq.com>",
   "license": "MIT",
   "main": "dist/u-date-picker.js",
