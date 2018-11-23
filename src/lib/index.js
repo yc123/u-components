@@ -1,9 +1,20 @@
-import '../assets/icon.css'
-import '../assets/app.scss'
-import DatePicker from './DatePicker'
-// const datePicker = {
-//   install(Vue, options) {
-//     Vue.component(DatePicker.name, DatePicker)
-//   }
-// }
-export default DatePicker
+import DatePicker from './datePicker/index.js'
+
+const components = [ DatePicker ]
+
+const install = function(Vue, opts = {}) {
+  components.forEach(component => {
+    Vue.component(component.name, component)
+  })
+}
+
+/* istanbul ignore if */
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue)
+}
+
+module.exports = {
+  install
+}
+
+module.exports.default = module.exports

@@ -5,16 +5,11 @@
 </template>
 
 <script>
-  import DatePicker from './lib'
+  import DatePicker from './lib/datePicker/index'
 export default {
   name: 'app',
   components: {
     DatePicker
-  },
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
   }
 }
 </script>
