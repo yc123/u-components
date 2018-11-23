@@ -1,7 +1,7 @@
 {
   "name": "u-date-picker",
   "description": "\"\" datePicker plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "yc_1209 <892541788@qq.com>",
   "license": "MIT",
   "main": "dist/u-date-picker.js",
@@ -14,7 +14,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "u-date-picker": "^1.0.2",
+    "u-date-picker": "^1.0.3",
     "vue": "^2.5.11"
   },
   "browserslist": [

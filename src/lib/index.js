@@ -14,7 +14,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 module.exports = {
-  install
+  install,
+  DatePicker
 }
 
 module.exports.default = module.exports
