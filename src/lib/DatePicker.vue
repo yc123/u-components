@@ -26,13 +26,13 @@
       </div>
       <div v-if="currentPickType === 0" class="date-picker-content">
         <ul class="dpc-title">
-          <li>日</li>
-          <li>一</li>
-          <li>二</li>
-          <li>三</li>
-          <li>四</li>
-          <li>五</li>
-          <li>六</li>
+          <li><div class="dpc-content-item">日</div></li>
+          <li><div class="dpc-content-item">一</div></li>
+          <li><div class="dpc-content-item">二</div></li>
+          <li><div class="dpc-content-item">三</div></li>
+          <li><div class="dpc-content-item">四</div></li>
+          <li><div class="dpc-content-item">五</div></li>
+          <li><div class="dpc-content-item">六</div></li>
         </ul>
         <ul class="dpc-content" v-for="(days, index) in daysArrs" :key="index">
           <li
@@ -358,7 +358,7 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color: rgba(0,0,0,0.25);
   }
@@ -394,7 +394,8 @@
     .icon-subfix {
       position: absolute;
       right: 12px;
-      top: 4px;
+      top: 0;
+      line-height: 32px;
       color: rgba(0,0,0,0.25);
     }
     .date-picker {
@@ -407,6 +408,10 @@
       top: 37px;
       bottom: 0;
       left: 0;
+      -webkit-transition: bottom .4s ease-in-out;
+      -moz-transition: bottom .4s ease-in-out;
+      -ms-transition: bottom .4s ease-in-out;
+      -o-transition: bottom .4s ease-in-out;
       transition: bottom .4s ease-in-out;
       &.auto-height {
         bottom: -279px;
@@ -424,6 +429,9 @@
             outline: none;
             padding: 5px 7px;
             font-weight: bold;
+            border: none;
+            background: transparent;
+            cursor: pointer;
             &:focus {
               border: none;
             }
@@ -468,12 +476,14 @@
           padding: 0;
           margin-bottom: 8px;
           color: rgba(0,0,0,0.65);
+          font-size: 0;
           li {
             list-style: none;
             display: inline-block;
             width: 14.2%;
             text-align: center;
             padding: 0 5px;
+            font-size: 14px;
             .dpc-content-item {
               border-radius: 2px;
               -webkit-user-select: none;

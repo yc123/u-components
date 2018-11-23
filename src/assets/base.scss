@@ -1,0 +1,130 @@
+body {
+  font-size: 14px;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ie等滚动条遮住元素
+html, body {
+  -ms-overflow-style: scrollbar;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover, a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+
+p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+ul {
+  list-style: none;
+}
+button, input {
+  outline: none;
+}
+button {
+  cursor: pointer;
+}
+/* 去掉各 Table  cell 的边距并让其边重合 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+i, em {
+  font-style: normal;
+}
+
+/* 去除默认边框 */
+fieldset, img {
+  border: 0;
+}
+
+// scroll
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background: hsla(0, 0%, 100%, 0.6);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: rgba(95,95,95,.4);
+  transition: background-color .15s;
+
+  &:hover {
+    background-color: rgba(95,95,95, .7);
+  }
+}
+
+/*input number 箭头*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+/*将默认的select选择框样式清除*/
+select {
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  -ms-appearance:none;
+  outline: none;
+}
+select::-ms-expand {
+  display: none;
+}
+
+
+input::-webkit-input-placeholder{
+  color:#999;
+}
+input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#999;
+}
+input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#999;
+}
+input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color:#999;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  list-style: none;
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
+img {
+  outline: 0;
+  border: none;
+  vertical-align: baseline;
+}
+
+th {
+  text-align: center;
+}
