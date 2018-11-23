@@ -1,11 +1,14 @@
 {
-  "name": "vue-date-picker",
+  "name": "u-date-picker",
   "description": "\"\" datePicker plugin",
-  "version": "1.0.0",
-  "author": "yangc <yangc@usoftchina.com>",
+  "version": "1.0.1",
+  "author": "yc_1209 <892541788@qq.com>",
   "license": "MIT",
-  "private": false,
-  "main": "dist/vue-date-picker.js",
+  "main": "dist/u-date-picker.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yc123/vue-date-picker.git"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"

@@ -6,8 +6,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'vue-date-picker.js',
-    library: 'vueDatePicker',
+    filename: 'u-date-picker.js',
+    library: 'uDatePicker',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
