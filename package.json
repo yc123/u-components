@@ -1,10 +1,10 @@
 {
   "name": "u-date-picker",
-  "description": "\"\" datePicker plugin",
+  "description": "usoft common components",
   "version": "1.0.4",
   "author": "yc_1209 <892541788@qq.com>",
   "license": "MIT",
-  "main": "dist/u-date-picker.js",
+  "main": "dist/u-components.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/yc123/u-components.git"

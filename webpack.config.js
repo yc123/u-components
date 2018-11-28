@@ -8,8 +8,8 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
     filename: 'build.js',
-    // filename: 'u-date-picker.js',
-    library: 'uDatePicker',
+    // filename: 'u-components.js',
+    library: 'uComponents',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
