@@ -1,10 +1,10 @@
-import '../../assets/icon.css'
-import '../../assets/app.scss'
-import DatePicker from './DatePicker'
+import '../../assets/css/icon.css'
+import '../../assets/css/app.scss'
+import UDatePicker from './UDatePicker'
 
 /* istanbul ignore next */
-DatePicker.install = function(Vue) {
-  Vue.component(DatePicker.name, DatePicker);
+UDatePicker.install = function(Vue) {
+  Vue.component(UDatePicker.name, UDatePicker);
 };
 
-export default DatePicker;
+export default UDatePicker;

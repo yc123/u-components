@@ -1,6 +1,6 @@
 body {
   font-size: 14px;
-  color: #333;
+  color: rgba(0, 0, 0, .65);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -92,20 +92,6 @@ select {
 }
 select::-ms-expand {
   display: none;
-}
-
-
-input::-webkit-input-placeholder{
-  color:#999;
-}
-input::-moz-placeholder{   /* Mozilla Firefox 19+ */
-  color:#999;
-}
-input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
-  color:#999;
-}
-input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
-  color:#999;
 }
 
 ul,

@@ -1,7 +1,9 @@
 <template>
   <div class="u-date-picker" @click.stop>
-    <input class="u-dp-input" :placeholder="label" type="text" v-model="formatDate" readonly @click="setShowDatePicker(!showDatePicker)">
-    <i class="icon-subfix iconfont icon-date-o"></i>
+    <div @click="setShowDatePicker(!showDatePicker)">
+      <input class="u-dp-input" :placeholder="label" type="text" v-model="formatDate" readonly>
+      <i class="icon-subfix iconfont icon-date-o"></i>
+    </div>
     <div class="date-picker" :class="{'auto-height': showDatePicker}">
       <div class="date-picker-title">
         <div class="fl">
@@ -108,7 +110,7 @@
     return fmt
   }
   export default {
-    name: 'datePicker',
+    name: 'UDatePicker',
     data: () => ({
       /*
       *  当前选择的类型
@@ -165,7 +167,7 @@
         window.addEventListener('click', this.hideDatePicker, false)
       })
     },
-    destroyed () {
+    beforeDestroy () {
       window.removeEventListener('click', this.hideDatePicker, false)
     },
     methods: {
@@ -359,27 +361,9 @@
   }
 </script>
 <style lang="scss">
-  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: rgba(0,0,0,0.25);
-  }
-  ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: rgba(0,0,0,0.25);
-  }
-  input:-ms-input-placeholder{
-    color: rgba(0,0,0,0.25);
-  }
-  input::-webkit-input-placeholder{
-    color: rgba(0,0,0,0.25);
-  }
   .u-date-picker {
     position: relative;
     width: 280px;
-    .fl {
-      float: left;
-    }
-    .fr {
-      float: right;
-    }
     $base-color: #1890FF;
     .u-dp-input {
       width: 100%;
@@ -397,6 +381,7 @@
       top: 0;
       line-height: 32px;
       color: rgba(0,0,0,0.25);
+      cursor: pointer;
     }
     .date-picker {
       width: 280px;
@@ -408,11 +393,11 @@
       top: 37px;
       bottom: 0;
       left: 0;
-      -webkit-transition: bottom .4s ease-in-out;
-      -moz-transition: bottom .4s ease-in-out;
-      -ms-transition: bottom .4s ease-in-out;
-      -o-transition: bottom .4s ease-in-out;
-      transition: bottom .4s ease-in-out;
+      -webkit-transition: bottom .2s ease-in-out;
+      -moz-transition: bottom .2s ease-in-out;
+      -ms-transition: bottom .2s ease-in-out;
+      -o-transition: bottom .2s ease-in-out;
+      transition: bottom .2s ease-in-out;
       &.auto-height {
         bottom: -279px;
       }
@@ -475,7 +460,6 @@
         ul {
           padding: 0;
           margin-bottom: 8px;
-          color: rgba(0,0,0,0.65);
           font-size: 0;
           li {
             list-style: none;

@@ -1,0 +1,78 @@
+ul.list-inline {
+  li {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.inline-block {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.25);
+}
+:-moz-placeholder {
+  color: rgba(0,0,0,0.25);
+}
+::-moz-placeholder {
+  color: rgba(0,0,0,0.25);
+}
+:-ms-input-placeholder {
+  color: rgba(0,0,0,0.25);
+}
+$base-color: #1890FF;
+.u-btn {
+  background: #FFFFFF;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: left;
+  line-height: 22px;
+  padding: 5px 16px;
+  &.u-btn-cancel {
+    border: 1px solid #D9D9D9;
+    &:hover {
+      color: $base-color;
+      border-color: $base-color;
+    }
+  }
+  &.u-btn-submit {
+    background: $base-color;
+    border: 1px solid $base-color;
+    color: #fff;
+  }
+}
+
+.u-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .3);
+}
+
+.u-btn-wrap {
+  font-size: 0;
+  text-align: center;
+  .u-btn {
+    margin-right: 8px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.u-placeholder {
+  color: rgba(0,0,0,0.25);
+}
+
