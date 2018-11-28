@@ -7,7 +7,7 @@
   "main": "dist/u-date-picker.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yc123/vue-date-picker.git"
+    "url": "https://github.com/yc123/u-components.git"
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
