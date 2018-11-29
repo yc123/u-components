@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import uComps from 'u-components'
+import 'u-components/src/assets/css/app.scss'
 let {
   UDatePicker,
   USelect,
