@@ -97,7 +97,7 @@ export default {
   }
   .footer {
     font-size: 12px;
-    background-color: #fff;
+    background-color: #E9E9E9;
 
     .footer-container {
       position: relative;
