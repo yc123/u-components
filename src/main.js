@@ -9,6 +9,8 @@ import './plugins/u-components'
 // 安装axios
 Vue.prototype.$http = axios
 
+import './assets/css/common.scss'
+
 Vue.config.productionTip = false
 
 new Vue({

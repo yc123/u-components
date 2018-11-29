@@ -19,13 +19,7 @@ const setLoadingCount = () => {
 service.interceptors.request.use(config => {
   ++reqCount
   setLoadingCount()
-  if (config.url === '/file/upload' || config.url === '/image/upload') {
-    config.url = env.fileUrl + config.url
-  } else if (config.url === '/api/public/enterprise/byuseruu' || config.url.indexOf('/api/public/user/switch') === 0) {
-    config.url = env.ssoUrl + config.url
-  } else {
-    config.url = env.baseUrl + config.url || '/'
-  }
+  config.url = env.baseUrl + config.url
   return config
 }, error => {
   return Promise.reject(error)
