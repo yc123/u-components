@@ -6,7 +6,7 @@
            class="base-input"
            :placeholder="placeholder"
            @input="onInput($event)">
-    <i class="iconfont icon-close"></i>
+    <i class="iconfont icon-close" v-if="clearable" @click.prevent="clear"></i>
   </div>
 </template>
 <script>
@@ -44,6 +44,10 @@
       placeholder: {
         type: String,
         default: ''
+      },
+      clearable: {
+        type: Boolean,
+        default: false
       }
     },
     watch: {
@@ -89,6 +93,13 @@
         } else {
           this.isValid = !this.required
         }
+      },
+      clear () {
+        this.checkValid()
+        this.$refs.comInput.value = ''
+        this.$emit('input', '')
+        this.lastValue = ''
+        this.$refs.comInput.focus()
       }
     }
   }

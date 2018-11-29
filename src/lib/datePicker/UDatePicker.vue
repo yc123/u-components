@@ -1,10 +1,13 @@
 <template>
-  <div class="u-date-picker" @click.stop>
+  <div class="u-date-picker" ref="uDatePicker" @click.stop>
     <div @click="setShowDatePicker(!showDatePicker)">
       <input class="u-dp-input" :placeholder="label" type="text" v-model="formatDate" readonly>
       <i class="icon-subfix iconfont icon-date-o"></i>
     </div>
-    <div class="date-picker" :class="{'auto-height': showDatePicker}">
+    <div class="date-picker"
+         :class="{'auto-height': showDatePicker}"
+         :style="{'left': `${boxPosition.left}px`, 'top': `${boxPosition.top}px`}"
+    >
       <div class="date-picker-title">
         <div class="fl">
           <template v-if="currentPickType === 0">
@@ -138,7 +141,11 @@
       yearsArrs: [],
       // 是否显示时间选择
       showDatePicker: false,
-      formatDate: ''
+      formatDate: '',
+      boxPosition: {
+        left: 0,
+        top: 0
+      }
     }),
     props: {
       /*
@@ -352,6 +359,13 @@
         this.initYearsArrs(type === 'sub' ? this.yearsArrs[0][0].value - 12 : this.yearsArrs[0][0].value + 12)
       },
       setShowDatePicker (flag) {
+        if (flag) {
+          let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+          let offsetY = this.$refs.uDatePicker.offsetTop - scrolled + this.$refs.uDatePicker.clientHeight
+          let offsetX = this.$refs.uDatePicker.offsetLeft
+          this.boxPosition.left = offsetX
+          this.boxPosition.top = offsetY
+        }
         this.showDatePicker = flag
       },
       hideDatePicker () {
@@ -389,17 +403,16 @@
       border-radius: 4px;
       box-shadow: 0 2px 8px 0 rgba(0,0,0,0.15);
       overflow: hidden;
-      position: absolute;
-      top: 37px;
-      bottom: 0;
-      left: 0;
-      -webkit-transition: bottom .2s ease-in-out;
-      -moz-transition: bottom .2s ease-in-out;
-      -ms-transition: bottom .2s ease-in-out;
-      -o-transition: bottom .2s ease-in-out;
-      transition: bottom .2s ease-in-out;
+      position: fixed;
+      z-index: 200;
+      height: 0;
+      -webkit-transition: height .2s ease-in-out;
+      -moz-transition: height .2s ease-in-out;
+      -ms-transition: height .2s ease-in-out;
+      -o-transition: height .2s ease-in-out;
+      transition: height .2s ease-in-out;
       &.auto-height {
-        bottom: -279px;
+        height: 274px;
       }
       .date-picker-title {
         padding: 0 16px;

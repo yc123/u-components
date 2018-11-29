@@ -1,7 +1,7 @@
 {
   "name": "u-components",
   "description": "usoft common components",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "yc_1209 <892541788@qq.com>",
   "license": "MIT",
   "main": "dist/u-components.js",
