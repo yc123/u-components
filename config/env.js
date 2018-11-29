@@ -7,7 +7,7 @@ const authorityUrl = isProdMode ? 'https://securityrest.usoftchina.com' : 'https
 const basicAdminUrl = isProdMode ? 'https://basicadmin.usoftchina.com' : 'https://basicadmin.uuzcc.cn'
 
 module.exports = {
-    baseUrl: baseUrl,
-    authorityUrl: authorityUrl,
-    basicAdminUrl: basicAdminUrl
+  baseUrl: baseUrl,
+  authorityUrl: authorityUrl,
+  basicAdminUrl: basicAdminUrl
 }
