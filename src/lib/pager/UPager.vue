@@ -21,8 +21,12 @@
       <li class="last" @click="onLast">
         <i class="iconfont icon-arrow-right1"></i>
       </li>
-      <li>10条/页</li>
     </ul>
+    <u-select class="inline-block size-select"
+              v-model="bindingSize"
+              :list="pageSizeList"
+              @input="changeSize"
+    ></u-select>
     <div class="input-wrap inline-block">
       跳至&nbsp;
       <input type="number"
@@ -43,7 +47,26 @@
         page: 1,
         bindingPage: 1,
         pagerList: [],
-        totalPage: 0
+        totalPage: 0,
+        pageSizeList: [
+          {
+            text: '10条/页',
+            value: 10
+          },
+          {
+            text: '20条/页',
+            value: 20
+          },
+          {
+            text: '30条/页',
+            value: 30
+          },
+          {
+            text: '50条/页',
+            value: 50
+          }
+        ],
+        bindingSize: 10
       }
     },
     watch: {
@@ -56,8 +79,14 @@
         immediate: true
       },
       totalCount: {
-        handler: function (val) {
-          this.totalPage = Math.ceil(val / this.pageSize) || 1
+        handler: function () {
+          this.initPagerList()
+        },
+        immediate: true
+      },
+      pageSize: {
+        handler: function (val = 10) {
+          this.bindingSize = val
           this.initPagerList()
         },
         immediate: true
@@ -76,6 +105,7 @@
     },
     methods: {
       initPagerList () {
+        this.totalPage = Math.ceil(this.totalCount / this.bindingSize) || 1
         this.pagerList = []
         if (this.totalPage < 8) {
           for (let page = 1; page <= this.totalPage; page++) {
@@ -154,6 +184,10 @@
       },
       onInputChange () {
         this.setPage(this.bindingPage)
+      },
+      changeSize () {
+        this.initPagerList()
+        this.$emit('sizeChangeAction', this.bindingSize)
       }
     }
   }
@@ -209,6 +243,9 @@
           color: #fff;
         }
       }
+    }
+    .size-select {
+      width: 94px;
     }
     .input-wrap {
       margin-left: 10px;

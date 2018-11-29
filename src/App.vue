@@ -8,7 +8,12 @@
     <div class="comps">
       <p>pager：</p>
       <p>model：{{pager.page}}</p>
-      <u-pager @input="pagerChange" v-model="pager.page" :totalCount="pager.count" :pageSize="pager.size"></u-pager>
+      <u-pager
+        @input="pagerChange"
+        @sizeChangeAction="sizeChange"
+        v-model="pager.page"
+        :totalCount="pager.count"
+        :pageSize="pager.size"></u-pager>
     </div>
     <div class="comps">
       <p>input：</p>
@@ -171,6 +176,9 @@ export default {
   methods: {
     pagerChange () {
       alert(this.pager.page)
+    },
+    sizeChange (size) {
+      // alert(size)
     },
     showMessage (type) {
       this.$message({

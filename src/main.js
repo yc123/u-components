@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import uComps from 'u-components'
+import uComps from './lib/index'
 let {
   UDatePicker,
   USelect,

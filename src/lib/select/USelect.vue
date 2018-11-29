@@ -76,6 +76,7 @@
     border-radius: 4px;
     position: relative;
     cursor: default;
+    text-align: left;
     i {
       font-size: 12px;
       color: rgba(0,0,0,0.25);
