@@ -1,6 +1,6 @@
-# vue-date-picker
+# u-components
 
-> \"\" datePicker plugin
+> usoft components plugin
 
 ## Build Setup
 
