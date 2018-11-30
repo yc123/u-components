@@ -17,6 +17,7 @@ const getters = {
   },
   // 登录地址
   loginUrl: (state, getters, rootState) => {
+    debugger
     return `${getters.ssoUrl}/?baseUrl=${getters.ssoRestUrl}/web/api/login`
   },
   // 退出地址

@@ -1,12 +1,18 @@
 <template>
   <div class="home">
-    123123123123
+    <carousel></carousel>
+    <part-list></part-list>
   </div>
 </template>
 
 <script>
-
+import Carousel from '@/components/home/Carousel.vue'
+import PartList from '@/components/home/PartList.vue'
 export default {
-  name: 'home'
+  name: 'home',
+  components: {
+    Carousel,
+    PartList
+  }
 }
 </script>

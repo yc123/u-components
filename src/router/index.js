@@ -14,6 +14,16 @@ const route = new Router({
       component: () => import(/* webpackChunkName: "Home" */ '../views/Home.vue')
     },
     {
+      path: '/seller',
+      name: 'seller',
+      component: () => import(/* webpackChunkName: "Seller" */ '../views/seller/Seller.vue')
+    },
+    {
+      path: '/seller/detail',
+      name: 'sellerDetail',
+      component: () => import(/* webpackChunkName: "Seller" */ '../views/seller/SellerDetail.vue')
+    },
+    {
       path: '/user',
       name: 'user',
       component: () => import(/* webpackChunkName: "User" */ '../views/user/LeftNav.vue'),
