@@ -36,8 +36,8 @@
       </div>
       <ul class="footer-link list-unstyled">
         <span>友情链接：</span>
-        <li v-for="(link, index) in links" class="footer-link-item">
-          <span v-if="index!=0" class="separation">|</span>
+        <li v-for="(link, index) in links" :key="index" class="footer-link-item">
+          <span v-if="index !== 0" class="separation">|</span>
           <a :href="link.url" target="_blank" :title="link.title">{{ link.title }}</a>
         </li>
       </ul>

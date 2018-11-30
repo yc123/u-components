@@ -1,5 +1,5 @@
 <template>
-  <div class="container center-view">
+  <div class="container center-view clearfix">
     <left-nav :list="list" class="fl"></left-nav>
     <div class="fr view-right">
       <router-view></router-view>
@@ -20,7 +20,7 @@ export default {
       },
       {
         title: '我的需求',
-        url: '/user/seek'
+        url: '/user/demand'
       }
     ]
   })
@@ -28,6 +28,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .center-view {
+    margin: 8px auto;
     .view-right {
       width: 996px;
     }

@@ -20,8 +20,24 @@ const route = new Router({
       children: [
         {
           path: 'home',
-          title: '首页-买家中心',
+          meta: {
+            title: '首页-买家中心'
+          },
           component: () => import(/* webpackChunkName: "User" */ '../views/user/Home.vue')
+        },
+        {
+          path: 'demand',
+          meta: {
+            title: '我的需求-买家中心'
+          },
+          component: () => import(/* webpackChunkName: "User" */ '../views/user/Demand.vue')
+        },
+        {
+          path: 'collect',
+          meta: {
+            title: '我的收藏-买家中心'
+          },
+          component: () => import(/* webpackChunkName: "User" */ '../views/user/Collect.vue')
         }
       ]
     }

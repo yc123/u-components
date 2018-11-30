@@ -1,4 +1,65 @@
+@import './variable';
 .container {
   width: 1190px;
   margin: 0 auto;
+}
+// 清除浮动
+.clearfix {
+  &:before, &:after {
+    display: table;
+    content: " ";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.base-title-block {
+  height: 40px;
+  line-height: 40px;
+  color: rgba(0,0,0,0.85);
+  padding: 0 12px;
+  margin-bottom: 8px;
+  .title {
+    line-height: 40px;
+    height: 40px;
+    display: inline-block;
+    &.active {
+      border-bottom: 1px solid $base-color;
+    }
+  }
+}
+
+.test-border {
+  border: $test-border;
+}
+
+.base-table {
+  table-layout: fixed;
+  width: 100%;
+  thead {
+    tr {
+      th {
+        text-align: left;
+        font-weight: normal;
+        padding: 0 8px;
+      }
+    }
+  }
+  tbody tr{
+    &:hover {
+      background: #E6F7FF;
+    }
+    td {
+      padding: 0 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+i.must {
+  font-style: normal;
+  color: #dd1010;
 }
