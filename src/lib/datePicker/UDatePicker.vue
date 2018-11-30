@@ -5,6 +5,7 @@
       <i class="icon-subfix iconfont icon-date-o"></i>
     </div>
     <div class="u-picker-box"
+         @click.stop
          ref="pickerBox"
          :class="{'auto-height': showDatePicker}"
          :style="{'left': `${boxPosition.left}px`, 'top': `${boxPosition.top}px`, 'position': boxPosition.position}"
