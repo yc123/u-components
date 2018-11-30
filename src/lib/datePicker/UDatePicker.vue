@@ -4,9 +4,10 @@
       <input class="u-dp-input" :placeholder="label" type="text" v-model="formatDate" readonly>
       <i class="icon-subfix iconfont icon-date-o"></i>
     </div>
-    <div class="date-picker"
+    <div class="u-picker-box"
+         ref="pickerBox"
          :class="{'auto-height': showDatePicker}"
-         :style="{'left': `${boxPosition.left}px`, 'top': `${boxPosition.top}px`}"
+         :style="{'left': `${boxPosition.left}px`, 'top': `${boxPosition.top}px`, 'position': boxPosition.position}"
     >
       <div class="date-picker-title">
         <div class="fl">
@@ -144,7 +145,8 @@
       formatDate: '',
       boxPosition: {
         left: 0,
-        top: 0
+        top: 0,
+        position: 'fixed'
       }
     }),
     props: {
@@ -158,6 +160,10 @@
       label: {
         type: String,
         default: '选择时间'
+      },
+      fixId: {
+        type: String,
+        default: ''
       }
     },
     watch: {
@@ -360,16 +366,29 @@
       },
       setShowDatePicker (flag) {
         if (flag) {
-          let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-          let offsetY = this.$refs.uDatePicker.offsetTop - scrolled + this.$refs.uDatePicker.clientHeight
-          let offsetX = this.$refs.uDatePicker.offsetLeft
+          let offsetY
+          let offsetX
+          if (!this.fixId) {
+            let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+            offsetY = this.$refs.uDatePicker.offsetTop - scrolled + this.$refs.uDatePicker.clientHeight + 4
+            offsetX = this.$refs.uDatePicker.offsetLeft
+            this.boxPosition.position = 'absolute'
+          } else {
+            let obj = document.getElementById(this.fixId)
+            offsetY = this.$refs.uDatePicker.offsetTop + obj.offsetTop - obj.clientHeight / 2 + this.$refs.uDatePicker.clientHeight + 4
+            offsetX = this.$refs.uDatePicker.offsetLeft + obj.offsetLeft - obj.clientWidth / 2
+            this.boxPosition.position = 'fixed'
+          }
           this.boxPosition.left = offsetX
           this.boxPosition.top = offsetY
+          document.body.appendChild(this.$refs.pickerBox)
+        } else {
+          this.$refs.pickerBox && document.body.removeChild(this.$refs.pickerBox)
         }
         this.showDatePicker = flag
       },
       hideDatePicker () {
-        this.setShowDatePicker(false)
+        this.showDatePicker && this.setShowDatePicker(false)
       }
     }
   }
@@ -396,135 +415,6 @@
       line-height: 32px;
       color: rgba(0,0,0,0.25);
       cursor: pointer;
-    }
-    .date-picker {
-      width: 280px;
-      background: #fff;
-      border-radius: 4px;
-      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.15);
-      overflow: hidden;
-      position: fixed;
-      z-index: 200;
-      height: 0;
-      -webkit-transition: height .2s ease-in-out;
-      -moz-transition: height .2s ease-in-out;
-      -ms-transition: height .2s ease-in-out;
-      -o-transition: height .2s ease-in-out;
-      transition: height .2s ease-in-out;
-      &.auto-height {
-        height: 274px;
-      }
-      .date-picker-title {
-        padding: 0 16px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        border-bottom: 1px solid rgba(0, 0, 0, .09);
-        .dpt-content {
-          line-height: normal;
-          display: inline-block;
-          button {
-            outline: none;
-            padding: 5px 7px;
-            font-weight: bold;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            &:focus {
-              border: none;
-            }
-            &:hover {
-              background: #E6F7FF;
-            }
-          }
-        }
-        .icon {
-          cursor: pointer;
-          font-style: normal;
-          color: rgba(0, 0, 0, .45);
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-        .fl {
-          height: 40px;
-          .icon {
-            margin-right: 15px;
-            &:last-child {
-              margin-right: 0;
-            }
-          }
-        }
-        .fr {
-          height: 40px;
-          .icon {
-            margin-left: 15px;
-            &:first-child {
-              margin-left: 0;
-            }
-          }
-        }
-      }
-      .date-picker-content {
-        height: 234px;
-        line-height: 22px;
-        padding: 16px 20px 0;
-        ul {
-          padding: 0;
-          margin-bottom: 8px;
-          font-size: 0;
-          li {
-            list-style: none;
-            display: inline-block;
-            width: 14.2%;
-            text-align: center;
-            padding: 0 5px;
-            font-size: 14px;
-            .dpc-content-item {
-              border-radius: 2px;
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-            }
-          }
-          &.dpc-content {
-            li {
-              .dpc-content-item {
-                cursor: pointer;
-                &.disabled {
-                  cursor: not-allowed;
-                  color: rgba(0,0,0,0.25);
-                }
-                &:hover {
-                  background: #E6F7FF;
-                }
-                &.today {
-                  opacity: 0.8;
-                  border: 1px solid $base-color;
-                  border-radius: 2px;
-                  color: $base-color;
-                }
-                &.active {
-                  background: $base-color;
-                  color: #fff;
-                  border: 1px solid $base-color;
-                }
-              }
-            }
-          }
-        }
-        &.size-l {
-          padding-top: 25px;
-          ul {
-            margin-bottom: 30px;
-            li {
-              width: 33.3%;
-            }
-          }
-        }
-      }
     }
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="u-modal" v-if="show">
-    <div class="u-dialog">
+    <div class="u-dialog" :id="fixId">
       <p class="udb-title">
         {{ title }}
         <i class="iconfont icon-close1 fr" @click="close"></i>
@@ -23,6 +23,10 @@
     props: {
       value: {},
       title: {
+        type: String,
+        default: ''
+      },
+      fixId: {
         type: String,
         default: ''
       }
@@ -63,7 +67,7 @@
     .udb-title {
       height: 55px;
       line-height: 55px;
-      border-bottom: rgba(0,0,0,0.09);
+      border-bottom: 1px solid rgba(0,0,0,0.09);
       font-size: 16px;
       color: rgba(0,0,0,0.85);
       padding: 0 24px;
@@ -82,7 +86,7 @@
     }
     .ubt-footer {
       padding: 10px 0;
-      border-top: rgba(0,0,0,0.09);
+      border-top: 1px solid rgba(0,0,0,0.09);
     }
   }
 </style>
