@@ -5,6 +5,7 @@
            :class="{error: !isValid}"
            class="base-input"
            :placeholder="placeholder"
+           :readonly="readonly"
            @input="onInput($event)">
     <i class="iconfont icon-close" v-if="clearable" @click.prevent="clear"></i>
   </div>
@@ -46,6 +47,10 @@
         default: ''
       },
       clearable: {
+        type: Boolean,
+        default: false
+      },
+      readonly: {
         type: Boolean,
         default: false
       }
@@ -132,6 +137,10 @@
       }
       &.error {
         border-color: $err-color;
+      }
+      &[readonly] {
+        border-color: rgba(0,0,0,0.15);
+        cursor: default;
       }
     }
   }
