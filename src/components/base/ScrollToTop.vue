@@ -1,7 +1,6 @@
 <template>
   <div class="scroll-top" @click="toTop" v-if="show">
-    <i class="iconfont icon-fanhuidingbu"></i>
-    <p>返回顶部</p>
+    <i class="iconfont icon-xiangshangjiantouarrowup"></i>
   </div>
 </template>
 <script>
@@ -13,7 +12,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('scroll', () => {
         let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-        this.show = scrolled > 625
+        this.show = scrolled > 500
       }, false)
     })
   },
@@ -29,17 +28,16 @@ export default {
     position: fixed;
     bottom: 40px;
     right: 20px;
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+    background: #6E747A;
     cursor: pointer;
     text-align: center;
     i {
-      font-size: 45px;
-      color: #DC6025;
+      font-size: 42px;
+      color: #fff;
       margin-right: -3px;
-    }
-    p {
-      color: #DC6025;
-      font-size: 16px;
-      margin-top: -6px;
     }
   }
 </style>

@@ -15,18 +15,35 @@
         <router-link to="/seller/detail">更多产品</router-link>
       </div>
     </div>
+    <u-pager
+      v-model="pager.page"
+      :totalCount="pager.count"
+      :pageSize="pager.size"
+    ></u-pager>
   </div>
 </template>
+<script>
+export default {
+  data: () => ({
+    pager: {
+      size: 10,
+      count: 10,
+      page: 1
+    }
+  })
+}
+</script>
 <style lang="scss" scoped>
  .seller-list-warp {
+   padding-bottom: 40px;
    margin: 0 auto;
    width: 1190px;
    text-align: center;
-   background: #FFFFFF;
    .seller-list{
      overflow: hidden;
      padding: 16px;
      border-bottom: 1px solid rgba(0,0,0,0.09);
+     background: #FFFFFF;
      .seller-content {
        float: left;
        text-align: left;
@@ -73,8 +90,3 @@
    }
  }
 </style>
-<script>
-  export default {
-    components: {}
-  }
-</script>

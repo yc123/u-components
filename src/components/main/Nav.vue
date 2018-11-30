@@ -7,13 +7,13 @@
       <router-link to="/" class="item" exact>
         <span>首&nbsp;&nbsp;页</span>
       </router-link>
-      <router-link to="/1" class="item">
+      <router-link to="/applyPurchase" class="item">
         <span>询价求购</span>
       </router-link>
       <router-link to="/seller" class="item">
         <span>商家</span>
       </router-link>
-      <router-link to="/3" class="item">
+      <router-link to="/product" class="item">
         <span>产品</span>
       </router-link>
     </div>

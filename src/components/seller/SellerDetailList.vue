@@ -24,8 +24,24 @@
       </tr>
       </tbody>
     </table>
+    <u-pager
+      v-model="pager.page"
+      :totalCount="pager.count"
+      :pageSize="pager.size"
+    ></u-pager>
   </div>
 </template>
+<script>
+export default {
+  data: () => ({
+    pager: {
+      size: 10,
+      count: 10,
+      page: 1
+    }
+  })
+}
+</script>
 <style lang="scss" scoped>
  .seller-detail-list {
    padding-bottom: 40px;
@@ -62,6 +78,9 @@
              }
            }
          }
+         &:hover {
+           background: #E6F7FF;
+         }
        }
      }
      tr{
@@ -79,8 +98,3 @@
    }
  }
 </style>
-<script>
-  export default {
-    components: {}
-  }
-</script>
