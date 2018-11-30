@@ -21,7 +21,22 @@ const route = new Router({
     {
       path: '/seller/detail',
       name: 'sellerDetail',
-      component: () => import(/* webpackChunkName: "Seller" */ '../views/seller/SellerDetail.vue')
+      component: () => import(/* webpackChunkName: "SellerDetail" */ '../views/seller/SellerDetail.vue')
+    },
+    {
+      path: '/product',
+      name: 'productList',
+      component: () => import(/* webpackChunkName: "ProductList" */ '../views/product/ProductList.vue')
+    },
+    {
+      path: '/product/productDetail',
+      name: 'productDetail',
+      component: () => import(/* webpackChunkName: "ProductDetail" */ '../views/product/ProductDetail.vue')
+    },
+    {
+      path: '/applyPurchase',
+      name: 'applyPurchase',
+      component: () => import(/* webpackChunkName: "ApplyPurchase" */ '../views/applyPurchase/ApplyPurchase.vue')
     },
     {
       path: '/user',
