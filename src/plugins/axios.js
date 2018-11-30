@@ -1,9 +1,5 @@
 import axios from 'axios'
 import store from '../store'
-import router from '../router'
-import env from '../../config/env'
-
-// import env from '../../config/env'
 
 const service = axios.create({
   withCredentials: true,
@@ -19,16 +15,32 @@ const setLoadingCount = () => {
 service.interceptors.request.use(config => {
   ++reqCount
   setLoadingCount()
-  config.url = env.baseUrl + config.url
+  // if (config.url) {
+  //   // 账户服务 /sso开头
+  //   if (utils.startWith(config.url, '/sso')) {
+  //     config.url = env.ssoUrl + config.url.replace('/sso', '')
+  //   } else if (utils.startWith(config.url, '/demand')) {
+  //     // 需求 /demand开头
+  //     config.url = env.demandUrl + config.url.replace('/demand', '')
+  //   } else if (utils.startWith(config.url, '/product')) {
+  //     // 产品 /product开头
+  //     config.url = env.timedTaskUrl + config.url.replace('/product', '')
+  //   } else if (utils.startWith(config.url, '/seller')) {
+  //     // 商家 /seller开头
+  //     config.url = env.timedTaskUrl + config.url.replace('/seller', '')
+  //   }
+  // } else {
+  //   config.url = '/'
+  // }
   return config
 }, error => {
   return Promise.reject(error)
 })
 
 service.interceptors.response.use(response => {
-  // 登录、白名单拦截
+  // 登录拦截
   if (response.data.respHeader) {
-    if (response.data.respHeader.code === -201 && router.app._route.path.indexOf('/center') === 0) {
+    if (response.data.respHeader.code === 201) {
       window.location.href = store.getters['options/loginUrl'] + `&returnURL=${window.location.href}`
     }
   }

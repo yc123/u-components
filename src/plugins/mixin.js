@@ -1,6 +1,6 @@
-
 import Vue from 'vue'
 import baseUtils from '@/utils/baseUtils'
+import apis from '../api'
 
 Vue.mixin({
   computed: {
@@ -9,6 +9,9 @@ Vue.mixin({
     },
     user () {
       return this.$store.state.auth.user
+    },
+    apis () {
+      return apis
     }
   },
   methods: {
@@ -24,7 +27,7 @@ Vue.mixin({
         callback.call()
       }
     },
-    getRequestDeal (res, call, errCall) {
+    requestDeal (res, call, errCall) {
       if (res.data.respHeader && res.data.respHeader.code === 0) {
         call(res.data)
       } else {

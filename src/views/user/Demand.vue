@@ -112,8 +112,18 @@ export default {
     * update: 修改需求信息
     * publish: 发布求购
     * */
-    operateType: ''
+    operateType: '',
+    demandList: []
   }),
+  created () {
+    this.apis.demand.myPageDemand({ pageSize: this.pager.size, pageNumber: this.pager.page })
+      .then(res => {
+        this.requestDeal(res, data => {
+          this.demandList = data.demand
+          this.pager.count = data.pagingInfo.totalCount
+        })
+      })
+  },
   methods: {
     deleteItem () {
       this.$confirm('确认要批量删除吗？').then(() => {
