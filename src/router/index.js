@@ -50,6 +50,27 @@ const route = new Router({
           component: () => import(/* webpackChunkName: "User" */ '../views/user/Collect.vue')
         }
       ]
+    },
+    {
+      path: '/vendor',
+      name: 'vendor',
+      component: () => import(/* webpackChunkName: "Vendor" */ '../views/vendor/LeftNav.vue'),
+      children: [
+        {
+          path: 'home',
+          meta: {
+            title: '首页-卖家中心'
+          },
+          component: () => import(/* webpackChunkName: "Vendor" */ '../views/vendor/Home.vue')
+        },
+        {
+          path: 'product',
+          meta: {
+            title: '产品管理-卖家中心'
+          },
+          component: () => import(/* webpackChunkName: "Vendor" */ '../views/vendor/Product.vue')
+        }
+      ]
     }
   ]
 })

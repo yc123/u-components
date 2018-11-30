@@ -19,8 +19,8 @@
           </div>
           <router-link to="/" class="item">商城首页</router-link>
           <template v-if="user.logged">
-            <router-link to="/" class="item">买家中心</router-link>
-            <router-link to="/" class="item">卖家中心</router-link>
+            <router-link to="/user/home" class="item">买家中心</router-link>
+            <router-link to="/vendor/home" class="item">卖家中心</router-link>
             <a :href="ssoCenterUrl" target="_blank" class="item">账户中心</a>
           </template>
         </div>

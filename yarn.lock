@@ -6703,9 +6703,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-u-components@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/u-components/-/u-components-1.0.10.tgz#9ec258a9310d39e654da7b35c83a4fab33c24ead"
+u-components@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/u-components/-/u-components-1.0.12.tgz#5e6c24b0db55a71a2adabaf620832737bb9323b1"
   dependencies:
     axios "^0.18.0"
     u-components "^1.0.5"

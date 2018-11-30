@@ -24,6 +24,12 @@
     line-height: 40px;
     height: 40px;
     display: inline-block;
+    cursor: pointer;
+    padding: 0 3px;
+    margin-right: 13px;
+    &:last-child {
+      margin-right: 0;
+    }
     &.active {
       border-bottom: 1px solid $base-color;
     }

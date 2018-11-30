@@ -1,12 +1,12 @@
 <template>
-  <div class="user-demand">
+  <div class="user-collect">
     <div class="base-title-block test-border">
       <span class="title active">全部需求</span>
     </div>
     <div class="base-title-block test-border operate">
       更多操作：<button>批量删除</button>
     </div>
-    <table class="base-table test-border demand-list">
+    <table class="base-table test-border collect-list">
       <thead>
       <tr>
         <th width="10%"><u-check-box v-model="check1" boxId="check1"></u-check-box></th>
@@ -71,12 +71,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .user-demand {
+  .user-collect {
     .operate {
       height: 48px;
       line-height: 48px;
     }
-    .demand-list {
+    .collect-list {
       thead {
         height: 40px;
         line-height: 40px;
