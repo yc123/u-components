@@ -35,7 +35,7 @@ export default {
   data: () => ({
     pager: {
       size: 10,
-      count: 1000,
+      count: 0,
       page: 1
     },
     demandList: []
