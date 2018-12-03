@@ -4,7 +4,7 @@ rm -rf ../usoft-mall-dist
 
 mkdir ../usoft-mall-dist
 
-cp -r dist/ ../usoft-mall-dist
+cp -r dist/ ../usoft-mall-dist/dist
 
 scp -r ../usoft-mall-dist ytbjdocker.mallvue:~/
 
@@ -14,7 +14,7 @@ ssh -tt ytbjdocker.mallvue << pub
     #备份
     echo $now
     sudo cp -r /data/usoft-mall-dist/dist /data/usoft-mall-dist/dist-backup-$now
-    sudo cp -r ~/usoft-mall-dist/dist /data/usoft-mall-dist
+    sudo cp -r ~/usoft-mall-dist/ /data/usoft-mall-dist
     sudo systemctl restart mall && sudo systemctl status mall -l
     exit
 pub
