@@ -1,4 +1,4 @@
-import axios from '../../plugins/axios'
+import apis from '../../api'
 const state = {
   // 登录信息
   user: {
@@ -14,16 +14,11 @@ const getters = {}
 const actions = {
   // 获取登录信息
   getAuth ({ commit }) {
-    return axios.get('/api/user/login/info').then(res => {
-      if (res.data.respHeader && res.data.respHeader.code === 0) {
-        res.data.logged = res.data.respHeader.code === 0
-      }
-      return axios.get('/api/public/enterprise/byuseruu').then(enRes => {
-        res.data.enterprises = enRes.data.enterpriseList
-        commit('SET_AUTH', res.data || {})
-      }, () => {
-        commit('SET_AUTH', res.data || {})
-      })
+    return apis.sso.getUserInfo().then(res => {
+      let userInfo = res.data.currentUserInfo
+      userInfo.enterprises = res.data.enterpriseList || []
+      userInfo.logged = true
+      commit('SET_AUTH', userInfo)
     }, () => {
       commit('SET_AUTH', {})
     })

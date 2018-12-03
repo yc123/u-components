@@ -58,7 +58,7 @@ export default {
       window.location.href = this.registerUrl + `?returnURL=${encodeURIComponent(window.location.href)}`
     },
     switchEn (en) {
-      this.$http.get(`/api/public/user/switch/${en.spaceuu}`).then(res => {
+      this.apis.sso.switchEnterprise(en.spaceuu).then(res => {
         this.$router.push('/')
         this.$store.dispatch('auth/getAuth')
       })

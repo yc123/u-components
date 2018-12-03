@@ -38,6 +38,10 @@ Vue.mixin({
       } else {
         this.$message.error(res.data || '系统错误')
       }
+    },
+    errDeal (err, msg) {
+      console.log(err)
+      this.$message.error(err.response.data || msg || '系统错误')
     }
   }
 })

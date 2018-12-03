@@ -1,8 +1,8 @@
 import env from '../../../config/env'
 import reqUtil from '../reqUtil'
 
-const req = (url, methods, params) => {
-  return reqUtil(env.productUrl, url, methods, params)
+const req = (url, method, params, config) => {
+  return reqUtil(env.productUrl, url, method, params, config)
 }
 
 const apis = {
@@ -13,7 +13,12 @@ const apis = {
   },
   // 批量上传
   addProducts (params) {
-    return req('/api/product/batchsave', 'post', params)
+    let config = {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+    let param = new FormData()
+    param.append('file', params.file)
+    return req('/api/product/batchsave', 'post', param, config)
   },
   // 上架
   release (params) {
@@ -31,6 +36,10 @@ const apis = {
   batchRevoke (params) {
     return req('/api/product/batchrevoke', 'post', params)
   },
+  // 分页获取当前企业的产品列表
+  getMyProductsPage (params) {
+    return req('/api/product/enterprises/products/list', 'get', params)
+  },
   // 分页获取指定企业的产品列表
   getProductsPageByEnterprise (params) {
     return req('/api/product/enterprise/products', 'get', params)
@@ -45,11 +54,11 @@ const apis = {
   },
   // 删除产品
   deleteProduct (params) {
-    return req('/api/product/delete', 'delete', params)
+    return req('/api/product/delete', 'post', params)
   },
   // 批量删除产品
   batchDelete (params) {
-    return req('/api/product/deleteproducts', 'delete', params)
+    return req('/api/product/deleteproducts', 'post', params)
   },
   // productCollection
   // 收藏

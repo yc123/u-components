@@ -40,6 +40,10 @@
     border: 1px solid #D8D8D8;
     margin-top: 8px;
     border-radius: 2px;
+    margin-left: 16px;
+  }
+  .u-btn {
+    margin-right: 16px;
   }
 }
 
@@ -75,4 +79,8 @@
 i.must {
   font-style: normal;
   color: #dd1010;
+}
+
+.line-height-normal {
+  line-height: normal;
 }

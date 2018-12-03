@@ -32,7 +32,7 @@
           <u-check-box
             v-model="demand.checked"
             :boxId="`check_${demand.code}`"
-            @input="onCheckItem(demand)"
+            @input="onCheckItem()"
           >
           </u-check-box>
         </td>
@@ -151,8 +151,7 @@ export default {
             this.loadData()
           })
         }, err => {
-          console.log(err)
-          this.$message.error(err.response.data || '删除失败')
+          this.errDeal(err, '删除失败')
         })
       }, () => {})
     },
@@ -204,12 +203,12 @@ export default {
         return arr
       }, [])
     },
-    onCheckAll (flag) {
+    onCheckAll () {
       this.demandList.forEach(item => {
         item.checked = this.checkAll
       })
     },
-    onCheckItem (demand) {
+    onCheckItem () {
       let checkItems = this.getCheckedItems()
       if (checkItems.length === this.demandList.length) {
         // 全选状态
@@ -233,8 +232,7 @@ export default {
               this.$message.success('删除成功')
               this.loadData()
             }, err => {
-              console.log(err)
-              this.$message.error(err.response.data || '删除失败')
+              this.errDeal(err, '删除失败')
             })
           })
         }, () => {})

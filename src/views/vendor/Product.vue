@@ -1,21 +1,22 @@
 <template>
   <div class="vendor-product">
     <div class="base-title-block test-border">
-      <span class="title active">全部产品</span>
-      <span class="title">已上架</span>
-      <span class="title">未上架</span>
-      <button class="fr" @click="updateItem('insert')">单个录入</button>
-      <button class="fr" @click="showImport = true">批量导入</button>
+      <span class="title" :class="{ active: tab === 0 }" @click="changeTab(0)">全部产品</span>
+      <span class="title" :class="{ active: tab === 1 }" @click="changeTab(1)">已上架</span>
+      <span class="title" :class="{ active: tab === 2 }" @click="changeTab(2)">未上架</span>
+      <button class="fr btb-btn" @click="updateItem()">单个录入</button>
+      <button class="fr btb-btn" @click="showImport = true">批量导入</button>
     </div>
     <div class="base-title-block test-border operate">
       更多操作：
-      <button @click="batchOperate('revoke')">批量下架</button>
-      <button @click="batchOperate('delete')">删除选中</button>
+      <button class="u-btn u-btn-cancel" @click="batchOperate('revoke')" v-show="tab === 1">批量下架</button>
+      <button class="u-btn u-btn-cancel" @click="batchOperate('invoke')" v-show="tab === 2">批量上架</button>
+      <button class="u-btn u-btn-cancel" @click="batchOperate('delete')">删除选中</button>
     </div>
     <table class="base-table test-border product-list">
       <thead>
       <tr>
-        <th width="20%"><u-check-box v-model="check1" boxId="check1"></u-check-box></th>
+        <th width="20%"><u-check-box v-model="checkAll" boxId="checkAll" @input="onCheckAll"></u-check-box></th>
         <th width="20%">品牌</th>
         <th width="20%">型号</th>
         <th width="20%">规格</th>
@@ -23,30 +24,17 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td><u-check-box v-model="check2" boxId="check2"></u-check-box></td>
-        <td>asdhadad</td>
-        <td>asdhadad</td>
-        <td>asdhadad</td>
-        <td>
-          <button>上架 </button>
-          <button>下架</button>
+      <tr v-for="(product, index) in productList" :key="product.code">
+        <td><u-check-box v-model="product.checked" :boxId="`check_${index}`" @input="onCheckItem"></u-check-box></td>
+        <td :title="product.brand">{{ product.brand }}</td>
+        <td :title="product.model">{{ product.model }}</td>
+        <td :title="product.spec">{{ product.spec }}</td>
+        <td class="operate-btn-wrap">
+          <button class="u-btn u-btn-cancel voke-btn" v-if="product.status === productCode.status.revoke" @click="invoke(product)">上架 </button>
+          <button class="u-btn u-btn-cancel voke-btn" v-if="product.status === productCode.status.invoke" @click="revoke(product)">下架</button>
           <div>
-            <a @click="updateItem('update')">修改</a> |
-            <a @click="deleteItem">删除</a>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><u-check-box v-model="check3" boxId="check3"></u-check-box></td>
-        <td>asdhadad</td>
-        <td>asdhadad</td>
-        <td>asdhadad</td>
-        <td>
-          <button>下架</button>
-          <div>
-            <a>修改</a> |
-            <a>删除</a>
+            <a @click="updateItem(product)">修改</a> |
+            <a @click="deleteItem(product)">删除</a>
           </div>
         </td>
       </tr>
@@ -56,97 +44,271 @@
       v-model="pager.page"
       :totalCount="pager.count"
       :pageSize="pager.size"
+      @input="loadData()"
+      @sizeChangeAction="resizeData"
     ></u-pager>
     <u-dialog title="批量导入" v-model="showImport">
       <div slot="content" class="import">
         <p class="title">第一步，下载Excel模板</p>
-        <button class="u-btn u-btn-submit">下载模板</button>
+        <a href="http://static.uuzcc.cn/mall/导入产品并上架-优软商城.xls" class="u-btn u-btn-submit inline-block">下载模板</a>
         <p class="title">第二步，上传产品导入表格</p>
         <label class="import-box">
-          <input type="file" class="box-input">
-          <button class="u-btn u-btn-submit">选择文件</button>
+          {{ file.name }}
+          <input type="file" ref="upload" class="box-input" @change="uploadExcel" accept=".xls, .xlsx">
+          <button class="u-btn u-btn-submit line-height-normal">选择文件</button>
         </label>
       </div>
       <div slot="footer">
         <button class="u-btn u-btn-cancel" @click="showImport = false">取消</button>
-        <button class="u-btn u-btn-submit">确定</button>
+        <button class="u-btn u-btn-submit" @click="submitUpload">确定</button>
       </div>
     </u-dialog>
-    <u-dialog :title="updateType === 'update' ? '修改产品信息' : '单个录入'" v-model="showUpdate">
+    <u-dialog :title="updatingObj.code ? '修改产品信息' : '单个录入'" v-model="showUpdate">
       <div slot="content" class="insert">
         <div class="form-line">
           <span class="title">品牌：</span>
           <div class="content">
-            <u-input placeholder="请输入"></u-input>
+            <u-input placeholder="请输入品牌" v-model="updatingObj.brand"></u-input>
           </div>
         </div>
         <div class="form-line">
           <span class="title">型号：</span>
           <div class="content">
-            <u-input placeholder="请输入"></u-input>
+            <u-input placeholder="请输入型号" v-model="updatingObj.model"></u-input>
           </div>
         </div>
         <div class="form-line">
           <span class="title">规格：</span>
           <div class="content">
-            <u-input placeholder="请输入"></u-input>
+            <u-input placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
           </div>
         </div>
       </div>
       <div slot="footer">
         <button class="u-btn u-btn-cancel" @click="showUpdate = false">取消</button>
-        <button class="u-btn u-btn-submit">确定</button>
+        <button class="u-btn u-btn-submit" @click="submitUpdate">确定</button>
       </div>
     </u-dialog>
   </div>
 </template>
 <script>
+import { product } from '@/utils/baseCode'
 export default {
   data: () => ({
-    check1: false,
-    check2: false,
-    check3: false,
+    /*
+    * 顶部切换状态
+    * 0 => 全部
+    * 1 => 已上架
+    * 2 => 未上架
+    * */
+    tab: 0,
+    checkAll: false,
     pager: {
       size: 10,
       count: 1000,
       page: 1
     },
+    productList: [],
+    // 展示导入框
     showImport: false,
+    // 展示单个录入/修改产品框
     showUpdate: false,
-    updateType: ''
+    updatingObj: {
+      model: '',
+      spec: '',
+      brand: ''
+    },
+    productCode: product,
+    file: ''
   }),
+  created () {
+    this.loadData()
+  },
   methods: {
-    deleteItem () {
-      this.$confirm('确认要批量删除吗？').then(() => {
-        this.$message.success('删除成功')
+    loadData () {
+      let params = {
+        pageNumber: this.pager.page,
+        pageSize: this.pager.size
+      }
+      if (this.tab === 1) {
+        // 已上架
+        params.status = this.productCode.status.invoke
+      } else if (this.tab === 2) {
+        params.status = this.productCode.status.revoke
+      }
+      this.apis.product.getMyProductsPage(params)
+        .then(res => {
+          this.requestDeal(res, data => {
+            this.productList = data.product
+            this.pager.count = data.pagingInfo.totalCount
+            this.productList.forEach(item => {
+              this.$set(item, 'checked', false)
+            })
+          })
+        })
+    },
+    resizeData (size) {
+      this.pager.size = size
+      this.loadData()
+    },
+    changeTab (tab) {
+      this.tab = tab
+      this.loadData()
+    },
+    deleteItem (product) {
+      this.$confirm('确认要删除此产品吗？').then(() => {
+        this.apis.product.deleteProduct({ code: product.code })
+          .then(res => {
+            this.requestDeal(res, () => {
+              this.$message.success('删除成功')
+              this.loadData()
+            })
+          }, err => {
+            this.errDeal(err, '删除失败')
+          })
       }, () => {})
     },
     /*
     * 修改产品信息/单个录入
-    * @type:
-    *     insert => 单个录入
-    *     update => 修改
+    * @product: 修改的产品
     * */
-    updateItem (type) {
-      this.updateType = type
+    updateItem (product) {
+      if (product) {
+        for (let key in this.updatingObj) {
+          this.updatingObj[key] = product[key]
+        }
+        this.updatingObj.code = product.code
+      } else {
+        this.updatingObj = {
+          brand: '',
+          model: '',
+          spec: ''
+        }
+      }
       this.showUpdate = true
+    },
+    submitUpdate () {
+      this.apis.product.addOrUpdateProduct(this.updatingObj).then(res => {
+        this.requestDeal(res, () => {
+          this.$message.success(this.updatingObj.code ? '修改成功' : '新增成功')
+          this.loadData()
+          this.showUpdate = false
+        })
+      }, err => {
+        this.errDeal(err, '修改失败')
+      })
+    },
+    getCheckedItems () {
+      return this.productList.reduce((arr, item) => {
+        item.checked && arr.push(item)
+        return arr
+      }, [])
+    },
+    onCheckAll () {
+      this.productList.forEach(item => {
+        item.checked = this.checkAll
+      })
+    },
+    onCheckItem () {
+      let checkItems = this.getCheckedItems()
+      if (checkItems.length === this.productList.length) {
+        // 全选状态
+        this.checkAll = true
+      } else if (checkItems.length < this.productList.length) {
+        // 半选/未选状态
+        this.checkAll = false
+      }
     },
     /*
    * 批量下架/批量删除
    * @type:
    *     revoke => 下架
    *     delete => 删除
+   *     invoke => 上架
    * */
     batchOperate (type) {
+      let checkedItems = this.getCheckedItems()
+      // operateFunc: 操作的方法名
+      let text, operateFunc
       if (type === 'revoke') {
-        this.$confirm('确定要批量下架吗？').then(() => {
-          this.$message.success('下架成功')
+        text = '下架'
+        operateFunc = 'batchRevoke'
+      } else if (type === 'invoke') {
+        text = '上架'
+        operateFunc = 'batchRelease'
+      } else {
+        text = '删除'
+        operateFunc = 'batchDelete'
+      }
+      if (checkedItems.length) {
+        this.$confirm(`确认要${text}选中的内容吗？`).then(() => {
+          let codeItems = checkedItems.reduce((arr, item) => {
+            arr.push(item.code)
+            return arr
+          }, [])
+          this.apis.product[operateFunc]({ code: codeItems }).then(res => {
+            this.requestDeal(res, () => {
+              this.$message.success(`${text}成功`)
+              this.loadData()
+              this.checkAll = false
+            }, err => {
+              this.errDeal(err, `${text}失败`)
+            })
+          })
         }, () => {})
       } else {
-        this.$confirm('确定要批量删除吗？').then(() => {
-          this.$message.success('删除成功')
-        }, () => {})
+        this.$message.info(`请勾选要${text}的产品`)
       }
+    },
+    uploadExcel (e) {
+      this.file = e.target.files[0]
+    },
+    submitUpload () {
+      if (this.file) {
+        this.apis.product.addProducts({ file: this.file }).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('上传成功')
+            this.loadData()
+            this.showImport = false
+            this.emptyUpload()
+          })
+        }, err => {
+          this.errDeal(err, '上传失败，请重试')
+        })
+      } else {
+        this.$message.info('请先选择文件')
+      }
+    },
+    // 清除上传记录
+    emptyUpload () {
+      this.$refs.upload.value = ''
+      this.file = ''
+    },
+    // 下架
+    revoke (product) {
+      this.$confirm('确认要下架吗？').then(() => {
+        this.apis.product.revoke({ code: product.code }).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('下架成功')
+            this.loadData()
+          })
+        }, err => {
+          this.errDeal(err, '下架失败')
+        })
+      }, () => {})
+    },
+    // 上架
+    invoke (product) {
+      this.$confirm('确认要上架吗？').then(() => {
+        this.apis.product.release({ code: product.code }).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('上架成功')
+            this.loadData()
+          })
+        }, err => {
+          this.errDeal(err, '上架失败')
+        })
+      }, () => {})
     }
   }
 }
@@ -169,6 +331,15 @@ export default {
         border-bottom: 1px solid #ccc;
         &:last-child {
           border-bottom: none;
+        }
+        .operate-btn-wrap {
+          line-height: normal;
+          .voke-btn {
+            height: 24px;
+            line-height: 22px;
+            padding: 0 13px;
+            margin-bottom: 8px;
+          }
         }
       }
     }
@@ -207,6 +378,11 @@ export default {
         display: block;
         width: 100%;
         height: 32px;
+        line-height: 32px;
+        padding: 0 98px 0 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         background: #fff;
         border:{
           left: 1px solid rgba(0,0,0,.15);

@@ -1,11 +1,11 @@
 import axios from '../plugins/axios'
-const reqUtil = (baseUrl, url, methods, params) => {
-  if (methods === 'get' && params) {
+const reqUtil = (baseUrl, url, method, params, config) => {
+  if (method === 'get' && params) {
     // 请求参数转换
     params = {
       params: params
     }
   }
-  return axios[methods](baseUrl + url, params)
+  return axios[method](baseUrl + url, params, config)
 }
 export default reqUtil
