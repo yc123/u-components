@@ -147,7 +147,7 @@ export default {
       })
     },
     doSubmit () {
-      return this.updatingObj.code ? this.apis.demand.modifyDemand(this.updatingObj) : this.apis.demand.addDemand(this.updatingObj)
+      return this.updatingObj.code ? this.apis.demand.modifyDemand({ demand: this.updatingObj }) : this.apis.demand.addDemand({ demand: this.updatingObj })
     }
   }
 }
