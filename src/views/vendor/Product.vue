@@ -154,6 +154,7 @@ export default {
     changeTab (tab) {
       this.tab = tab
       this.loadData()
+      this.checkAll = false
     },
     deleteItem (product) {
       this.$confirm('确认要删除此产品吗？').then(() => {
