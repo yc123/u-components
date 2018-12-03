@@ -76,6 +76,10 @@ const apis = {
   // 分页获取产品收藏
   getCollectionsPage (params) {
     return req('/api/product/getcollectionspage', 'get', params)
+  },
+  // 通过产品编号取消收藏
+  revokeCollectByProduct (params) {
+    return req('/api/product/revokecollect/productcode', 'post', params)
   }
 }
 

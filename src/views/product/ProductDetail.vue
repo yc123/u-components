@@ -3,22 +3,22 @@
     <div class="container">
       <div class="product-detail">
         <div class="header">
-          <div>深圳市哈哈哈哈哈哈哈</div>
+          <div>{{sellerDetail.enName || '-'}}</div>
           <div class="com-hover">
             <em class="cart"></em>
-            <p>深圳哈哈哈哈哈哈哈哈</p>
-            <div class="adr">深圳南山区科技5路</div>
+            <p>{{sellerDetail.enName || '-'}}</p>
+            <div class="adr">{{sellerDetail.address || '-'}}</div>
             <div class="com-style">
               <span>营业范围</span>
-              <div class="com-rang">医疗电子，消费电子，通信网络，汽车电子，家电，仪表仪器，电源电子，红绿灯。</div>
+              <div class="com-rang">{{sellerDetail.scope || '-'}}</div>
             </div>
             <div class="com-style">
               <span>联系方式</span>
               <div class="com-rang">
-                <div class="clearfix"><span>联系人：</span><span>电商</span></div>
-                <div class="clearfix"><span>手机：</span><span>19120821423</span></div>
-                <div class="clearfix"><span>固话：</span><span>电商</span></div>
-                <div class="clearfix"><span>邮箱：</span><span>mixie_xm@kitchenPro.com</span></div>
+                <div class="clearfix"><span>联系人：</span><span>{{sellerDetail.contactName || '-'}}</span></div>
+                <div class="clearfix"><span>手机：</span><span>{{sellerDetail.contactPhone || '-'}}</span></div>
+                <div class="clearfix"><span>固话：</span><span>{{sellerDetail.tel || '-'}}</span></div>
+                <div class="clearfix"><span>邮箱：</span><span>{{sellerDetail.contactEMail || '-'}}</span></div>
               </div>
             </div>
           </div>
@@ -26,11 +26,13 @@
         <div class="product-content">
           <div class="product-img"><img src="" alt=""></div>
           <div class="product-content-show">
-            <div class="collect active"><i class="iconfont icon-shoucang"></i>已收藏</div>
+            <div class="collect"
+                 :class="{active: productDetail.collectStatus=== '已收藏'}"
+                 @click="isCollect(productDetail)"><span><i class="iconfont icon-shoucang"></i>{{productDetail.collectStatus}}</span></div>
             <div class="product-info">
-              <div>品牌 <span>啦啦啦啦啦啦啦</span></div>
-              <div>型号 <span>啦啦啦啦啦啦啦</span></div>
-              <div>规格 <span>啦啦啦啦啦啦啦</span></div>
+              <div>品牌 <span>{{productDetail.brand}}</span></div>
+              <div>型号 <span>{{productDetail.model}}</span></div>
+              <div>规格 <span>{{productDetail.spec}}</span></div>
             </div>
           </div>
         </div>
@@ -41,7 +43,47 @@
 
 <script>
 export default {
-  name: 'productDetail'
+  name: 'productDetail',
+  data: () => ({
+    productDetail: [],
+    sellerDetail: []
+  }),
+  created () {
+    this.loadData()
+  },
+  methods: {
+    loadData () {
+      this.apis.product.getProduct({ code: this.$route.params.code })
+        .then(res => {
+          this.requestDeal(res, data => {
+            this.productDetail = data.product
+            this.apis.seller.getEnterprise({ enuu: this.productDetail.enterprise.enuu })
+              .then(res => {
+                this.requestDeal(res, data => {
+                  this.sellerDetail = data.enterprise
+                })
+              })
+          })
+        })
+    },
+    isCollect (item) {
+      if (item.collectStatus === '未收藏') {
+        this.apis.product.collect({code: item.code}).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('收藏成功')
+            this.loadData()
+          })
+        })
+      } else if (item.collectStatus === '已收藏') {
+        this.apis.product.revokeCollectByProduct({productCode: item.code}).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('取消收藏')
+            this.loadData()
+          })
+        })
+      }
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -164,6 +206,9 @@ export default {
             font-size: 14px;
             color: #333333;
             line-height: 22px;
+            span{
+              cursor: pointer ;
+            }
             i{
               padding-right: 4px;
               font-size: 16px;

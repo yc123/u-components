@@ -2,9 +2,9 @@
   <div class="home-purchase">
     <div class="home-purchase-warp">
         <div class="fl">
-          <span>询价求购</span><a href=""><i class="iconfont icon-xiangyouyuanjiantouyoujiantouxiangyouxianxing"></i>寻找更多商机</a>
+          <span>询价求购</span><router-link to="/applyPurchase"><i class="iconfont icon-xiangyouyuanjiantouyoujiantouxiangyouxianxing"></i>寻找更多商机</router-link>
         </div>
-        <div class="fr"><a href="">发布需求</a></div>
+        <div class="fr"><router-link to="/applyPurchase">发布需求</router-link></div>
       </div>
     <div class="home-purchase-list">
       <div class="header">
@@ -17,55 +17,49 @@
         <span>截至日期</span>
       </div>
       <ul>
-        <li>
-          <div>深圳普联网络科技有限公司</div>
-          <div>ABDABDABDABDABD</div>
-          <div>CC0805KKX7R8AAB</div>
-          <div>PLCC32PLCC32</div>
-          <div>2003043454</div>
-          <div>5-10天</div>
-          <div>2018-12-30</div>
-        </li>
-        <li>
-          <div>深圳普联网络科技有限公司</div>
-          <div>ABDABDABDABDABD</div>
-          <div>CC0805KKX7R8AAB</div>
-          <div>PLCC32PLCC32</div>
-          <div>2003043454</div>
-          <div>5-10天</div>
-          <div>2018-12-30</div>
-        </li>
-        <li>
-          <div>深圳普联网络科技有限公司</div>
-          <div>ABDABDABDABDABD</div>
-          <div>CC0805KKX7R8AAB</div>
-          <div>PLCC32PLCC32</div>
-          <div>2003043454</div>
-          <div>5-10天</div>
-          <div>2018-12-30</div>
-        </li>
-        <li>
-          <div>深圳普联网络科技有限公司</div>
-          <div>ABDABDABDABDABD</div>
-          <div>CC0805KKX7R8AAB</div>
-          <div>PLCC32PLCC32</div>
-          <div>2003043454</div>
-          <div>5-10天</div>
-          <div>2018-12-30</div>
-        </li>
-        <li>
-          <div>深圳普联网络科技有限公司</div>
-          <div>ABDABDABDABDABD</div>
-          <div>CC0805KKX7R8AABCC0805KKX7R8AABCC0805KKX7R8AAB</div>
-          <div>PLCC32PLCC32PLCC32PLCC32</div>
-          <div>20030434542003043454</div>
-          <div>5-10天</div>
-          <div>2018-12-30</div>
+        <li v-for="demand in demandList" :key="demand.code">
+          <div :title="user.logged ? demand.uuName : null">{{[demand.uuName, user] | enterpriseFilter}}</div>
+          <div :title="demand.brand">{{demand.brand || '-'}}</div>
+          <div :title="demand.model">{{demand.model || '-'}}</div>
+          <div :title="demand.spec">{{demand.spec || '-'}}</div>
+          <div :title="demand.amount">{{demand.amount || '-'}}</div>
+          <div>{{demand.leastDelivery}}-{{demand.lastDelivery}}天</div>
+          <div :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}</div>
         </li>
       </ul>
     </div>
   </div>
 </template>
+<script>
+export default {
+  data: () => ({
+    pager: {
+      size: 10,
+      count: 1000,
+      page: 1
+    },
+    demandList: []
+  }),
+  filters: {
+    enterpriseFilter ([str, user]) {
+      if (!user.logged) {
+        return str ? str.length > 4 ? str.substring(0, 2) + '**' + str.substring(str.length - 2, str.length) : str : '-'
+      } else {
+        return str || '-'
+      }
+    }
+  },
+  created () {
+    this.apis.demand.indexGetDemand({ pageSize: this.pager.size, pageNumber: this.pager.page })
+      .then(res => {
+        this.requestDeal(res, data => {
+          this.demandList = data.demand
+          this.pager.count = data.pagingInfo.totalCount
+        })
+      })
+  }
+}
+</script>
 <style lang="scss" scoped>
  .home-purchase {
   .home-purchase-warp{
@@ -145,12 +139,15 @@
       }
     }
     ul{
+      height: 168px;
       padding: 10px 0 1px;
       background: #fff;
+      overflow: hidden;
       li{
         padding: 0 16px;
         margin-bottom: 10px;
         overflow: hidden;
+        line-height: 22px;
         div{
           float: left;
           padding: 0 8px;

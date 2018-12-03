@@ -2,65 +2,46 @@
   <div class="home-store">
     <div class="home-store-warp">
         <div class="fl">
-          <span>最新商家</span><a href=""><i class="iconfont icon-xiangyouyuanjiantouyoujiantouxiangyouxianxing"></i>查找更多店铺</a>
+          <span>最新商家</span><router-link to="/seller"><i class="iconfont icon-xiangyouyuanjiantouyoujiantouxiangyouxianxing"></i>查找更多店铺</router-link>
         </div>
       </div>
     <div class="home-store-list">
       <ul>
-        <li>
+        <li v-for="seller in sellerList.slice(0,8)" :key="seller.enuu">
           <div class="com-head">
-            <div class="com-name">深圳市博瑞泰电子有限公司</div>
+            <div class="com-name">{{seller.enName || '-'}}</div>
             <span>营业范围</span>
-            <div class="com-rang">医疗电子，消费电子，通信网络，汽车电子，家电，仪表仪器，电源电子，红绿灯。</div>
+            <div class="com-rang">{{seller.scope || '-'}}</div>
           </div>
           <div class="com-footer">
-            <a href="">更多产品</a>
-          </div>
-        </li>
-        <li>
-          <div class="com-head">
-            <div class="com-name">深圳市博瑞泰电子有限公司</div>
-            <span>营业范围</span>
-            <div class="com-rang">医疗电子，消费电子，通信网络，汽车电子，家电，仪表仪器，电源电子，红绿灯。</div>
-          </div>
-          <div class="com-footer">
-            <a href="">更多产品</a>
-          </div>
-        </li>
-        <li>
-          <div class="com-head">
-            <div class="com-name">深圳市博瑞泰电子有限公司</div>
-            <span>营业范围</span>
-            <div class="com-rang">医疗电子，消费电子，通信网络，汽车电子，家电，仪表仪器，电源电子，红绿灯。</div>
-          </div>
-          <div class="com-footer">
-            <a href="">更多产品</a>
-          </div>
-        </li>
-        <li>
-          <div class="com-head">
-            <div class="com-name">深圳市博瑞泰电子有限公司</div>
-            <span>营业范围</span>
-            <div class="com-rang">医疗电子，消费电子，通信网络，汽车电子，家电，仪表仪器，电源电子，红绿灯。</div>
-          </div>
-          <div class="com-footer">
-            <a href="">更多产品</a>
-          </div>
-        </li>
-        <li>
-          <div class="com-head">
-            <div class="com-name">深圳市博瑞泰电子有限公司</div>
-            <span>营业范围</span>
-            <div class="com-rang">医疗电子，消费电子，通信网络，汽车电子，家电，仪表仪器，电源电子，红绿灯。</div>
-          </div>
-          <div class="com-footer">
-            <a href="">更多产品</a>
+            <router-link :to="`/seller/${seller.enuu}`">更多产品</router-link>
           </div>
         </li>
       </ul>
     </div>
   </div>
 </template>
+<script>
+export default {
+  data: () => ({
+    pager: {
+      size: 10,
+      count: 1000,
+      page: 1
+    },
+    sellerList: []
+  }),
+  created () {
+    this.apis.seller.getEnterprisesPage({ pageSize: this.pager.size, pageNumber: this.pager.page })
+      .then(res => {
+        this.requestDeal(res, data => {
+          this.sellerList = data.enterprises
+          this.pager.count = data.pagingInfo.totalCount
+        })
+      })
+  }
+}
+</script>
 <style lang="scss" scoped>
  .home-store {
   .home-store-warp{
@@ -99,6 +80,7 @@
         height: 217px;
         background: #FFFFFF;
         .com-head{
+          height: 160px;
           padding: 0 16px;
           text-align: left;
           border-bottom: 1px solid rgba(0,0,0,0.09);

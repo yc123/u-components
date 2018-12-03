@@ -20,6 +20,8 @@
       v-model="pager.page"
       :totalCount="pager.count"
       :pageSize="pager.size"
+      @input="loadData"
+      @sizeChangeAction="resizeData"
     ></u-pager>
   </div>
 </template>
@@ -28,19 +30,28 @@ export default {
   data: () => ({
     pager: {
       size: 10,
-      count: 10,
+      count: 0,
       page: 1
     },
     sellerList: []
   }),
   created () {
-    this.apis.seller.getEnterprisesPage({ pageSize: this.pager.size, pageNumber: this.pager.page })
-      .then(res => {
-        this.requestDeal(res, data => {
-          this.sellerList = data.enterprises
-          this.pager.count = data.pagingInfo.totalCount
+    this.loadData()
+  },
+  methods: {
+    loadData () {
+      this.apis.seller.getEnterprisesPage({ pageSize: this.pager.size, pageNumber: this.pager.page })
+        .then(res => {
+          this.requestDeal(res, data => {
+            this.sellerList = data.enterprises
+            this.pager.count = data.pagingInfo.totalCount
+          })
         })
-      })
+    },
+    resizeData (size) {
+      this.pager.size = size
+      this.loadData()
+    }
   }
 }
 </script>

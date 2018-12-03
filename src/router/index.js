@@ -29,7 +29,7 @@ const route = new Router({
       component: () => import(/* webpackChunkName: "ProductList" */ '../views/product/ProductList.vue')
     },
     {
-      path: '/product/productDetail',
+      path: '/product/:code',
       name: 'productDetail',
       component: () => import(/* webpackChunkName: "ProductDetail" */ '../views/product/ProductDetail.vue')
     },

@@ -22,17 +22,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>Harvatek</td>
-        <td>Harvatek</td>
-        <td>Harvatek</td>
-        <td><div class="active"><i class="iconfont icon-shoucang"></i>已收藏</div></td>
-      </tr>
-      <tr>
-        <td>Harvatek</td>
-        <td>Harvatek</td>
-        <td>Harvatek</td>
-        <td><div><i class="iconfont icon-shoucang"></i>收藏</div></td>
+      <tr v-for="product in productList" :key="product.code">
+        <td :title="product.brand">{{product.brand}}</td>
+        <td :title="product.model">{{product.model}}</td>
+        <td :title="product.spec">{{product.spec}}</td>
+        <td><div class="collect" :class="{active: product.collectStatus=== '已收藏'}" @click="isCollect(product)"><i class="iconfont icon-shoucang"></i>{{product.collectStatus}}</div></td>
       </tr>
       </tbody>
     </table>
@@ -40,6 +34,8 @@
       v-model="pager.page"
       :totalCount="pager.count"
       :pageSize="pager.size"
+      @input="loadData"
+      @sizeChangeAction="resizeData"
     ></u-pager>
   </div>
 </template>
@@ -48,26 +44,52 @@ export default {
   data: () => ({
     pager: {
       page: 1,
-      count: 200,
+      count: 0,
       size: 10
     },
     sellerDetail: [],
     productList: []
   }),
   created () {
+    this.loadData()
     this.apis.seller.getEnterprise({ enuu: this.$route.params.enuu })
       .then(res => {
         this.requestDeal(res, data => {
           this.sellerDetail = data.enterprise
         })
       })
-    this.apis.product.getProductsPageByEnterprise({ enuu: this.$route.params.enuu, pageSize: this.pager.size, pageNumber: this.pager.page })
-      .then(res => {
-        this.requestDeal(res, data => {
-          this.productList = data.product
-          this.pager.count = data.pagingInfo.totalCount
+  },
+  methods: {
+    loadData () {
+      this.apis.product.getProductsPageByEnterprise({ enuu: this.$route.params.enuu, pageSize: this.pager.size, pageNumber: this.pager.page })
+        .then(res => {
+          this.requestDeal(res, data => {
+            this.productList = data.product
+            this.pager.count = data.pagingInfo.totalCount
+          })
         })
-      })
+    },
+    resizeData (size) {
+      this.pager.size = size
+      this.loadData()
+    },
+    isCollect (item) {
+      if (item.collectStatus === '未收藏') {
+        this.apis.product.collect({code: item.code}).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('收藏成功')
+            this.loadData()
+          })
+        })
+      } else if (item.collectStatus === '已收藏') {
+        this.apis.product.revokeCollectByProduct({productCode: item.code}).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('取消收藏')
+            this.loadData()
+          })
+        })
+      }
+    }
   }
 }
 </script>
@@ -140,6 +162,9 @@ export default {
                i{
                  color: #F5BA09;
                }
+             }
+             &.collect{
+               cursor: pointer;
              }
            }
          }

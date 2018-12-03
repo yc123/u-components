@@ -2,47 +2,60 @@
   <div class="apply-publish container">
     <div class="publish-demand">
       <div class="header">发布求购</div>
-      <div slot="content" class="content">
+      <div slot="content" class="content clearfix">
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>品牌：</span>
           <div class="content inline-block">
-            <u-input placeholder="请输入品牌"></u-input>
+            <u-input placeholder="请输入品牌"
+                     v-model="publishObj.brand"></u-input>
           </div>
         </div>
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>型号：</span>
           <div class="content inline-block">
-            <u-input placeholder="请输入品牌"></u-input>
+            <u-input placeholder="请输入型号"
+                     v-model="publishObj.model"></u-input>
           </div>
         </div>
         <div class="form-line">
           <span class="title inline-block">规格：</span>
           <div class="content inline-block">
-            <u-input placeholder="请输入品牌"></u-input>
+            <u-input placeholder="请输入规格"
+                     v-model="publishObj.spec"></u-input>
           </div>
         </div>
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>数量：</span>
           <div class="content inline-block">
-            <u-input placeholder="请输入品牌"></u-input>
+            <u-input placeholder="请输入数量"
+                     reg="^\d*$"
+                     v-model="publishObj.amount"></u-input>
           </div>
         </div>
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>预计交期：</span>
           <div class="content inline-block">
-            <u-input class="inline-block date-input"></u-input> - <u-input class="inline-block date-input"></u-input> 天
+            <u-input class="inline-block date-input"
+                     placeholder="请输入"
+                     reg="^\d*$"
+                     v-model="publishObj.leastDelivery"></u-input> - <u-input class="inline-block date-input"
+                                                                              placeholder="请输入"
+                                                                              reg="^\d*$"
+                                                                      v-model="publishObj.lastDelivery"></u-input> 天
           </div>
         </div>
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>截止日期：</span>
           <div class="content inline-block content-data">
-            <u-date-picker fixId="pickerWrapper" class="date-picker" v-model="date"></u-date-picker>
+            <u-date-picker class="date-picker"
+                           placeholder="请先择"
+                           v-model="publishObj.deadlineDate"></u-date-picker>
           </div>
         </div>
       </div>
-      <template slot="footer">
-        <button class="u-btn u-btn-submit">发布求购</button>
-      </template>
+      <div class="footer">
+        <a class="publish-submit" @click="publish">发布求购</a>
+      </div>
     </div>
     <table class="base-table publish-list">
       <thead>
@@ -57,14 +70,14 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>asdhadad</td>
-        <td>asdhadad</td>
-        <td>asdhasdasdsaadad</td>
-        <td>asdhadad</td>
-        <td>asdhadad</td>
-        <td>asdhadad</td>
-        <td>asdhadad</td>
+      <tr v-for="demand in demandList" :key="demand.code">
+        <td :title="demand.uuName">{{demand.uuName || '-'}}</td>
+        <td :title="demand.brand">{{demand.brand || '-'}}</td>
+        <td :title="demand.model">{{demand.model || '-'}}</td>
+        <td :title="demand.spec">{{demand.spec || '-'}}</td>
+        <td :title="demand.amount">{{demand.amount || '-'}}</td>
+        <td :title="`${demand.leastDelivery} - ${demand.lastDelivery}`">{{demand.leastDelivery}} - {{demand.lastDelivery}}天</td>
+        <td :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}</td>
       </tr>
       </tbody>
     </table>
@@ -72,6 +85,8 @@
       v-model="pager.page"
       :totalCount="pager.count"
       :pageSize="pager.size"
+      @input="loadData"
+      @sizeChangeAction="resizeData"
     ></u-pager>
   </div>
 </template>
@@ -80,11 +95,54 @@ export default {
   data: () => ({
     pager: {
       size: 10,
-      count: 1000,
+      count: 0,
       page: 1
     },
-    date: ''
-  })
+    date: '',
+    publishObj: {
+      brand: '',
+      model: '',
+      spec: '',
+      amount: '',
+      leastDelivery: '',
+      lastDelivery: '',
+      deadlineDate: ''
+    },
+    demandList: []
+  }),
+  created () {
+    this.loadData()
+  },
+  methods: {
+    loadData () {
+      this.apis.demand.indexGetDemand({ pageSize: this.pager.size, pageNumber: this.pager.page })
+        .then(res => {
+          this.requestDeal(res, data => {
+            this.demandList = data.demand
+            this.pager.count = data.pagingInfo.totalCount
+          })
+        })
+    },
+    resizeData (size) {
+      this.pager.size = size
+      this.loadData()
+    },
+    publish () {
+      if (this.publishObj.brand && this.publishObj.model && this.publishObj.amount && this.publishObj.leastDelivery && this.publishObj.lastDelivery && this.publishObj.deadlineDate) {
+        this.apis.demand.addDemand({ demand: this.publishObj })
+          .then(res => {
+            this.requestDeal(res, () => {
+              this.$message.success('发布成功')
+              for (let key in this.publishObj) {
+                this.publishObj[key] = ''
+              }
+            })
+          })
+      } else {
+        this.$message.info('请填写完整信息')
+      }
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -102,7 +160,6 @@ export default {
         border-bottom: 1px solid rgba(0,0,0,0.09);
       }
       .content {
-        overflow: hidden;
         .form-line {
           float: left;
           width: 50%;
@@ -116,6 +173,25 @@ export default {
           &:nth-child(even) {
             text-align: left;
           }
+        }
+      }
+      .footer{
+        margin: 0 auto;
+        width: 100%;
+        height: 64px;
+        line-height: 64px;
+        text-align: center;
+        border-top: 1px solid rgba(0,0,0,0.09);
+        .publish-submit{
+          display: inline-block;
+          width: 88px;
+          height: 32px;
+          line-height: 32px;
+          text-align: center;
+          font-size: 14px;
+          color: #FFFFFF;
+          background: #555A68;
+          border-radius: 4px;
         }
       }
     }
@@ -150,6 +226,7 @@ export default {
         text-align: right;
       }
       .content {
+        text-align: left;
         width: 352px;
         .date-input {
           width: 80px;
