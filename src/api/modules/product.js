@@ -1,14 +1,8 @@
 import env from '../../../config/env'
-import axios from '../../plugins/axios'
+import reqUtil from '../reqUtil'
 
 const req = (url, methods, params) => {
-  if (methods === 'get' && params) {
-    // 请求参数转换
-    params = {
-      params: params
-    }
-  }
-  return axios[methods](env.productUrl + url, params)
+  return reqUtil(env.productUrl, url, methods, params)
 }
 
 const apis = {

@@ -61,7 +61,13 @@ export default {
       page: 1
     }
   }),
+  created () {
+    this.loadData()
+  },
   methods: {
+    loadData () {
+
+    },
     deleteItem () {
       this.$confirm('确认要批量删除吗？').then(() => {
         this.$message.success('删除成功')

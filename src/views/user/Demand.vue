@@ -2,15 +2,21 @@
   <div class="user-demand">
     <div class="base-title-block test-border">
       <span class="title active">全部需求</span>
-      <button class="fr" @click="operate()">发布求购</button>
+      <button class="fr btb-btn" @click="operate()">发布求购</button>
     </div>
     <div class="base-title-block test-border operate">
-      更多操作：<button>批量删除</button>
+      更多操作：<button class="u-btn u-btn-cancel" @click="batchDelete">批量删除</button>
     </div>
     <table class="base-table test-border demand-list">
       <thead>
       <tr>
-        <th width="10%"><u-check-box v-model="checkAll" boxId="checkAll"></u-check-box></th>
+        <th width="10%">
+          <u-check-box
+            v-model="checkAll"
+            boxId="checkAll"
+            @input="onCheckAll"
+          ></u-check-box>
+        </th>
         <th width="10%">品牌</th>
         <th width="10%">型号</th>
         <th width="10%">规格</th>
@@ -22,7 +28,14 @@
       </thead>
       <tbody>
       <tr v-for="demand in demandList" :key="demand.code">
-        <td><u-check-box v-model="demand.checked" :boxId="`check_${demand.code}`"></u-check-box></td>
+        <td>
+          <u-check-box
+            v-model="demand.checked"
+            :boxId="`check_${demand.code}`"
+            @input="onCheckItem(demand)"
+          >
+          </u-check-box>
+        </td>
         <td v-text="demand.brand"></td>
         <td v-text="demand.model"></td>
         <td v-text="demand.spec"></td>
@@ -40,7 +53,7 @@
       @input="loadData"
       @sizeChangeAction="resizeData"
     ></u-pager>
-    <u-dialog fixId="pickerWrapper" :title="updatingObj.code ? 修改需求信息 : '发布求购'" v-model="showUpdate">
+    <u-dialog fixId="pickerWrapper" :title="updatingObj.code ? '修改需求信息' : '发布求购'" v-model="showUpdate">
       <div slot="content">
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>品牌：</span>
@@ -63,15 +76,15 @@
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>数量：</span>
           <div class="content inline-block">
-            <u-input placeholder="请输入数量" v-model="updatingObj.amount"></u-input>
+            <u-input reg="^\d*$" placeholder="请输入数量" v-model.number="updatingObj.amount"></u-input>
           </div>
         </div>
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>预计交期：</span>
           <div class="content inline-block">
-            <u-input class="inline-block date-input" v-model="updatingObj.leastDelivery"></u-input>
+            <u-input reg="^\d*$" class="inline-block date-input" v-model.number="updatingObj.leastDelivery"></u-input>
             -
-            <u-input class="inline-block date-input" v-model="updatingObj.lastDelivery"></u-input> 天
+            <u-input reg="^\d*$" class="inline-block date-input" v-model.number="updatingObj.lastDelivery"></u-input> 天
           </div>
         </div>
         <div class="form-line">
@@ -118,7 +131,10 @@ export default {
       this.apis.demand.myPageDemand({ pageSize: this.pager.size, pageNumber: this.pager.page })
         .then(res => {
           this.requestDeal(res, data => {
-            this.demandList = data.demand
+            this.demandList = data.demand || []
+            this.demandList.forEach(item => {
+              this.$set(item, 'checked', false)
+            })
             this.pager.count = data.pagingInfo.totalCount
           })
         })
@@ -127,14 +143,26 @@ export default {
       this.pager.size = size
       this.loadData()
     },
-    deleteItem () {
+    deleteItem (demand) {
       this.$confirm('确认要批量删除吗？').then(() => {
-        this.$message.success('删除成功')
+        this.apis.demand.delDemand({ code: demand.code }).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('删除成功')
+            this.loadData()
+          })
+        }, err => {
+          console.log(err)
+          this.$message.error(err.response.data || '删除失败')
+        })
       }, () => {})
     },
+    // 新增/修改点击
     operate (item) {
       if (item) {
-        this.updatingObj = item
+        for (let key in this.updatingObj) {
+          this.updatingObj[key] = item[key]
+        }
+        this.updatingObj.code = item.code
       } else {
         this.updatingObj = {
           brand: '',
@@ -148,16 +176,71 @@ export default {
       }
       this.showUpdate = true
     },
+    // 新增/修改校验
+    check () {
+      for (let key in this.updatingObj) {
+        if (key !== 'spec' && !this.updatingObj[key]) {
+          this.$message.info('请输入必填项')
+          return false
+        }
+      }
+      return true
+    },
     submit () {
-      this.doSubmit().then(res => {
+      this.check() && this.doSubmit().then(res => {
         this.requestDeal(res, () => {
           this.$message.success(`${this.updatingObj.code ? '修改' : '发布'}成功`)
           this.showUpdate = false
+          this.loadData()
         })
       })
     },
     doSubmit () {
       return this.updatingObj.code ? this.apis.demand.modifyDemand({ demand: this.updatingObj }) : this.apis.demand.addDemand({ demand: this.updatingObj })
+    },
+    getCheckedItems () {
+      return this.demandList.reduce((arr, item) => {
+        item.checked && arr.push(item)
+        return arr
+      }, [])
+    },
+    onCheckAll (flag) {
+      this.demandList.forEach(item => {
+        item.checked = this.checkAll
+      })
+    },
+    onCheckItem (demand) {
+      let checkItems = this.getCheckedItems()
+      if (checkItems.length === this.demandList.length) {
+        // 全选状态
+        this.checkAll = true
+      } else if (checkItems.length < this.demandList.length) {
+        // 半选/未选状态
+        this.checkAll = false
+      }
+    },
+    // 批量删除
+    batchDelete () {
+      let checkedItems = this.getCheckedItems()
+      if (checkedItems.length) {
+        this.$confirm('确认要删除选中的内容吗？').then(() => {
+          let codeItems = checkedItems.reduce((arr, item) => {
+            arr.push(item.code)
+            return arr
+          }, [])
+          this.apis.demand.batchDelete({ code: codeItems }).then(res => {
+            this.requestDeal(res, () => {
+              this.$message.success('删除成功')
+              this.loadData()
+            }, err => {
+              console.log(err)
+              this.$message.error(err.response.data || '删除失败')
+            })
+          })
+        }, () => {})
+      } else {
+        this.$message.info('请勾选要删除的需求')
+      }
     }
   }
 }

@@ -1,14 +1,8 @@
 import env from '../../../config/env'
-import axios from '../../plugins/axios'
+import reqUtil from '../reqUtil'
 
 const req = (url, methods, params) => {
-  if (methods === 'get' && params) {
-    // 请求参数转换
-    params = {
-      params: params
-    }
-  }
-  return axios[methods](env.demandUrl + url, params)
+  return reqUtil(env.demandUrl, url, methods, params)
 }
 
 const apis = {
@@ -22,7 +16,7 @@ const apis = {
   },
   // 删除需求
   delDemand (params) {
-    return req('/api/demand/del', 'post', params)
+    return req('/api/demand/del', 'get', params)
   },
   // 首页查询需求
   indexGetDemand (params) {
@@ -31,6 +25,10 @@ const apis = {
   // 我的需求查询
   myPageDemand (params) {
     return req('/api/demand/my/get', 'get', params)
+  },
+  // 批量删除
+  batchDelete (params) {
+    return req('/api/demand/del/batch', 'post', params)
   }
 }
 
