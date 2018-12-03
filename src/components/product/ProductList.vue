@@ -11,7 +11,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="product in productList" :key="product.code" @click.stop="goDetail(product)">
+      <tr v-for="product in productList" :key="product.code" @click="goDetail(product)">
         <td class="com-name">
           <p :title="product.enterprise.enName">{{product.enterprise.enName || '-'}}</p>
           <div>
@@ -24,7 +24,7 @@
         <td :title="product.spec">{{product.spec || '-'}}</td>
         <td class="handle">
           <div :class="{active: product.collectStatus=== '已收藏'}"
-               @click="isCollect(product)"><span><i class="iconfont icon-shoucang"></i>{{product.collectStatus}}</span></div></td>
+               @click.prevent.stop="isCollect(product)"><span><i class="iconfont icon-shoucang"></i>{{product.collectStatus}}</span></div></td>
       </tr>
       </tbody>
     </table>
