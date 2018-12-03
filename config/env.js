@@ -6,7 +6,7 @@ const sellerUrl = isProdMode ? 'https://mallsellerrest.usoftchina.com' : 'https:
 
 const demandUrl = isProdMode ? 'https://malldemandrest.usoftchina.com' : 'https://malldemandrest.uuzcc.cn'
 
-const productUrl = isProdMode ? 'https://mallproductrest.usoftchina.com' : 'http://192.168.3.40:25320'
+const productUrl = isProdMode ? 'https://mallproductrest.usoftchina.com' : 'https://mallproductrest.uuzcc.cn'
 
 export default {
   ssoUrl: ssoUrl,
