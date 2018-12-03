@@ -1,18 +1,19 @@
 <template>
   <div class="seller-list-warp">
-    <div class="seller-list">
+    <div class="seller-list" v-for="seller in sellerList" :key="seller.enuu">
       <div class="seller-content">
-        <div class="seller-name">深圳市博瑞泰电子有限公司</div>
-        <div class="seller-adr">深圳南山区科技5路</div>
-        <div class="seller-style"><span>营业范围：<em>医疗电子，消费电子，通信网络，汽车电子，家电，仪表仪器，电源电子，红绿灯。</em></span></div>
+        <div class="seller-name" :title="seller.enName">{{seller.enName || '-'}}</div>
+        <div class="seller-adr" :title="seller.address">{{seller.address || '-'}}</div>
+        <div class="seller-style"><span :title="seller.scope">营业范围：<em>{{seller.scope || '-'}}</em></span></div>
         <div class="seller-style">
-          <span>联系方式：<em>张先生</em></span>
-          <span>手机：<em>1923232343</em></span>
-          <span>邮箱：<em>mixie_xm@kitchenPro.com</em></span>
+          <span>联系人：<em>{{seller.contactName || '-'}}</em></span>
+          <span>手机：<em>{{seller.contactPhone || '-'}}</em></span>
+          <span>固话：<em>{{seller.tel || '-'}}</em></span>
+          <span>邮箱：<em>{{seller.contactEMail || '-'}}</em></span>
         </div>
       </div>
       <div class="seller-more">
-        <router-link to="/seller/detail">更多产品</router-link>
+        <router-link :to="`/seller/${seller.enuu}`">更多产品</router-link>
       </div>
     </div>
     <u-pager
@@ -29,8 +30,18 @@ export default {
       size: 10,
       count: 10,
       page: 1
-    }
-  })
+    },
+    sellerList: []
+  }),
+  created () {
+    this.apis.seller.getEnterprisesPage({ pageSize: this.pager.size, pageNumber: this.pager.page })
+      .then(res => {
+        this.requestDeal(res, data => {
+          this.sellerList = data.enterprises
+          this.pager.count = data.pagingInfo.totalCount
+        })
+      })
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -66,7 +77,7 @@ export default {
              color: #333;
              font-weight: normal;
            }
-           &:nth-child(2),&:nth-child(3) {
+           &:nth-child(2),&:nth-child(3),&:nth-child(4) {
              margin-left: 16px;
            }
          }

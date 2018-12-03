@@ -19,7 +19,7 @@ const route = new Router({
       component: () => import(/* webpackChunkName: "Seller" */ '../views/seller/Seller.vue')
     },
     {
-      path: '/seller/detail',
+      path: '/seller/:enuu',
       name: 'sellerDetail',
       component: () => import(/* webpackChunkName: "SellerDetail" */ '../views/seller/SellerDetail.vue')
     },
