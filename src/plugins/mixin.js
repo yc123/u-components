@@ -28,11 +28,15 @@ Vue.mixin({
       }
     },
     requestDeal (res, call, errCall) {
-      if (res.data.respHeader && res.data.respHeader.code === 0) {
-        call(res.data)
+      if (res.data.respHeader) {
+        if (res.data.respHeader.code === 0) {
+          call(res.data)
+        } else {
+          errCall && errCall()
+          this.$message.error(res.data.respHeader.msg)
+        }
       } else {
-        errCall && errCall()
-        this.$message.show(res.data.respHeader.msg)
+        this.$message.error(res.data || '系统错误')
       }
     }
   }

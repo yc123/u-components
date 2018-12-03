@@ -37,6 +37,8 @@
       v-model="pager.page"
       :totalCount="pager.count"
       :pageSize="pager.size"
+      @input="loadData"
+      @sizeChangeAction="resizeData"
     ></u-pager>
     <u-dialog fixId="pickerWrapper" :title="updatingObj.code ? 修改需求信息 : '发布求购'" v-model="showUpdate">
       <div slot="content">
@@ -92,7 +94,7 @@ export default {
     checkAll: false,
     pager: {
       size: 10,
-      count: 1000,
+      count: 0,
       page: 1
     },
     date: '',
@@ -109,15 +111,22 @@ export default {
     }
   }),
   created () {
-    this.apis.demand.myPageDemand({ pageSize: this.pager.size, pageNumber: this.pager.page })
-      .then(res => {
-        this.requestDeal(res, data => {
-          this.demandList = data.demand
-          this.pager.count = data.pagingInfo.totalCount
-        })
-      })
+    this.loadData()
   },
   methods: {
+    loadData () {
+      this.apis.demand.myPageDemand({ pageSize: this.pager.size, pageNumber: this.pager.page })
+        .then(res => {
+          this.requestDeal(res, data => {
+            this.demandList = data.demand
+            this.pager.count = data.pagingInfo.totalCount
+          })
+        })
+    },
+    resizeData (size) {
+      this.pager.size = size
+      this.loadData()
+    },
     deleteItem () {
       this.$confirm('确认要批量删除吗？').then(() => {
         this.$message.success('删除成功')
@@ -142,7 +151,8 @@ export default {
     submit () {
       this.doSubmit().then(res => {
         this.requestDeal(res, () => {
-          this.$message.success('成功')
+          this.$message.success(`${this.updatingObj.code ? '修改' : '发布'}成功`)
+          this.showUpdate = false
         })
       })
     },
