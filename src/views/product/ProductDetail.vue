@@ -140,6 +140,7 @@ export default {
             line-height: 22px;
           }
           .adr{
+            float: left;
             font-size: 14px;
             color: #666666;
             text-align: justify;

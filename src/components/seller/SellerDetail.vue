@@ -22,7 +22,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="product in productList" :key="product.code">
+      <tr v-for="product in productList" :key="product.code" @click="goDetail(product)">
         <td :title="product.brand">{{product.brand}}</td>
         <td :title="product.model">{{product.model}}</td>
         <td :title="product.spec">{{product.spec}}</td>
@@ -88,6 +88,9 @@ export default {
           })
         })
       }
+    },
+    goDetail (item) {
+      this.$router.push(`/product/${item.code}`)
     }
   }
 }

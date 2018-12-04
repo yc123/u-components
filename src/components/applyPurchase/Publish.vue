@@ -76,7 +76,7 @@
         <td :title="demand.model">{{demand.model || '-'}}</td>
         <td :title="demand.spec">{{demand.spec || '-'}}</td>
         <td :title="demand.amount">{{demand.amount || '-'}}</td>
-        <td :title="`${demand.leastDelivery} - ${demand.lastDelivery}`">{{demand.leastDelivery}} - {{demand.lastDelivery}}天</td>
+        <td :title="`${demand.leastDelivery}-${demand.lastDelivery}天`">{{demand.leastDelivery}} - {{demand.lastDelivery}}天</td>
         <td :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}</td>
       </tr>
       </tbody>

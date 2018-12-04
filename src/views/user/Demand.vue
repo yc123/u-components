@@ -40,7 +40,7 @@
         <td v-text="demand.model"></td>
         <td v-text="demand.spec"></td>
         <td v-text="demand.amount"></td>
-        <td v-text="`${demand.leastDelivery}-${demand.lastDelivery}`"></td>
+        <td v-text="`${demand.leastDelivery}-${demand.lastDelivery}天`"></td>
         <td v-text="demand.deadlineDate"></td>
         <td><a @click="operate(demand)">修改</a> | <a @click="deleteItem(demand)">删除</a></td>
       </tr>

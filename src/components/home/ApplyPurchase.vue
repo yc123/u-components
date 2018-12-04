@@ -23,7 +23,7 @@
           <div :title="demand.model">{{demand.model || '-'}}</div>
           <div :title="demand.spec">{{demand.spec || '-'}}</div>
           <div :title="demand.amount">{{demand.amount || '-'}}</div>
-          <div>{{demand.leastDelivery}}-{{demand.lastDelivery}}天</div>
+          <div :title="`${demand.leastDelivery}-${demand.lastDelivery}天`">{{demand.leastDelivery}}-{{demand.lastDelivery}}天</div>
           <div :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}</div>
         </li>
       </ul>
