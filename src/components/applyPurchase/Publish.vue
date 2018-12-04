@@ -2,7 +2,7 @@
   <div class="apply-publish container">
     <div class="publish-demand">
       <div class="header">发布求购</div>
-      <div slot="content" class="content clearfix">
+      <div class="content clearfix">
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>品牌：</span>
           <div class="content inline-block">
