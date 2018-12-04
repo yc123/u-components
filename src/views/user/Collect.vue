@@ -65,6 +65,7 @@ export default {
   },
   methods: {
     loadData () {
+      this.checkAll = false
       this.apis.product.getCollectionsPage({ pageNumber: this.pager.page, pageSize: this.pager.size })
         .then(res => {
           this.requestDeal(res, data => {

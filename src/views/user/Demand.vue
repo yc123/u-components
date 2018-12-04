@@ -128,6 +128,7 @@ export default {
   },
   methods: {
     loadData () {
+      this.checkAll = false
       this.apis.demand.myPageDemand({ pageSize: this.pager.size, pageNumber: this.pager.page })
         .then(res => {
           this.requestDeal(res, data => {

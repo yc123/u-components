@@ -13,6 +13,14 @@ const apis = {
   // 获取商家详情
   getEnterprise (params) {
     return req('/api/seller/getenterprise', 'get', params)
+  },
+  // 获取当前登录用户信息
+  getLoginUser (params) {
+    return req('/api/users/user', 'get', params)
+  },
+  // 获取当前登录用户和企业信息
+  getLoginUserAndEnterprise (params) {
+    return req('/api/users/userandenterprise', 'get', params)
   }
 }
 

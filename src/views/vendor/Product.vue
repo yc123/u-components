@@ -126,6 +126,7 @@ export default {
   },
   methods: {
     loadData () {
+      this.checkAll = false
       let params = {
         pageNumber: this.pager.page,
         pageSize: this.pager.size

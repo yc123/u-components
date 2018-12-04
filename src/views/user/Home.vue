@@ -3,8 +3,8 @@
     <div class="info fl test-border">
       <p class="title">基本信息</p>
       <div class="content">
-        <p class="name">用户名：{{user.vipName}}</p>
-        <p class="phone">133****3333 <a>修改手机</a></p>
+        <p class="name">用户名：{{userInfo.name}}</p>
+        <p class="phone">{{ userInfo.tel | phoneFilter }} <a>修改手机</a></p>
       </div>
     </div>
     <div class="collect fr test-border">
@@ -16,6 +16,20 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data: () => ({
+    userInfo: {}
+  }),
+  created () {
+    this.apis.seller.getLoginUser().then(res => {
+      this.requestDeal(res, data => {
+        this.userInfo = data.user
+      })
+    })
+  }
+}
+</script>
 <style lang="scss" scoped>
   @import '@/assets/css/variable.scss';
   .user-home {

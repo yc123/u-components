@@ -14,6 +14,18 @@ Vue.mixin({
       return apis
     }
   },
+  filters: {
+    phoneFilter: function (tel) {
+      if (tel) {
+        if (typeof tel === 'number') {
+          tel = tel.toString()
+        }
+        return tel.substr(0, 3) + '****' + tel.substr(7, 4)
+      } else {
+        return ''
+      }
+    }
+  },
   methods: {
     goRouter (url) {
       if (url) {

@@ -1,13 +1,13 @@
 <template>
   <div class="user-home clearfix">
     <div class="info fl test-border">
-      <p class="title">{{ user.spaceName }}</p>
+      <p class="title">{{ userInfo.enterprise.enName }}</p>
       <div class="content">
         <p class="name">
-          用户名：{{ user.vipName }}
+          用户名：{{ userInfo.name }}
           <a class="fr">账号设置</a>
         </p>
-        <p class="phone">133****3333</p>
+        <p class="phone">{{ userInfo.tel | phoneFilter }}</p>
       </div>
     </div>
     <div class="collect fr test-border">
@@ -16,6 +16,20 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data: () => ({
+    userInfo: {}
+  }),
+  created () {
+    this.apis.seller.getLoginUserAndEnterprise().then(res => {
+      this.requestDeal(res, data => {
+        this.userInfo = data.user
+      })
+    })
+  }
+}
+</script>
 <style lang="scss" scoped>
   @import '@/assets/css/variable.scss';
   .user-home {
