@@ -30,11 +30,11 @@
         <td>{{ collect.brand }}</td>
         <td>{{ collect.model }}</td>
         <td>{{ collect.spec }}</td>
-        <td>{{ collect.enterprise.enName }}</td>
+        <td>{{ collect.enName }}</td>
         <td>
-          {{ collect.enterprise.contactName }}
+          {{ collect.contactName }}
           <br/>
-          {{ collect.enterprise.contactPhone }}
+          {{ collect.contactPhone }}
         </td>
         <td><a @click="deleteItem(collect)">删除</a></td>
       </tr>
