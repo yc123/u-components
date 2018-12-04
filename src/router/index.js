@@ -11,31 +11,49 @@ const route = new Router({
     {
       path: '/',
       name: 'home',
+      meta: {
+        title: '首页'
+      },
       component: () => import(/* webpackChunkName: "Home" */ '../views/Home.vue')
     },
     {
       path: '/seller',
       name: 'seller',
+      meta: {
+        title: '商家-首页'
+      },
       component: () => import(/* webpackChunkName: "Seller" */ '../views/seller/Seller.vue')
     },
     {
       path: '/seller/:enuu',
       name: 'sellerDetail',
+      meta: {
+        title: '商家详情-商家-首页'
+      },
       component: () => import(/* webpackChunkName: "SellerDetail" */ '../views/seller/SellerDetail.vue')
     },
     {
       path: '/product',
       name: 'productList',
+      meta: {
+        title: '产品-首页'
+      },
       component: () => import(/* webpackChunkName: "ProductList" */ '../views/product/ProductList.vue')
     },
     {
       path: '/product/:code',
       name: 'productDetail',
+      meta: {
+        title: '产品详情-产品-首页'
+      },
       component: () => import(/* webpackChunkName: "ProductDetail" */ '../views/product/ProductDetail.vue')
     },
     {
       path: '/applyPurchase',
       name: 'applyPurchase',
+      meta: {
+        title: '求购-首页'
+      },
       component: () => import(/* webpackChunkName: "ApplyPurchase" */ '../views/applyPurchase/ApplyPurchase.vue')
     },
     {
