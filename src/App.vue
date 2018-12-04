@@ -110,7 +110,7 @@ export default {
     date: '2018-11-26',
     pager: {
       page: 3,
-      count: 1000,
+      count: 44,
       size: 10
     },
     inputModel: 123,

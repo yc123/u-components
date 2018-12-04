@@ -94,7 +94,7 @@ $base-color: #1890FF;
   -o-transition: height .2s ease-in-out;
   transition: height .2s ease-in-out;*/
   &.auto-height {
-    height: 274px;
+    height: 314px;
   }
   .date-picker-title {
     padding: 0 16px;
@@ -149,7 +149,6 @@ $base-color: #1890FF;
     }
   }
   .date-picker-content {
-    height: 234px;
     line-height: 22px;
     padding: 16px 20px 0;
     ul {

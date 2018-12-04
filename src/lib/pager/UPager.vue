@@ -1,5 +1,5 @@
 <template>
-  <div class="com-pager-wrap" v-if="totalCount > pageSize">
+  <div class="com-pager-wrap" v-if="totalCount">
     <ul class="com-pagination list-inline inline-block">
       <li class="prev" @click="onPrev">
         <i class="iconfont icon-arrow-left1"></i>
@@ -188,6 +188,7 @@
       changeSize () {
         this.initPagerList()
         this.$emit('sizeChangeAction', this.bindingSize)
+        this.setPage(1)
       }
     }
   }

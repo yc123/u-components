@@ -379,8 +379,8 @@
             offsetY = this.$refs.uDatePicker.offsetTop + obj.offsetTop - obj.clientHeight / 2 + this.$refs.uDatePicker.clientHeight + 4
             offsetX = this.$refs.uDatePicker.offsetLeft + obj.offsetLeft - obj.clientWidth / 2
             this.boxPosition.position = 'fixed'
-            if (document.body.clientHeight - offsetY < 274) {
-              offsetY = offsetY - 274 - (this.$refs.uDatePicker.clientHeight + 8)
+            if (document.body.clientHeight - offsetY < 314) {
+              offsetY = offsetY - 314 - (this.$refs.uDatePicker.clientHeight + 8)
             }
           }
           this.boxPosition.left = offsetX
