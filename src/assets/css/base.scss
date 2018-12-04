@@ -6,6 +6,8 @@ body {
 
 // ie等滚动条遮住元素
 html, body {
+  height: 100%;
+  overflow-y: auto;
   -ms-overflow-style: scrollbar;
 }
 

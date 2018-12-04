@@ -25,11 +25,7 @@
       value: {
         handler: function (val) {
           this.$nextTick(() => {
-            if (val) {
-              this.$refs[this.boxId].setAttribute('checked', 'checked')
-            } else {
-              this.$refs[this.boxId].removeAttribute('checked')
-            }
+            this.$refs[this.boxId].checked = val
           })
         },
         immediate: true
@@ -62,7 +58,7 @@
           color: #D9D9D9;
         }
       }
-      &[checked] + label {
+      &:checked + label {
         .icon-check-box {
           display: initial;
         }

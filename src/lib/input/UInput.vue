@@ -58,11 +58,9 @@
     watch: {
       value: {
         handler: function (val) {
-          if (val) {
-            this.$nextTick(() => {
-              this.$refs.comInput.value = val
-            })
-          }
+          this.$nextTick(() => {
+            this.$refs.comInput.value = val
+          })
         },
         immediate: true
       }

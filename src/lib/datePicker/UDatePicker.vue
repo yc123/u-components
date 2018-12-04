@@ -196,6 +196,7 @@
       },
       initFormatDate (currentDate) {
         this.formatDate = _formatDate(currentDate, 'yyyy-MM-dd')
+        return this.formatDate
       },
       /*,
       * 初始化daysArrs数组
@@ -311,8 +312,7 @@
         if (!day.disabled) {
           this.dateObj.day = day.value
           let currentDate = this.getCurrentDate()
-          this.initFormatDate(currentDate)
-          this.$emit('input', currentDate)
+          this.$emit('input', this.initFormatDate(currentDate))
           this.setShowDatePicker(false)
         }
       },
@@ -379,6 +379,9 @@
             offsetY = this.$refs.uDatePicker.offsetTop + obj.offsetTop - obj.clientHeight / 2 + this.$refs.uDatePicker.clientHeight + 4
             offsetX = this.$refs.uDatePicker.offsetLeft + obj.offsetLeft - obj.clientWidth / 2
             this.boxPosition.position = 'fixed'
+            if (document.body.clientHeight - offsetY < 274) {
+              offsetY = offsetY - 274 - (this.$refs.uDatePicker.clientHeight + 8)
+            }
           }
           this.boxPosition.left = offsetX
           this.boxPosition.top = offsetY

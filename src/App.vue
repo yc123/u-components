@@ -33,7 +33,8 @@
     <div class="comps">
       <p>checkbox：</p>
       <p>model：{{checkModel}}</p>
-      <u-check-box v-model="checkModel">选项1</u-check-box>
+      <u-check-box v-model="checkModel">选项1{{checkModel}}</u-check-box>
+      <button @click="checkModel = !checkModel">修改状态</button>
     </div>
     <div class="comps">
       <p>checkGroup：</p>
