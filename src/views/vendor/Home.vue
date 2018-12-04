@@ -1,9 +1,12 @@
 <template>
   <div class="user-home clearfix">
     <div class="info fl test-border">
-      <p class="title">深圳嘻嘻嘻爱的空间啊实打实的有限公司</p>
+      <p class="title">{{ user.spaceName }}</p>
       <div class="content">
-        <p class="name">用户名：是是是 <a class="fr">账号设置</a></p>
+        <p class="name">
+          用户名：{{ user.vipName }}
+          <a class="fr">账号设置</a>
+        </p>
         <p class="phone">133****3333</p>
       </div>
     </div>

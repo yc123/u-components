@@ -50,7 +50,6 @@ export default {
     },
     resizeData (size) {
       this.pager.size = size
-      this.loadData()
     }
   }
 }

@@ -62,7 +62,6 @@ export default {
     },
     resizeData (size) {
       this.pager.size = size
-      this.loadData()
     },
     isCollect (item) {
       if (this.user.logged) {

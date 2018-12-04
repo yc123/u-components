@@ -3,14 +3,15 @@
     <div class="info fl test-border">
       <p class="title">基本信息</p>
       <div class="content">
-        <p class="name">用户名：是是是</p>
+        <p class="name">用户名：{{user.vipName}}</p>
         <p class="phone">133****3333 <a>修改手机</a></p>
       </div>
     </div>
     <div class="collect fr test-border">
       <p class="title">我的关注</p>
       <router-link tag="div" to="/user/collect" class="content">
-        go
+        <div class="img"></div>
+        我的收藏
       </router-link>
     </div>
   </div>
@@ -44,6 +45,17 @@
     .collect {
       width: 320px;
       height: 136px;
+      padding: 0 8px;
+      .content {
+        cursor: pointer;
+        .img {
+          width: 45px;
+          height: 45px;
+          background: #D8D8D8;
+          border: 1px solid #979797;
+          margin: 8px;
+        }
+      }
     }
   }
 </style>

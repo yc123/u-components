@@ -66,19 +66,19 @@
     <u-dialog :title="updatingObj.code ? '修改产品信息' : '单个录入'" v-model="showUpdate">
       <div slot="content" class="insert">
         <div class="form-line">
-          <span class="title">品牌：</span>
+          <span class="title"><i class="must">*</i>品牌：</span>
           <div class="content">
             <u-input placeholder="请输入品牌" v-model="updatingObj.brand"></u-input>
           </div>
         </div>
         <div class="form-line">
-          <span class="title">型号：</span>
+          <span class="title"><i class="must">*</i>型号：</span>
           <div class="content">
             <u-input placeholder="请输入型号" v-model="updatingObj.model"></u-input>
           </div>
         </div>
         <div class="form-line">
-          <span class="title">规格：</span>
+          <span class="title"><i class="must">*</i>规格：</span>
           <div class="content">
             <u-input placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
           </div>
@@ -149,7 +149,6 @@ export default {
     },
     resizeData (size) {
       this.pager.size = size
-      this.loadData()
     },
     changeTab (tab) {
       this.tab = tab
@@ -189,15 +188,19 @@ export default {
       this.showUpdate = true
     },
     submitUpdate () {
-      this.apis.product.addOrUpdateProduct(this.updatingObj).then(res => {
-        this.requestDeal(res, () => {
-          this.$message.success(this.updatingObj.code ? '修改成功' : '新增成功')
-          this.loadData()
-          this.showUpdate = false
+      if (this.updatingObj.brand && this.updatingObj.model && this.updatingObj.spec) {
+        this.apis.product.addOrUpdateProduct(this.updatingObj).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success(this.updatingObj.code ? '修改成功' : '新增成功')
+            this.loadData()
+            this.showUpdate = false
+          })
+        }, err => {
+          this.errDeal(err, '修改失败')
         })
-      }, err => {
-        this.errDeal(err, '修改失败')
-      })
+      } else {
+        this.$message.info('请填写完整信息')
+      }
     },
     getCheckedItems () {
       return this.productList.reduce((arr, item) => {

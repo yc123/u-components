@@ -78,7 +78,6 @@ export default {
     },
     resizeData (size) {
       this.pager.size = size
-      this.loadData()
     },
     deleteItem (collect) {
       this.$confirm('确认要删除吗？').then(() => {

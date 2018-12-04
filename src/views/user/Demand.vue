@@ -141,10 +141,9 @@ export default {
     },
     resizeData (size) {
       this.pager.size = size
-      this.loadData()
     },
     deleteItem (demand) {
-      this.$confirm('确认要批量删除吗？').then(() => {
+      this.$confirm('确认要删除选中的内容吗？').then(() => {
         this.apis.demand.delDemand({ code: demand.code }).then(res => {
           this.requestDeal(res, () => {
             this.$message.success('删除成功')
@@ -222,7 +221,7 @@ export default {
     batchDelete () {
       let checkedItems = this.getCheckedItems()
       if (checkedItems.length) {
-        this.$confirm('确认要删除选中的内容吗？').then(() => {
+        this.$confirm('确认要批量删除吗？').then(() => {
           let codeItems = checkedItems.reduce((arr, item) => {
             arr.push(item.code)
             return arr

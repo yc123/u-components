@@ -125,7 +125,6 @@ export default {
     },
     resizeData (size) {
       this.pager.size = size
-      this.loadData()
     },
     publish () {
       if (this.publishObj.brand && this.publishObj.model && this.publishObj.amount && this.publishObj.leastDelivery && this.publishObj.lastDelivery && this.publishObj.deadlineDate) {

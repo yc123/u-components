@@ -71,7 +71,6 @@ export default {
     },
     resizeData (size) {
       this.pager.size = size
-      this.loadData()
     },
     isCollect (item) {
       if (item.collectStatus === '未收藏') {
