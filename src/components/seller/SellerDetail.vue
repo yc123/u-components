@@ -26,7 +26,7 @@
         <td :title="product.brand">{{product.brand}}</td>
         <td :title="product.model">{{product.model}}</td>
         <td :title="product.spec">{{product.spec}}</td>
-        <td><div class="collect" :class="{active: product.collectStatus=== '已收藏'}" @click="isCollect(product)"><i class="iconfont icon-shoucang"></i>{{product.collectStatus}}</div></td>
+        <td><div class="collect" :class="{active: product.collectStatus=== '已收藏'}" @click.prevent.stop="isCollect(product)"><i class="iconfont icon-shoucang"></i>{{product.collectStatus}}</div></td>
       </tr>
       </tbody>
     </table>
