@@ -2,7 +2,7 @@
   <div id="app">
     <!--<loading></loading>-->
     <main-header></main-header>
-    <main-nav></main-nav>
+    <main-nav v-if="showNav"></main-nav>
     <router-loading></router-loading>
     <router-view/>
     <main-footer></main-footer>
@@ -21,6 +21,12 @@ export default {
     // Loading,
     RouterLoading,
     ScrollToTop
+  },
+  computed: {
+    showNav () {
+      let path = this.$route.path
+      return !this.baseUtils.startWith(path, '/user') && !this.baseUtils.startWith(path, '/vendor')
+    }
   }
 }
 </script>

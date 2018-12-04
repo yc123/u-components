@@ -68,14 +68,14 @@ export default {
     },
     isCollect (item) {
       if (item.collectStatus === '未收藏') {
-        this.apis.product.collect({code: item.code}).then(res => {
+        this.apis.product.collect({ code: item.code }).then(res => {
           this.requestDeal(res, () => {
             this.$message.success('收藏成功')
             this.loadData()
           })
         })
       } else if (item.collectStatus === '已收藏') {
-        this.apis.product.revokeCollectByProduct({productCode: item.code}).then(res => {
+        this.apis.product.revokeCollectByProduct({ productCode: item.code }).then(res => {
           this.requestDeal(res, () => {
             this.$message.success('取消收藏')
             this.loadData()
