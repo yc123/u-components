@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <loading></loading>
+    <!--<loading></loading>-->
     <main-header></main-header>
     <main-nav></main-nav>
     <router-loading></router-loading>
@@ -11,14 +11,14 @@
 </template>
 <script>
 import { Header, Footer, Nav } from '@/components/main'
-import { Loading, ScrollToTop, RouterLoading } from '@/components/base'
+import { ScrollToTop, RouterLoading } from '@/components/base'
 export default {
   name: 'Mall',
   components: {
     MainHeader: Header,
     MainFooter: Footer,
     MainNav: Nav,
-    Loading,
+    // Loading,
     RouterLoading,
     ScrollToTop
   }
