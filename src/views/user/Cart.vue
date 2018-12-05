@@ -1,6 +1,6 @@
 <template>
   <div class="cart">
-    <table class="base-table cart-table bg-white">
+    <table class="base-table cart-table bg-white order-table">
       <thead>
       <tr>
         <th width="48">
@@ -94,7 +94,7 @@
         </td>
         <td>28-31天</td>
         <td class="step-td">
-          ¥9999999<br/>
+          ¥9999.999999<br/>
           <div class="step">
             价格梯度 <i class="iconfont icon-Eye"></i>
             <div class="com-price-level price-level">
@@ -212,7 +212,7 @@
         </td>
         <td>28-31天</td>
         <td class="step-td">
-          ¥9999999<br/>
+          ¥9999.999999<br/>
           <div class="step">
             价格梯度 <i class="iconfont icon-Eye"></i>
             <div class="com-price-level price-level">
@@ -330,7 +330,7 @@
         </td>
         <td>28-31天</td>
         <td class="step-td">
-          ¥9999999<br/>
+          ¥9999.999999<br/>
           <div class="step">
             价格梯度 <i class="iconfont icon-Eye"></i>
             <div class="com-price-level price-level">
@@ -448,479 +448,7 @@
         </td>
         <td>28-31天</td>
         <td class="step-td">
-          ¥9999999<br/>
-          <div class="step">
-            价格梯度 <i class="iconfont icon-Eye"></i>
-            <div class="com-price-level price-level">
-              <div class="line">
-                <span>价格梯度(PCS)</span>
-                <span>价格(¥)</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="text-center">
-          <u-step-adder class="step-adder"></u-step-adder><br/>
-          PCS
-        </td>
-        <td>¥9999999</td>
-        <td class="text-center"><a>删除</a></td>
-      </tr>
-      </tbody>
-      <tbody>
-      <tr class="en-info">
-        <td colspan="8">
-          <u-check-box v-model="checkAll"></u-check-box>
-          <b>深圳市休息下有限公司</b>
-          <div class="fr">
-            <i class="iconfont icon-shouji"></i> 1133333339
-            <i class="iconfont icon-dianhua"></i> 0755-8888999999
-          </div>
-        </td>
-      </tr>
-      <tr class="product">
-        <td class="text-center"><u-check-box v-model="checkAll"></u-check-box></td>
-        <td>
-          品牌：sda<br/>
-          型号：sda123123123<br/>
-          规格：sda123<br/>
-        </td>
-        <td>
-          包装方式：爱空间水电费half开讲啦发送<br/>
-          最小包装数：sda<br/>
-          起订：sda123123123<br/>
-          库存：sda123<br/>
-        </td>
-        <td>28-31天</td>
-        <td class="step-td">
-          ¥9999999<br/>
-          <div class="step">
-            价格梯度 <i class="iconfont icon-Eye"></i>
-            <div class="com-price-level price-level">
-              <div class="line">
-                <span>价格梯度(PCS)</span>
-                <span>价格(¥)</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="text-center">
-          <u-step-adder class="step-adder"></u-step-adder><br/>
-          PCS
-        </td>
-        <td>¥9999999</td>
-        <td class="text-center"><a>删除</a></td>
-      </tr>
-      <tr class="product">
-        <td class="text-center"><u-check-box v-model="checkAll"></u-check-box></td>
-        <td>
-          品牌：sda<br/>
-          型号：sda123123123<br/>
-          规格：sda123<br/>
-        </td>
-        <td>
-          包装方式：爱空间水电费half开讲啦发送<br/>
-          最小包装数：sda<br/>
-          起订：sda123123123<br/>
-          库存：sda123<br/>
-        </td>
-        <td>28-31天</td>
-        <td class="step-td">
-          ¥9999999<br/>
-          <div class="step">
-            价格梯度 <i class="iconfont icon-Eye"></i>
-            <div class="com-price-level price-level">
-              <div class="line">
-                <span>价格梯度(PCS)</span>
-                <span>价格(¥)</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="text-center">
-          <u-step-adder class="step-adder"></u-step-adder><br/>
-          PCS
-        </td>
-        <td>¥9999999</td>
-        <td class="text-center"><a>删除</a></td>
-      </tr>
-      </tbody>
-      <tbody>
-      <tr class="en-info">
-        <td colspan="8">
-          <u-check-box v-model="checkAll"></u-check-box>
-          <b>深圳市休息下有限公司</b>
-          <div class="fr">
-            <i class="iconfont icon-shouji"></i> 1133333339
-            <i class="iconfont icon-dianhua"></i> 0755-8888999999
-          </div>
-        </td>
-      </tr>
-      <tr class="product">
-        <td class="text-center"><u-check-box v-model="checkAll"></u-check-box></td>
-        <td>
-          品牌：sda<br/>
-          型号：sda123123123<br/>
-          规格：sda123<br/>
-        </td>
-        <td>
-          包装方式：爱空间水电费half开讲啦发送<br/>
-          最小包装数：sda<br/>
-          起订：sda123123123<br/>
-          库存：sda123<br/>
-        </td>
-        <td>28-31天</td>
-        <td class="step-td">
-          ¥9999999<br/>
-          <div class="step">
-            价格梯度 <i class="iconfont icon-Eye"></i>
-            <div class="com-price-level price-level">
-              <div class="line">
-                <span>价格梯度(PCS)</span>
-                <span>价格(¥)</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="text-center">
-          <u-step-adder class="step-adder"></u-step-adder><br/>
-          PCS
-        </td>
-        <td>¥9999999</td>
-        <td class="text-center"><a>删除</a></td>
-      </tr>
-      <tr class="product">
-        <td class="text-center"><u-check-box v-model="checkAll"></u-check-box></td>
-        <td>
-          品牌：sda<br/>
-          型号：sda123123123<br/>
-          规格：sda123<br/>
-        </td>
-        <td>
-          包装方式：爱空间水电费half开讲啦发送<br/>
-          最小包装数：sda<br/>
-          起订：sda123123123<br/>
-          库存：sda123<br/>
-        </td>
-        <td>28-31天</td>
-        <td class="step-td">
-          ¥9999999<br/>
-          <div class="step">
-            价格梯度 <i class="iconfont icon-Eye"></i>
-            <div class="com-price-level price-level">
-              <div class="line">
-                <span>价格梯度(PCS)</span>
-                <span>价格(¥)</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="text-center">
-          <u-step-adder class="step-adder"></u-step-adder><br/>
-          PCS
-        </td>
-        <td>¥9999999</td>
-        <td class="text-center"><a>删除</a></td>
-      </tr>
-      </tbody>
-      <tbody>
-      <tr class="en-info">
-        <td colspan="8">
-          <u-check-box v-model="checkAll"></u-check-box>
-          <b>深圳市休息下有限公司</b>
-          <div class="fr">
-            <i class="iconfont icon-shouji"></i> 1133333339
-            <i class="iconfont icon-dianhua"></i> 0755-8888999999
-          </div>
-        </td>
-      </tr>
-      <tr class="product">
-        <td class="text-center"><u-check-box v-model="checkAll"></u-check-box></td>
-        <td>
-          品牌：sda<br/>
-          型号：sda123123123<br/>
-          规格：sda123<br/>
-        </td>
-        <td>
-          包装方式：爱空间水电费half开讲啦发送<br/>
-          最小包装数：sda<br/>
-          起订：sda123123123<br/>
-          库存：sda123<br/>
-        </td>
-        <td>28-31天</td>
-        <td class="step-td">
-          ¥9999999<br/>
-          <div class="step">
-            价格梯度 <i class="iconfont icon-Eye"></i>
-            <div class="com-price-level price-level">
-              <div class="line">
-                <span>价格梯度(PCS)</span>
-                <span>价格(¥)</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="text-center">
-          <u-step-adder class="step-adder"></u-step-adder><br/>
-          PCS
-        </td>
-        <td>¥9999999</td>
-        <td class="text-center"><a>删除</a></td>
-      </tr>
-      <tr class="product">
-        <td class="text-center"><u-check-box v-model="checkAll"></u-check-box></td>
-        <td>
-          品牌：sda<br/>
-          型号：sda123123123<br/>
-          规格：sda123<br/>
-        </td>
-        <td>
-          包装方式：爱空间水电费half开讲啦发送<br/>
-          最小包装数：sda<br/>
-          起订：sda123123123<br/>
-          库存：sda123<br/>
-        </td>
-        <td>28-31天</td>
-        <td class="step-td">
-          ¥9999999<br/>
-          <div class="step">
-            价格梯度 <i class="iconfont icon-Eye"></i>
-            <div class="com-price-level price-level">
-              <div class="line">
-                <span>价格梯度(PCS)</span>
-                <span>价格(¥)</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="text-center">
-          <u-step-adder class="step-adder"></u-step-adder><br/>
-          PCS
-        </td>
-        <td>¥9999999</td>
-        <td class="text-center"><a>删除</a></td>
-      </tr>
-      </tbody>
-      <tbody>
-      <tr class="en-info">
-        <td colspan="8">
-          <u-check-box v-model="checkAll"></u-check-box>
-          <b>深圳市休息下有限公司</b>
-          <div class="fr">
-            <i class="iconfont icon-shouji"></i> 1133333339
-            <i class="iconfont icon-dianhua"></i> 0755-8888999999
-          </div>
-        </td>
-      </tr>
-      <tr class="product">
-        <td class="text-center"><u-check-box v-model="checkAll"></u-check-box></td>
-        <td>
-          品牌：sda<br/>
-          型号：sda123123123<br/>
-          规格：sda123<br/>
-        </td>
-        <td>
-          包装方式：爱空间水电费half开讲啦发送<br/>
-          最小包装数：sda<br/>
-          起订：sda123123123<br/>
-          库存：sda123<br/>
-        </td>
-        <td>28-31天</td>
-        <td class="step-td">
-          ¥9999999<br/>
-          <div class="step">
-            价格梯度 <i class="iconfont icon-Eye"></i>
-            <div class="com-price-level price-level">
-              <div class="line">
-                <span>价格梯度(PCS)</span>
-                <span>价格(¥)</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-              <div class="line">
-                <span>1+</span>
-                <span>9999.999999</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="text-center">
-          <u-step-adder class="step-adder"></u-step-adder><br/>
-          PCS
-        </td>
-        <td>¥9999999</td>
-        <td class="text-center"><a>删除</a></td>
-      </tr>
-      <tr class="product">
-        <td class="text-center"><u-check-box v-model="checkAll"></u-check-box></td>
-        <td>
-          品牌：sda<br/>
-          型号：sda123123123<br/>
-          规格：sda123<br/>
-        </td>
-        <td>
-          包装方式：爱空间水电费half开讲啦发送<br/>
-          最小包装数：sda<br/>
-          起订：sda123123123<br/>
-          库存：sda123<br/>
-        </td>
-        <td>28-31天</td>
-        <td class="step-td">
-          ¥9999999<br/>
+          ¥9999.999999<br/>
           <div class="step">
             价格梯度 <i class="iconfont icon-Eye"></i>
             <div class="com-price-level price-level">
@@ -997,79 +525,51 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  @import '../../assets/css/order';
   .cart {
     position: relative;
     .cart-table {
-      thead tr {
-        height: 40px;
-        line-height: 40px;
-        background: rgba(0,0,0,0.02);
-      }
       tbody {
-        border-bottom: 8px solid #f5f5f5;
-        &:last-child {
-          border-bottom: none;
-        }
-        tr {
-          &.en-info {
-            border-bottom: 1px solid rgba(0,0,0,0.25);;
-            td {
-              height: 40px;
-              line-height: 40px;
-              padding: 0 16px;
-              b {
-                margin-left: 8px;
+        tr td.step-td {
+          overflow: initial;
+          .price {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .step {
+            color: rgba(0,0,0,0.45);
+            position: relative;
+            .price-level {
+              display: none;
+              position: absolute;
+              width: 230px;
+              background: #fff;
+              box-shadow: 0 2px 8px 0 rgba(0,0,0,0.15);
+              border-radius: 4px;
+              z-index: 1;
+              &:before {
+                content: '';
+                width: 0;
+                height: 0;
+                border: {
+                  bottom: 6px solid #fff;
+                  left: 5px solid transparent;
+                  right: 5px solid transparent;;
+                  top: none;
+                }
+                position: absolute;
+                top: -6px;
+                left: 63px;
               }
-              .icon-dianhua{
-                margin-left: 24px;
-              }
+            }
+            i:hover + .price-level {
+              display: block;
             }
           }
-          &.product {
-            height: 120px;
-            line-height: 22px;
-            &:last-of-type {
-              border-bottom: none;
-            }
-            td {
-              &.step-td {
-                overflow: initial;
-                .step {
-                  color: rgba(0,0,0,0.45);
-                  position: relative;
-                  overflow: initial;
-                  .price-level {
-                    display: none;
-                    position: absolute;
-                    width: 230px;
-                    background: #fff;
-                    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.15);
-                    border-radius: 4px;
-                    z-index: 1;
-                    &:before {
-                      content: '';
-                      width: 0;
-                      height: 0;
-                      border: {
-                        bottom: 6px solid #fff;
-                        left: 5px solid transparent;
-                        right: 5px solid transparent;;
-                        top: none;
-                      }
-                      position: absolute;
-                      top: -6px;
-                      left: 63px;
-                    }
-                  }
-                  i:hover + .price-level {
-                    display: block;
-                  }
-                }
-                .step-adder {
-                  width: 96px;
-                }
-              }
-            }
+          .step-adder {
+            width: 96px;
           }
         }
       }

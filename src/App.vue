@@ -25,7 +25,7 @@ export default {
   computed: {
     showNav () {
       let path = this.$route.path
-      return !this.baseUtils.startWith(path, '/user') && !this.baseUtils.startWith(path, '/vendor')
+      return !(this.baseUtils.startWith(path, '/user') || this.baseUtils.startWith(path, '/vendor') || this.baseUtils.startWith(path, '/pay'))
     }
   }
 }

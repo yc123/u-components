@@ -92,6 +92,11 @@ const route = new Router({
       ]
     },
     {
+      path: '/pay/:code',
+      name: 'pay',
+      component: () => import(/* webpackChunkName: "User" */ '../views/user/Pay.vue')
+    },
+    {
       path: '/vendor',
       name: 'vendor',
       component: () => import(/* webpackChunkName: "Vendor" */ '../views/vendor/LeftNav.vue'),
