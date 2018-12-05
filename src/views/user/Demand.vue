@@ -1,13 +1,13 @@
 <template>
   <div class="user-demand">
-    <div class="base-title-block test-border">
+    <div class="base-title-block bg-white">
       <span class="title active">全部需求</span>
       <button class="fr btb-btn" @click="operate()">发布求购</button>
     </div>
-    <div class="base-title-block test-border operate">
+    <div class="base-title-block bg-white operate">
       更多操作：<button class="u-btn u-btn-cancel" @click="batchDelete">批量删除</button>
     </div>
-    <table class="base-table test-border demand-list">
+    <table class="base-table bg-white demand-list">
       <thead>
       <tr>
         <th width="10%">

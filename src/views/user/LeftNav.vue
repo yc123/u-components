@@ -1,16 +1,11 @@
 <template>
-  <div class="container center-view clearfix">
-    <left-nav :list="list" class="fl"></left-nav>
-    <div class="fr view-right">
-      <router-view></router-view>
-    </div>
-  </div>
+  <left-nav-entry :list="list"></left-nav-entry>
 </template>
 <script>
-import LeftNav from '@/components/common/LeftNav'
+import LeftNavEntry from '@/components/common/LeftNavEntry'
 export default {
   components: {
-    LeftNav
+    LeftNavEntry
   },
   data: () => ({
     list: [
@@ -26,11 +21,3 @@ export default {
   })
 }
 </script>
-<style lang="scss" scoped>
-  .center-view {
-    margin: 8px auto;
-    .view-right {
-      width: 996px;
-    }
-  }
-</style>

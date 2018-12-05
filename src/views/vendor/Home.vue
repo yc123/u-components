@@ -1,6 +1,6 @@
 <template>
   <div class="user-home clearfix">
-    <div class="info fl test-border">
+    <div class="info fl bg-white">
       <p class="title">{{ userInfo.enterprise.enName }}</p>
       <div class="content">
         <p class="name">
@@ -10,7 +10,7 @@
         <p class="phone">{{ userInfo.tel | phoneFilter }}</p>
       </div>
     </div>
-    <div class="collect fr test-border">
+    <div class="collect fr bg-white">
       <p class="title">待办事项</p>
       <div class="content"></div>
     </div>

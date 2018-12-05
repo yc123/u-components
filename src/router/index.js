@@ -81,6 +81,13 @@ const route = new Router({
             title: '我的收藏-买家中心'
           },
           component: () => import(/* webpackChunkName: "User" */ '../views/user/Collect.vue')
+        },
+        {
+          path: 'cart',
+          meta: {
+            title: '购物车-买家中心'
+          },
+          component: () => import(/* webpackChunkName: "User" */ '../views/user/Cart.vue')
         }
       ]
     },

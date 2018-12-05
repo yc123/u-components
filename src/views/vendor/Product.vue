@@ -1,19 +1,19 @@
 <template>
   <div class="vendor-product">
-    <div class="base-title-block test-border">
+    <div class="base-title-block bg-white">
       <span class="title" :class="{ active: tab === 0 }" @click="changeTab(0)">全部产品</span>
       <span class="title" :class="{ active: tab === 1 }" @click="changeTab(1)">已上架</span>
       <span class="title" :class="{ active: tab === 2 }" @click="changeTab(2)">未上架</span>
       <button class="fr btb-btn" @click="updateItem()">单个录入</button>
       <button class="fr btb-btn" @click="showImport = true">批量导入</button>
     </div>
-    <div class="base-title-block test-border operate">
+    <div class="base-title-block bg-white operate">
       更多操作：
       <button class="u-btn u-btn-cancel" @click="batchOperate('revoke')" v-show="tab === 1">批量下架</button>
       <button class="u-btn u-btn-cancel" @click="batchOperate('invoke')" v-show="tab === 2">批量上架</button>
       <button class="u-btn u-btn-cancel" @click="batchOperate('delete')">删除选中</button>
     </div>
-    <table class="base-table test-border product-list">
+    <table class="base-table bg-white product-list">
       <thead>
       <tr>
         <th width="20%"><u-check-box v-model="checkAll" boxId="checkAll" @input="onCheckAll"></u-check-box></th>
