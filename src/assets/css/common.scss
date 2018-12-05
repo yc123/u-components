@@ -57,21 +57,31 @@
   thead {
     tr {
       th {
-        text-align: left;
+        text-align: center;
         font-weight: normal;
         padding: 0 8px;
+        border-right: 1px solid rgba(0, 0, 0, .04);
+        &:last-child {
+          border-right: none;
+        }
       }
     }
   }
   tbody tr{
+    border-bottom: 1px solid rgba(0, 0, 0, .09);
     &:hover {
       background: #E6F7FF;
     }
     td {
+      text-align: left;
       padding: 0 8px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      border-right: 1px solid rgba(0, 0, 0, .04);
+      &:last-child {
+        border-right: none;
+      }
     }
   }
 }
@@ -83,4 +93,16 @@ i.must {
 
 .line-height-normal {
   line-height: normal;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
 }

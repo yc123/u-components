@@ -1,3 +1,5 @@
 <template>
-  <div>购物车</div>
+  <div class="bg-white">
+    <table class="base-table"></table>
+  </div>
 </template>
