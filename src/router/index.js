@@ -93,7 +93,9 @@ const route = new Router({
     },
     {
       path: '/pay/:code',
-      name: 'pay',
+      meta: {
+        title: '结算页'
+      },
       component: () => import(/* webpackChunkName: "User" */ '../views/user/Pay.vue')
     },
     {

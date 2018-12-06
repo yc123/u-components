@@ -63,24 +63,95 @@
         <button class="u-btn u-btn-submit" @click="submitUpload">确定</button>
       </div>
     </u-dialog>
-    <u-dialog :title="updatingObj.code ? '修改产品信息' : '单个录入'" v-model="showUpdate">
-      <div slot="content" class="insert">
-        <div class="form-line">
-          <span class="title"><i class="must">*</i>品牌：</span>
+    <u-dialog
+      :title="updatingObj.code ? '修改产品信息' : '单个录入'"
+      :width="914"
+      v-model="showUpdate"
+      class="product-modal">
+      <div slot="content" class="insert clearfix">
+        <div class="fl">
+          <div class="form-line">
+            <span class="title"><i class="must">*</i>类目：</span>
+            <div class="content">
+              <u-input class="base-input" placeholder="请输入品牌" v-model="updatingObj.brand"></u-input>
+            </div>
+          </div>
+          <div class="form-line">
+            <span class="title"><i class="must">*</i>品牌：</span>
+            <div class="content">
+              <u-input class="base-input" placeholder="请输入品牌" v-model="updatingObj.brand"></u-input>
+            </div>
+          </div>
+          <div class="form-line">
+          <span class="title">最小包装数：</span>
           <div class="content">
-            <u-input placeholder="请输入品牌" v-model="updatingObj.brand"></u-input>
+            <u-input class="base-input" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
           </div>
         </div>
-        <div class="form-line">
-          <span class="title"><i class="must">*</i>型号：</span>
-          <div class="content">
-            <u-input placeholder="请输入型号" v-model="updatingObj.model"></u-input>
+          <div class="form-line">
+            <span class="title">库存(PCS)：</span>
+            <div class="content">
+              <u-input class="base-input" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+            </div>
+          </div>
+          <div class="form-line">
+            <span class="title">交期(天)：</span>
+            <div class="content">
+              <u-input class="date-input inline-block" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+              -
+              <u-input class="date-input inline-block" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+            </div>
+          </div>
+          <div class="form-line">
+            <span class="title">可拆卖：</span>
+            <div class="content">
+              <u-switch></u-switch>
+            </div>
           </div>
         </div>
-        <div class="form-line">
-          <span class="title"><i class="must">*</i>规格：</span>
-          <div class="content">
-            <u-input placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+        <div class="fr">
+          <div class="form-line">
+            <span class="title"><i class="must">*</i>型号：</span>
+            <div class="content">
+              <u-input class="base-input" placeholder="请输入型号" v-model="updatingObj.model"></u-input>
+            </div>
+          </div>
+          <div class="form-line">
+            <span class="title">规格：</span>
+            <div class="content">
+              <u-input class="base-input" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+            </div>
+          </div>
+          <div class="form-line">
+            <span class="title"><i class="must">*</i>起订：</span>
+            <div class="content">
+              <u-input class="base-input" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+            </div>
+          </div>
+          <div class="form-line">
+            <span class="title">包装方式：</span>
+            <div class="content">
+              <u-select class="base-input" :list="packList"></u-select>
+            </div>
+          </div>
+          <div class="form-line price-level-line">
+            <span class="title">价格梯度：</span>
+            <div class="content">
+              <div class="price-level-input">
+                <div class="line line-title">
+                  <span class="item">阶梯数(PCS)</span>
+                  <span class="item">价格(¥)</span>
+                </div>
+                <div class="line" v-for="(level, index) in levels" :key="index">
+                  <input type="text" v-model="level.count" :readonly="index === 0" class="level-input item">
+                  <input type="text" v-model="level.price" class="level-input item">
+                  <div class="operate">
+                    <i class="iconfont icon-jian" v-if="index > 0" @click="setLevel(false, index)"></i>
+                    <i class="iconfont icon-jia" v-if="index === levels.length - 1 && index < 4" @click="setLevel(true)"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -119,7 +190,21 @@ export default {
       brand: ''
     },
     productCode: product,
-    file: ''
+    file: '',
+    packList: [
+      {
+        text: '塑料袋',
+        value: '塑料袋'
+      },
+      {
+        text: '纸箱',
+        value: '纸箱'
+      }
+    ],
+    levels: [{
+      price: '',
+      count: 1
+    }]
   }),
   created () {
     this.loadData()
@@ -314,6 +399,16 @@ export default {
           this.errDeal(err, '上架失败')
         })
       }, () => {})
+    },
+    setLevel (isAdd, index) {
+      if (isAdd) {
+        this.levels.push({
+          price: '',
+          count: ''
+        })
+      } else {
+        this.levels.splice(index, 1)
+      }
     }
   }
 }
@@ -348,26 +443,85 @@ export default {
         }
       }
     }
-    .form-line {
-      margin-bottom: 16px;
-      &:last-child {
-        margin-bottom: 0;
+    .insert {
+      .fl, .fr {
+        width: 50%;
       }
-      .title {
-        width: 78px;
-        text-align: right;
-        display: inline-block;
-        vertical-align: middle;
-      }
-      .content {
-        width: 352px;
-        display: inline-block;
-        vertical-align: middle;
-        .date-input {
-          width: 80px;
+      .form-line {
+        margin-bottom: 16px;
+        &:last-child {
+          margin-bottom: 0;
         }
-        .date-picker {
-          width: 100%;
+        .title {
+          width: 84px;
+          text-align: right;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .content {
+          width: 346px;
+          display: inline-block;
+          vertical-align: middle;
+          .base-input {
+            width: 320px;
+          }
+          .date-input {
+            width: 153px;
+          }
+          .price-level-input {
+            width: 320px;
+            background: rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 4px;
+            .line {
+              height: 32px;
+              position: relative;
+              .operate {
+                position: absolute;
+                right: -46px;
+                top: 0;
+                height: 32px;
+                line-height: 32px;
+                width: 38px;
+                i {
+                  cursor: pointer;
+                  color: rgba(0, 0, 0, .65);
+                  &.icon-jian {
+                    margin-right: 6px;
+                  }
+                }
+              }
+              .item {
+                width: 50%;
+                display: inline-block;
+                padding: 0 8px;
+              }
+              .level-input {
+                $border: 1px solid rgba(0,0,0,0.15);
+                outline: none;
+                height: 32px;
+                border: {
+                  top: $border;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                }
+                &:first-child {
+                  border-right: $border;
+                }
+                &[readonly] {
+                  color: rgba(0,0,0,0.25);
+                  cursor: default;
+                }
+              }
+              &.line-title .item {
+                line-height: 32px;
+              }
+            }
+          }
+        }
+        &.price-level-line .title {
+          vertical-align: top;
         }
       }
     }

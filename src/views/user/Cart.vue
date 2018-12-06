@@ -530,6 +530,10 @@ export default {
     position: relative;
     .cart-table {
       tbody {
+        border-bottom: 8px solid #f5f5f5;
+        &:last-child {
+          border-bottom: none;
+        }
         tr td.step-td {
           overflow: initial;
           .price {
