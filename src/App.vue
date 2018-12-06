@@ -2,7 +2,7 @@
   <div id="app">
     <div class="comps">
       <p>datePicker：</p>
-      <p>model：{{date}}</p>
+      <p>model：{{date}} <button @click="date = ''">清除date</button></p>
       <u-date-picker v-model="date"></u-date-picker>
     </div>
     <div class="comps">
@@ -169,7 +169,7 @@ export default {
         }
       ]
     },
-    stepAddrModel: 1,
+    stepAddrModel: '',
     switchModel: true,
     showDialog: false,
     addressModel: {

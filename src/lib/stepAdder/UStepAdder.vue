@@ -15,7 +15,7 @@
   export default {
     name: 'UStepAdder',
     data: () => ({
-      number: 0
+      number: null
     }),
     props: {
       placeholder: {
@@ -51,9 +51,10 @@
   .u-step-adder {
     display: inline-block;
     position: relative;
+    width: 88px;
     input {
+      width: 100%;
       height: 32px;
-      width: 88px;
       background: #FFFFFF;
       border: 1px solid rgba(0,0,0,0.15);
       border-radius: 4px;
@@ -70,6 +71,7 @@
         border-left: $border;
         cursor: pointer;
         height: 16px;
+        line-height: 16px;
         &:first-child {
           border-bottom: $border;
         }

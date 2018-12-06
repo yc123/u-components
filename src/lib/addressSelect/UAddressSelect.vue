@@ -9,8 +9,8 @@
     </div>
     <div class="uas-box" v-show="show">
       <div class="uas-box-title">
-        <div class="item" :class="{active: activeObj.type === 'city'}" v-if="currentAddress.city" @click="reselect('city')">{{ currentAddress.city }}<i class="iconfont icon-arrow-down"></i></div>
         <div class="item" :class="{active: activeObj.type === 'province'}" v-if="currentAddress.province" @click="reselect('province')">{{ currentAddress.province }}<i class="iconfont icon-arrow-down"></i></div>
+        <div class="item" :class="{active: activeObj.type === 'city'}" v-if="currentAddress.city" @click="reselect('city')">{{ currentAddress.city }}<i class="iconfont icon-arrow-down"></i></div>
         <div class="item" :class="{active: !activeObj.type}" @click="reselect()">请选择<i class="iconfont icon-arrow-down"></i></div>
         <i class="iconfont icon-close1 fr" @click="close"></i>
       </div>

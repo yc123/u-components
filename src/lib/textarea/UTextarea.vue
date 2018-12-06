@@ -89,6 +89,7 @@
   $err-color: #F5222D;
   .com-textarea-box {
     position: relative;
+    height: 88px;
     .base-textarea {
       background: #FFFFFF;
       border: 1px solid #D9D9D9;
@@ -97,7 +98,7 @@
       resize: none;
       line-height: 23px;
       width: 100%;
-      height: 88px;
+      height: 100%;
       outline: none;
       &:focus {
         border-color: $base-color;

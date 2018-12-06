@@ -192,10 +192,18 @@
         this.dateObj.month = today.getMonth() + 1
         this.dateObj.day = today.getDate()
         this.dateObj.weekDate = today.getDay()
-        date && this.initFormatDate(this.getCurrentDate())
+        if (date) {
+          this.initFormatDate(this.getCurrentDate())
+        } else {
+          this.initFormatDate()
+        }
       },
       initFormatDate (currentDate) {
-        this.formatDate = _formatDate(currentDate, 'yyyy-MM-dd')
+        if (currentDate) {
+          this.formatDate = _formatDate(currentDate, 'yyyy-MM-dd')
+        } else {
+          this.formatDate = ''
+        }
         return this.formatDate
       },
       /*,
