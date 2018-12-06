@@ -2,7 +2,7 @@
   <div class="apply-publish container">
     <div class="publish-demand">
       <div class="header">发布求购</div>
-      <div class="content clearfix">
+      <div class="content-warp clearfix">
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>品牌：</span>
           <div class="content inline-block">
@@ -25,7 +25,15 @@
           </div>
         </div>
         <div class="form-line">
-          <span class="title inline-block"><i class="must">*</i>数量：</span>
+          <span class="title inline-block"><i class="must">*</i>需求数量：</span>
+          <div class="content inline-block">
+            <u-input placeholder="请输入数量"
+                     reg="^\d*$"
+                     v-model="publishObj.amount"></u-input>
+          </div>
+        </div>
+        <div class="form-line">
+          <span class="title inline-block"><i class="must">*</i>预算单价：</span>
           <div class="content inline-block">
             <u-input placeholder="请输入数量"
                      reg="^\d*$"
@@ -60,13 +68,14 @@
     <table class="base-table publish-list">
       <thead>
       <tr>
-        <th width="246">买家名称</th>
-        <th width="156">品牌</th>
-        <th width="216">型号</th>
-        <th width="216">规格</th>
-        <th width="132">需求数量</th>
-        <th width="112">预计交期</th>
-        <th width="112">截止日期</th>
+        <th width="15%">买家名称</th>
+        <th width="16%">品牌</th>
+        <th width="17%">型号</th>
+        <th width="17%">规格</th>
+        <th width="9%">需求数量</th>
+        <th width="8%">预算单价</th>
+        <th width="8%">预计交期</th>
+        <th width="10%">截止日期</th>
       </tr>
       </thead>
       <tbody>
@@ -76,6 +85,7 @@
         <td :title="demand.model">{{demand.model || '-'}}</td>
         <td :title="demand.spec">{{demand.spec || '-'}}</td>
         <td :title="demand.amount">{{demand.amount || '-'}}</td>
+        <td :title="demand.amount">预算单价</td>
         <td :title="`${demand.leastDelivery}-${demand.lastDelivery}天`">{{demand.leastDelivery}} - {{demand.lastDelivery}}天</td>
         <td :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}</td>
       </tr>
@@ -158,7 +168,8 @@ export default {
         color: rgba(0,0,0,0.85);
         border-bottom: 1px solid rgba(0,0,0,0.09);
       }
-      .content {
+      .content-warp {
+        padding-bottom: 16px;
         .form-line {
           float: left;
           width: 50%;
@@ -202,8 +213,13 @@ export default {
         background: rgba(0,0,0,0.02);
       }
       tr th, tr td{
+        border-right: none;
+        text-align: center;
         &:first-child {
           padding-left: 16px;
+        }
+        &:last-child {
+          padding-right: 16px;
         }
       }
       tbody tr {

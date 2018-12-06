@@ -13,6 +13,7 @@
         <span>型号</span>
         <span>规格</span>
         <span>需求数量</span>
+        <span>预算单价</span>
         <span>预计交期</span>
         <span>截至日期</span>
       </div>
@@ -23,6 +24,7 @@
           <div :title="demand.model">{{demand.model || '-'}}</div>
           <div :title="demand.spec">{{demand.spec || '-'}}</div>
           <div :title="demand.amount">{{demand.amount || '-'}}</div>
+          <div :title="demand.amount">￥预算单价</div>
           <div :title="`${demand.leastDelivery}-${demand.lastDelivery}天`">{{demand.leastDelivery}}-{{demand.lastDelivery}}天</div>
           <div :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}</div>
         </li>
@@ -114,27 +116,30 @@ export default {
         font-size: 14px;
         color: #FFF;
         &:first-child {
-          padding: 0;
+          padding-left: 0;
           text-align: left;
-          width: 228px;
+          width: 10%;
         }
         &:nth-child(2){
-          width: 148px;
+          width: 10%;
         }
         &:nth-child(3){
-          width: 228px;
+          width: 20%;
         }
         &:nth-child(4){
-          width: 208px;
+          width: 20%;
         }
         &:nth-child(5){
-          width: 124px;
+          width: 10%;
         }
         &:nth-child(6){
-          width: 104px;
+          width: 10%;
         }
         &:nth-child(7){
-          width: 96px;
+          width: 10%;
+        }
+        &:nth-child(8){
+          width: 10%;
         }
       }
     }
@@ -157,26 +162,30 @@ export default {
           text-overflow: ellipsis;
           white-space: nowrap;
           &:first-child {
+            padding-left: 0;
             text-align: left;
-            width: 228px;
+            width: 10%;
           }
           &:nth-child(2){
-            width: 148px;
+            width: 10%;
           }
           &:nth-child(3){
-            width: 228px;
+            width: 20%;
           }
           &:nth-child(4){
-            width: 208px;
+            width: 20%;
           }
           &:nth-child(5){
-            width: 124px;
+            width: 10%;
           }
           &:nth-child(6){
-            width: 104px;
+            width: 10%;
           }
           &:nth-child(7){
-            width: 96px;
+            width: 10%;
+          }
+          &:nth-child(8){
+            width: 10%;
           }
         }
       }

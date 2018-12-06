@@ -12,21 +12,65 @@
         </div>
       </div>
     </div>
-    <table>
+    <table class="base-table order-table">
       <thead>
       <tr>
-        <td width="374">品牌</td>
-        <td width="350">型号</td>
-        <td width="350">规格</td>
-        <td width="116">操作</td>
+        <th width="296px">产品信息</th>
+        <th width="296px">销售信息</th>
+        <th width="134px">交期</th>
+        <th width="308px">价格梯度</th>
+        <th width="152px">操作</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="product in productList" :key="product.code" @click="goDetail(product)">
-        <td :title="product.brand">{{product.brand}}</td>
-        <td :title="product.model">{{product.model}}</td>
-        <td :title="product.spec">{{product.spec}}</td>
-        <td><div class="collect" :class="{active: product.collectStatus=== '已收藏'}" @click.prevent.stop="isCollect(product)"><i class="iconfont icon-shoucang"></i>{{product.collectStatus}}</div></td>
+      <tr class="product" v-for="product in productList" :key="product.code" @click="goDetail(product)">
+        <td>
+         <template :title="product.brand">品牌：{{product.brand || '-'}}<br/></template>
+          <template :title="product.model">型号：{{product.model || '-'}}<br/></template>
+          <template :title="product.spec">规格：{{product.spec || '-'}}<br/> </template>
+        </td>
+        <td>
+          <template :title="product.brand">包装方式：{{product.brand || '-'}}<br/></template>
+          <template :title="product.model">最小包装数：{{product.model || '-'}}<br/></template>
+          <template :title="product.spec">起订：{{product.spec || '-'}}<br/></template>
+          <template :title="product.spec">库存：{{product.spec || '-'}}<br/></template>
+          <template :title="product.spec">可拆买<br/></template>
+        </td>
+        <td>
+          <template :title="product.brand">2-18天</template>
+        </td>
+        <td>
+          <div class="com-price-level">
+            <div class="line">
+              <span>价格梯度(PCS)</span>
+              <span>价格(¥)</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+          </div>
+        </td>
+        <td class="text-center">
+          <div class="list-btn btn-buy">立即购买</div>
+          <div class="list-btn btn-cart">加入购物车</div>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -96,6 +140,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  @import "../../assets/css/order";
  .seller-list-warp {
    padding-bottom: 40px;
    margin: 0 auto;
@@ -104,6 +149,7 @@ export default {
    .seller-list{
      background: #FFFFFF;
      padding: 16px;
+     margin-bottom: 16px;
      .seller-content {
        float: left;
        text-align: left;
@@ -136,55 +182,10 @@ export default {
        }
      }
    }
-   table{
-     margin-top: 16px;
-     table-layout: fixed;
-     background: #FFFFFF;
+   .order-table{
      thead{
-       width: 100%;
-       height: 40px;
-       background: rgba(0,0,0,0.02);
        tr{
-         height: 40px;
          border-bottom: 1px solid rgba(0,0,0,0.09);
-       }
-     }
-     tbody{
-       tr{
-         height: 58px;
-         border-bottom: 1px solid rgba(0,0,0,0.09);
-         td{
-           div{
-             i{
-               padding-right: 4px;
-               font-size: 16px;
-               color: #999;
-             }
-             &.active{
-               i{
-                 color: #F5BA09;
-               }
-             }
-             &.collect{
-               cursor: pointer;
-             }
-           }
-         }
-         &:hover {
-           background: #E6F7FF;
-         }
-       }
-     }
-     tr{
-       font-size: 14px;
-       color: #333333;
-       vertical-align: middle;
-       td{
-         text-align: left;
-         padding: 0 8px;
-         &:first-child {
-           padding: 0 8px 0 24px;
-         }
        }
      }
    }

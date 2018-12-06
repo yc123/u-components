@@ -13,23 +13,64 @@
       <button class="u-btn u-btn-cancel" @click="batchOperate('invoke')" v-show="tab === 2">批量上架</button>
       <button class="u-btn u-btn-cancel" @click="batchOperate('delete')">删除选中</button>
     </div>
-    <table class="base-table bg-white product-list">
+    <table class="base-table order-table product-list">
       <thead>
       <tr>
-        <th width="20%"><u-check-box v-model="checkAll" boxId="checkAll" @input="onCheckAll"></u-check-box></th>
-        <th width="20%">品牌</th>
-        <th width="20%">型号</th>
-        <th width="20%">规格</th>
-        <th width="20%">操作</th>
+        <th width="48"><u-check-box v-model="checkAll" boxId="checkAll" @input="onCheckAll"></u-check-box></th>
+        <th width="190">产品信息</th>
+        <th width="204">销售信息</th>
+        <th width="86">交期</th>
+        <th width="216">价格梯度</th>
+        <th width="247">操作</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(product, index) in productList" :key="product.code">
-        <td><u-check-box v-model="product.checked" :boxId="`check_${index}`" @input="onCheckItem"></u-check-box></td>
-        <td :title="product.brand">{{ product.brand }}</td>
-        <td :title="product.model">{{ product.model }}</td>
-        <td :title="product.spec">{{ product.spec }}</td>
-        <td class="operate-btn-wrap">
+      <tr v-for="(product, index) in productList" :key="product.code" class="product">
+        <td class="text-center"><u-check-box v-model="product.checked" :boxId="`check_${index}`" @input="onCheckItem"></u-check-box></td>
+        <td>
+          <template :title="product.brand">品牌：{{product.brand || '-'}}<br/></template>
+          <template :title="product.model">型号：{{product.model || '-'}}<br/></template>
+          <template :title="product.spec">规格：{{product.spec || '-'}}<br/> </template>
+        </td>
+        <td>
+          <template :title="product.brand">包装方式：{{product.brand || '-'}}<br/></template>
+          <template :title="product.model">最小包装数：{{product.model || '-'}}<br/></template>
+          <template :title="product.spec">起订：{{product.spec || '-'}}<br/></template>
+          <template :title="product.spec">库存：{{product.spec || '-'}}<br/></template>
+          <template :title="product.spec">可拆买<br/></template>
+        </td>
+        <td>
+          <template :title="product.brand">2-18天</template>
+        </td>
+        <td>
+          <div class="com-price-level">
+            <div class="line">
+              <span>价格梯度(PCS)</span>
+              <span>价格(¥)</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+          </div>
+        </td>
+        <td class="operate-btn-wrap text-center">
           <button class="u-btn u-btn-cancel voke-btn" v-if="product.status === productCode.status.revoke" @click="invoke(product)">上架 </button>
           <button class="u-btn u-btn-cancel voke-btn" v-if="product.status === productCode.status.invoke" @click="revoke(product)">下架</button>
           <div>
@@ -319,6 +360,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  @import "../../assets/css/order";
   .vendor-product {
     .operate {
       height: 48px;
@@ -326,17 +368,12 @@ export default {
     }
     .product-list {
       thead {
-        height: 40px;
-        line-height: 40px;
-        background: rgba(0,0,0,0.02);
+        tr{
+          border: 1px solid rgba(0,0,0,0.09);
+        }
       }
       tbody tr {
-        height: 70px;
-        line-height: 70px;
-        border-bottom: 1px solid #ccc;
-        &:last-child {
-          border-bottom: none;
-        }
+        border-bottom: 8px solid #f5f5f5;
         .operate-btn-wrap {
           line-height: normal;
           .voke-btn {
