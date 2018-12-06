@@ -7,28 +7,27 @@
     <div class="base-title-block bg-white operate">
       更多操作：<button class="u-btn u-btn-cancel" @click="batchDelete">批量删除</button>
     </div>
-    <table class="base-table bg-white demand-list">
+    <table class="base-table order-table demand-list">
       <thead>
       <tr>
-        <th width="10%">
+        <th width="48">
           <u-check-box
             v-model="checkAll"
             boxId="checkAll"
             @input="onCheckAll"
           ></u-check-box>
         </th>
-        <th width="10%">品牌</th>
-        <th width="10%">型号</th>
-        <th width="10%">规格</th>
-        <th width="10%">需求数量</th>
-        <th width="10%">预计交期</th>
-        <th width="20%">截止日期</th>
-        <th width="20%">操作</th>
+        <th width="190">产品信息</th>
+        <th width="124">需求数量(PCS)</th>
+        <th width="136">预算单价</th>
+        <th width="105">预计交期</th>
+        <th width="127">截止日期</th>
+        <th width="260">操作</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody class="product">
       <tr v-for="demand in demandList" :key="demand.code">
-        <td>
+        <td class="text-center">
           <u-check-box
             v-model="demand.checked"
             :boxId="`check_${demand.code}`"
@@ -36,13 +35,24 @@
           >
           </u-check-box>
         </td>
-        <td v-text="demand.brand"></td>
-        <td v-text="demand.model"></td>
-        <td v-text="demand.spec"></td>
-        <td v-text="demand.amount"></td>
-        <td v-text="`${demand.leastDelivery}-${demand.lastDelivery}天`"></td>
-        <td v-text="demand.deadlineDate"></td>
-        <td><a @click="operate(demand)">修改</a> | <a @click="deleteItem(demand)">删除</a></td>
+        <td>
+          <template :title="demand.brand">品牌：{{demand.brand || '-'}}<br/></template>
+          <template :title="demand.model">型号：{{demand.model || '-'}}<br/></template>
+          <template :title="demand.spec">规格：{{demand.spec || '-'}}<br/> </template>
+        </td>
+        <td>
+          <template :title="demand.amount">{{demand.amount || '-'}}<br/></template>
+        </td>
+        <td>
+          <template :title="demand.amount">￥预算单价<br/></template>
+        </td>
+        <td>
+          <template :title="`${demand.leastDelivery}-${demand.lastDelivery}天`">{{`${demand.leastDelivery}-${demand.lastDelivery}天`}}<br/></template>
+        </td>
+        <td>
+          <template :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}<br/></template>
+        </td>
+        <td class="text-center"><a @click="operate(demand)">修改</a> | <a @click="deleteItem(demand)">删除</a></td>
       </tr>
       </tbody>
     </table>
@@ -244,6 +254,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  @import "../../assets/css/order";
   .user-demand {
     .operate {
       height: 48px;
@@ -251,16 +262,16 @@ export default {
     }
     .demand-list {
       thead {
-        height: 40px;
-        line-height: 40px;
-        background: rgba(0,0,0,0.02);
+        tr{
+          border: 1px solid rgba(0,0,0,0.09);
+        }
       }
-      tbody tr {
-        height: 70px;
-        line-height: 70px;
-        border-bottom: 1px solid #ccc;
-        &:last-child {
-          border-bottom: none;
+      tbody{
+        tr{
+          border-bottom: 8px solid #f5f5f5;
+          td{
+            height: 98px;
+          }
         }
       }
     }

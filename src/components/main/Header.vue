@@ -31,13 +31,17 @@
         <router-link to="/">
           <img src="@/assets/img/nav-logo.png" alt="">
         </router-link>
+        <!--加入购物车-->
+        <a  v-if="isShow" class="add-cart" href="">我的购物车(99+)</a>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { comHeader } from '@/utils/mixins'
 export default {
+  mixins: [comHeader],
   computed: {
     ...mapGetters('options', {
       loginUrl: 'loginUrl',
@@ -155,12 +159,25 @@ export default {
     height: 103px;
     background: #fff;
     .container {
+      position: relative;
       margin: 0 auto;
       width: 1190px;
       height: 100%;
       img {
         margin-top: 21px;
         cursor: pointer;
+      }
+      .add-cart {
+        position: absolute;
+        bottom: 16px;
+        right: 0;
+        padding: 10px 16px;
+        height: 40px;
+        line-height: 22px;
+        font-size: 14px;
+        color: #FFFFFF;
+        text-align: center;
+        background: #999999;
       }
     }
   }

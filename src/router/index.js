@@ -22,7 +22,7 @@ const route = new Router({
       meta: {
         title: '商家-首页'
       },
-      component: () => import(/* webpackChunkName: "Seller" */ '../views/seller/Seller.vue')
+      component: () => import(/* webpackChunkName: "Home" */ '../views/seller/Seller.vue')
     },
     {
       path: '/seller/:enuu',
@@ -30,7 +30,7 @@ const route = new Router({
       meta: {
         title: '商家详情-商家-首页'
       },
-      component: () => import(/* webpackChunkName: "SellerDetail" */ '../views/seller/SellerDetail.vue')
+      component: () => import(/* webpackChunkName: "Home" */ '../views/seller/SellerDetail.vue')
     },
     {
       path: '/product',
@@ -38,7 +38,7 @@ const route = new Router({
       meta: {
         title: '产品-首页'
       },
-      component: () => import(/* webpackChunkName: "ProductList" */ '../views/product/ProductList.vue')
+      component: () => import(/* webpackChunkName: "Home" */ '../views/product/ProductList.vue')
     },
     {
       path: '/product/:code',
@@ -46,7 +46,7 @@ const route = new Router({
       meta: {
         title: '产品详情-产品-首页'
       },
-      component: () => import(/* webpackChunkName: "ProductDetail" */ '../views/product/ProductDetail.vue')
+      component: () => import(/* webpackChunkName: "Home" */ '../views/product/ProductDetail.vue')
     },
     {
       path: '/applyPurchase',
@@ -54,7 +54,7 @@ const route = new Router({
       meta: {
         title: '求购-首页'
       },
-      component: () => import(/* webpackChunkName: "ApplyPurchase" */ '../views/applyPurchase/ApplyPurchase.vue')
+      component: () => import(/* webpackChunkName: "Home" */ '../views/applyPurchase/ApplyPurchase.vue')
     },
     {
       path: '/user',

@@ -6,37 +6,76 @@
     <div class="base-title-block bg-white operate">
       更多操作：<button class="u-btn u-btn-cancel" @click="batchDelete">批量删除</button>
     </div>
-    <table class="base-table bg-white collect-list">
+    <table class="base-table order-table collect-list">
       <thead>
       <tr>
-        <th width="10%">
+        <th width="48">
           <u-check-box v-model="checkAll" boxId="checkAll" @input="onCheckAll"></u-check-box></th>
-        <th width="10%">品牌</th>
-        <th width="10%">型号</th>
-        <th width="10%">规格</th>
-        <th width="20%">企业名称</th>
-        <th width="20%">联系方式</th>
-        <th width="20%">操作</th>
+        <th width="190">产品信息</th>
+        <th width="204">销售信息</th>
+        <th width="86">交期</th>
+        <th width="216">价格梯度</th>
+        <th width="247">操作</th>
       </tr>
       </thead>
-      <tbody>
-      <tr v-for="(collect, index) in collectList" :key="collect.code">
-        <td>
-          <u-check-box
-            v-model="collect.checked"
-            :boxId="`check_${index}`"
-            @click="onCheckItem"
-          ></u-check-box></td>
-        <td>{{ collect.brand }}</td>
-        <td>{{ collect.model }}</td>
-        <td>{{ collect.spec }}</td>
-        <td>{{ collect.enName }}</td>
-        <td>
-          {{ collect.contactName }}
-          <br/>
-          {{ collect.contactPhone }}
+      <tbody v-for="(collect, index) in collectList" :key="collect.code">
+      <tr class="en-info">
+        <td colspan="6">
+          <u-check-box v-model="checkAll"></u-check-box>
+          <b>{{collect.enName || '-'}}</b>
+          <div class="fr">
+            <i class="iconfont icon-shouji"></i> 1133333339
+            <i class="iconfont icon-dianhua"></i> 0755-8888999999
+          </div>
         </td>
-        <td><a @click="deleteItem(collect)">删除</a></td>
+      </tr>
+      <tr>
+        <td class="text-center"> <u-check-box
+          v-model="collect.checked"
+          :boxId="`check_${index}`"
+          @click="onCheckItem"
+        ></u-check-box></td>
+        <td>
+          <template :title="collect.brand">品牌：{{ collect.brand || '-' }}<br/></template>
+          <template :title="collect.model">型号：{{ collect.model || '-' }}<br/></template>
+          <template :title="collect.spec">规格：{{ collect.spec || '-' }}<br/></template>
+        </td>
+        <td>
+          <template :title="collect.brand">起订：{{ collect.brand || '-' }}<br/></template>
+          <template :title="collect.model">剩余库存：{{ collect.model || '-' }}<br/></template>
+        </td>
+        <td>
+          <template :title="collect.model">2-18天<br/></template>
+        </td>
+        <td>
+          <div class="com-price-level">
+            <div class="line">
+              <span>价格梯度(PCS)</span>
+              <span>价格(¥)</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+            <div class="line">
+              <span>1+</span>
+              <span>9999.999999</span>
+            </div>
+          </div>
+        </td>
+        <td class="text-center"><a @click="deleteItem(collect)">删除</a></td>
       </tr>
       </tbody>
     </table>
@@ -140,6 +179,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  @import "../../assets/css/order";
   .user-collect {
     .operate {
       height: 48px;
@@ -147,16 +187,8 @@ export default {
     }
     .collect-list {
       thead {
-        height: 40px;
-        line-height: 40px;
-        background: rgba(0,0,0,0.02);
-      }
-      tbody tr {
-        height: 70px;
-        line-height: 70px;
-        border-bottom: 1px solid #ccc;
-        &:last-child {
-          border-bottom: none;
+        tr{
+          border: 1px solid rgba(0,0,0,0.09);
         }
       }
     }

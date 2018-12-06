@@ -26,13 +26,55 @@
         <div class="product-content">
           <div class="product-img"><img src="" alt=""></div>
           <div class="product-content-show">
-            <div class="collect"
-                 :class="{active: productDetail.collectStatus=== '已收藏'}"
-                 @click="isCollect(productDetail)"><span><i class="iconfont icon-shoucang"></i>{{productDetail.collectStatus}}</span></div>
-            <div class="product-info">
-              <div>品牌 <span>{{productDetail.brand}}</span></div>
-              <div>型号 <span>{{productDetail.model}}</span></div>
-              <div>规格 <span>{{productDetail.spec}}</span></div>
+            <div class="collect-content clearfix">
+              <span class="collect"
+                    :class="{active: productDetail.collectStatus=== '已收藏'}"
+                    @click="isCollect(productDetail)"><i class="iconfont icon-shoucang"></i>{{productDetail.collectStatus}}</span>
+              <div class="code">HF2160-1A-12DE</div>
+            </div>
+            <div class="product-info clearfix">
+              <div><span>品牌 </span><span>{{productDetail.brand || '-'}}</span></div>
+              <div><span>规格 </span><span>{{productDetail.spec || '-'}}</span></div>
+              <div><span>包装方式 </span><span>包装方式</span></div>
+              <div><span>最小包装数 </span><span>包装方式</span></div>
+              <div><span>起订 </span><span>300</span></div>
+              <div><span>是否可拆买 </span><span>是</span></div>
+            </div>
+            <div class="price-grad">
+              <div class="com-price-level product-level">
+                <div class="line">
+                  <span>价格梯度(PCS)</span>
+                  <span>价格(¥)</span>
+                </div>
+                <div class="line">
+                  <span>1+</span>
+                  <span>9999.999999</span>
+                </div>
+              </div>
+            </div>
+            <div class="purchase-info">
+              <div class="clearfix purchase-list">
+                <span>采购数量</span>
+                <div class="clearfix">
+                  <template>
+                    <u-stepAdder>
+                    </u-stepAdder>
+                  </template>
+                  <div class="stock">库存 <span>200000000</span></div>
+                </div>
+              </div>
+              <div class="clearfix purchase-list">
+                <span>交期</span>
+                <div class="purchase-detail">5-10天</div>
+              </div>
+              <div class="clearfix purchase-list">
+                <span>小计</span>
+                <div class="purchase-detail total">￥18，0000</div>
+              </div>
+            </div>
+            <div class="pur-btn">
+              <a class="btn-buy">立即购买</a>
+              <a class="btn-cart">加入购物车</a>
             </div>
           </div>
         </div>
@@ -201,40 +243,142 @@ export default {
           margin-left: 24px;
           float: right;
           padding-right: 24px;
-          .collect {
+          .collect-content{
             margin: 24px auto 10px;
-            text-align: right;
-            font-size: 14px;
-            color: #333333;
-            line-height: 22px;
-            span{
+            .collect {
+              float: right;
+              font-size: 14px;
+              color: #333333;
+              line-height: 22px;
               cursor: pointer ;
-            }
-            i{
-              padding-right: 4px;
-              font-size: 16px;
-              color: #999;
-            }
-            &.active{
               i{
-                color: #F5BA09;
+                padding-right: 4px;
+                font-size: 16px;
+                color: #999;
               }
+              &.active{
+                i{
+                  color: #F5BA09;
+                }
+              }
+            }
+            .code {
+              float: left;
+              font-size: 20px;
+              color: #4A4A4A;
             }
           }
           .product-info{
-            padding: 16px 0 0 44px;
+            padding: 16px 0 0 16px;
             width: 718px;
             height: 114px;
             background: #F5F5F5;
             div{
               margin-bottom: 8px;
-              font-size: 14px;
-              color: #666666;
               text-align: left;
               line-height: 22px;
               span{
-                color: #333333;
+                display: inline-block;
+                font-size: 14px;
+                color: #666666;
+                &:first-child {
+                  margin-right: 16px;
+                  width: 70px;
+                  color: #333333;
+                  text-align: right;
+                }
+                &:last-child {
+                  width: 215px;
+                }
               }
+              &:nth-child(odd) {
+                float: left;
+                width: 340px;
+                span{
+                  &:first-child {
+                    width: 56px;
+                  }
+                }
+              }
+              &:nth-child(even) {
+                padding-left: 16px;
+                width: 359px;
+                float: right;
+              }
+            }
+          }
+          .price-grad {
+            margin: 16px auto;
+            width: 718px;
+            border: 1px solid rgba(0,0,0,0.15);
+            .product-level {
+                padding: 0;
+              .line{
+                padding: 0 24px;
+                margin-bottom: 0;
+                height: 32px;
+                line-height: 32px;
+                border-bottom:1px solid rgba(0,0,0,0.09);
+                span{
+                  font-size: 14px;
+                  color: #333333;
+                  &:first-child {
+                    padding-left: 63px;
+                  }
+                }
+              }
+            }
+          }
+          .purchase-info {
+            .purchase-list {
+              height: 32px;
+              margin-bottom: 16px;
+              >span{
+                margin-right: 16px;
+                display: inline-block;
+                float: left;
+                width: 56px;
+                line-height: 32px;
+                text-align: right;
+              }
+              >div.clearfix{
+                float: left;
+                .u-step-adder{
+                  float: left;
+                  input{
+                    width: 193px;
+                  }
+                }
+                >.stock{
+                  margin-left: 8px;
+                  display: inline-block;
+                  float: left;
+                  line-height: 32px;
+                  font-size: 14px;
+                  color: rgba(0,0,0,0.45);
+                  span{
+                    color: rgba(0,0,0,0.65);
+                  }
+                }
+              }
+              .purchase-detail {
+                float: left;
+                font-size: 14px;
+                line-height: 32px;
+                color: #333333;
+                &.total{
+                  font-size: 20px;
+                  color: #333333;
+                }
+              }
+            }
+          }
+          .pur-btn {
+            margin-left: 74px;
+            a{
+              width: 116px;
+              height: 40px;
+              line-height: 40px;
             }
           }
         }

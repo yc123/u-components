@@ -19,7 +19,9 @@
 <script>
 export default {
   data: () => ({
-    userInfo: {}
+    userInfo: {
+      enterprise: {}
+    }
   }),
   created () {
     this.apis.seller.getLoginUserAndEnterprise().then(res => {
