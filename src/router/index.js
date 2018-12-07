@@ -88,6 +88,20 @@ const route = new Router({
             title: '购物车-买家中心'
           },
           component: () => import(/* webpackChunkName: "User" */ '../views/user/Cart.vue')
+        },
+        {
+          path: 'order',
+          meta: {
+            title: '我的订单-买家中心'
+          },
+          component: () => import(/* webpackChunkName: "User" */ '../views/user/Order.vue')
+        },
+        {
+          path: 'order/:code',
+          meta: {
+            title: '订单详情-我的订单-买家中心'
+          },
+          component: () => import(/* webpackChunkName: "User" */ '../views/user/OrderDetail.vue')
         }
       ]
     },
@@ -116,6 +130,20 @@ const route = new Router({
             title: '产品管理-卖家中心'
           },
           component: () => import(/* webpackChunkName: "Vendor" */ '../views/vendor/Product.vue')
+        },
+        {
+          path: 'order',
+          meta: {
+            title: '销售订单-卖家中心'
+          },
+          component: () => import(/* webpackChunkName: "Vendor" */ '../views/vendor/Order.vue')
+        },
+        {
+          path: 'order/:code',
+          meta: {
+            title: '订单详情-我的订单-卖家中心'
+          },
+          component: () => import(/* webpackChunkName: "Vendor" */ '../views/vendor/OrderDetail.vue')
         }
       ]
     }

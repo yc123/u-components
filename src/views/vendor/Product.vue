@@ -37,6 +37,7 @@
           <template :title="product.model">最小包装数：{{product.model || '-'}}<br/></template>
           <template :title="product.spec">起订：{{product.spec || '-'}}<br/></template>
           <template :title="product.spec">库存：{{product.spec || '-'}}<br/></template>
+          <template :title="product.spec">冻结库存：{{product.spec || '-'}}<br/></template>
           <template :title="product.spec">可拆买<br/></template>
         </td>
         <td>
@@ -468,6 +469,7 @@ export default {
         }
       }
       tbody tr {
+        background: #fff;
         border-bottom: 8px solid #f5f5f5;
         .operate-btn-wrap {
           line-height: normal;

@@ -2,7 +2,7 @@
   <div class="home-store">
     <div class="home-store-warp">
         <div class="fl">
-          <span>最新商家</span><router-link to="/seller"><i class="iconfont icon-xiangyouyuanjiantouyoujiantouxiangyouxianxing"></i>查找更多店铺</router-link>
+          <span>最新商家</span><router-link to="/seller"><i class="iconfont icon-xiangyouyuanjiantouyoujiantouxiangyouxianxing"></i>查找更多商家</router-link>
         </div>
       </div>
     <div class="home-store-list">

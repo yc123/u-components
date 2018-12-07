@@ -29,7 +29,7 @@
           </div>
         </td>
       </tr>
-      <tr>
+      <tr class="product">
         <td class="text-center"> <u-check-box
           v-model="collect.checked"
           :boxId="`check_${index}`"
@@ -189,6 +189,12 @@ export default {
       thead {
         tr{
           border: 1px solid rgba(0,0,0,0.09);
+        }
+      }
+      tbody{
+        border-bottom: 8px solid #f5f5f5;
+        &:last-child {
+          border-bottom: none;
         }
       }
     }

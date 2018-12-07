@@ -16,6 +16,10 @@ export default {
       {
         title: '我的需求',
         url: '/user/demand'
+      },
+      {
+        title: '我的订单',
+        url: '/user/order'
       }
     ]
   })

@@ -25,8 +25,8 @@
         <th width="260">操作</th>
       </tr>
       </thead>
-      <tbody class="product">
-      <tr v-for="demand in demandList" :key="demand.code">
+      <tbody>
+      <tr  class="product" v-for="demand in demandList" :key="demand.code">
         <td class="text-center">
           <u-check-box
             v-model="demand.checked"

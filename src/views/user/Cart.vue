@@ -609,6 +609,7 @@ export default {
         &.fix-wrap {
           position: fixed;
           bottom: 0;
+          z-index: 10;
         }
       }
     }

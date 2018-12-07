@@ -16,6 +16,10 @@ export default {
       {
         title: '产品管理',
         url: '/vendor/product'
+      },
+      {
+        title: '销售订单',
+        url: '/vendor/order'
       }
     ]
   })

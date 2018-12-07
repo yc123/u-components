@@ -32,7 +32,7 @@
           <img src="@/assets/img/nav-logo.png" alt="">
         </router-link>
         <!--加入购物车-->
-        <a  v-if="isShow" class="add-cart" href="">我的购物车(99+)</a>
+        <router-link v-if="isShow" class="add-cart" to="/user/cart">我的购物车(99+)</router-link>
       </div>
     </div>
   </div>

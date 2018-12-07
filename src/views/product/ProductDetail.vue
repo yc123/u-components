@@ -60,7 +60,7 @@
                     <u-stepAdder>
                     </u-stepAdder>
                   </template>
-                  <div class="stock">库存 <span>200000000</span></div>
+                  <div class="stock">剩余库存 <span>200000000</span></div>
                 </div>
               </div>
               <div class="clearfix purchase-list">
