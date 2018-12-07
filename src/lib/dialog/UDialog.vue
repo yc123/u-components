@@ -1,6 +1,6 @@
 <template>
   <div class="u-modal" v-if="show">
-    <div class="u-dialog" :id="fixId">
+    <div class="u-dialog" :id="fixId" :style="{ width: `${width}px` }">
       <p class="udb-title">
         {{ title }}
         <i class="iconfont icon-close1 fr" @click="close"></i>
@@ -29,6 +29,10 @@
       fixId: {
         type: String,
         default: ''
+      },
+      width: {
+        type: Number,
+        default: 483
       }
     },
     watch: {
@@ -49,7 +53,6 @@
 </script>
 <style lang="scss" scoped>
   .u-dialog {
-    width: 483px;
     max-height: calc(90vh);
     overflow-y: auto;
     margin: 0 auto;

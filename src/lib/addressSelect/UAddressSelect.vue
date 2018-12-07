@@ -1,13 +1,14 @@
 <template>
-  <div class="u-address-select" @click.stop>
+  <div class="u-address-select" ref="uAddressSelect" @click.stop>
     <div class="uas-input"
          :class="{'u-placeholder' : !done, 'hide-bottom-border': show}"
          :title="done ? `${currentAddress.province}/${currentAddress.city}/${currentAddress.area}` : ''"
-         @click="show = !show">
+         @click="setShow(!show)">
       {{done ? `${currentAddress.province}/${currentAddress.city}/${currentAddress.area}` : '-请选择地区-'}}
       <i class="iconfont icon-arrow-down"></i>
     </div>
-    <div class="uas-box" v-show="show">
+    <div class="u-address-box" v-show="show" @click.stop ref="selectBox" :style="{'left': `${boxPosition.left}px`, 'top': `${boxPosition.top}px`, 'position': boxPosition.position}">
+      <i class="hover-border" :style="{width: $refs.uAddressSelect && `${$refs.uAddressSelect.clientWidth - 2}px`}"></i>
       <div class="uas-box-title">
         <div class="item" :class="{active: activeObj.type === 'province'}" v-if="currentAddress.province" @click="reselect('province')">{{ currentAddress.province }}<i class="iconfont icon-arrow-down"></i></div>
         <div class="item" :class="{active: activeObj.type === 'city'}" v-if="currentAddress.city" @click="reselect('city')">{{ currentAddress.city }}<i class="iconfont icon-arrow-down"></i></div>
@@ -40,11 +41,20 @@
         activeObj: {
           type: '',
           item: ''
+        },
+        boxPosition: {
+          left: 0,
+          top: 0,
+          position: 'fixed'
         }
       }
     },
     props: {
-      value: {}
+      value: {},
+      fixId: {
+        type: String,
+        default: ''
+      }
     },
     mounted () {
       window.addEventListener('click', this.close, false)
@@ -145,8 +155,44 @@
         this.close()
       },
       close () {
-        this.clearReselect()
-        this.show = false
+        if (this.show) {
+          this.clearReselect()
+          this.setShow(false)
+        }
+      },
+      setShow (flag) {
+        if (flag) {
+          let offsetY
+          let offsetX
+          if (!this.fixId) {
+            let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+            offsetY = this.$refs.uAddressSelect.offsetTop - scrolled + this.$refs.uAddressSelect.clientHeight - 2
+            offsetX = this.$refs.uAddressSelect.offsetLeft
+            this.boxPosition.position = 'absolute'
+          } else {
+            let obj = document.getElementById(this.fixId)
+            offsetY = this.$refs.uAddressSelect.offsetTop + obj.offsetTop - obj.clientHeight / 2 + this.$refs.uAddressSelect.clientHeight - 2
+            offsetX = this.$refs.uAddressSelect.offsetLeft + obj.offsetLeft - obj.clientWidth / 2
+            this.boxPosition.position = 'fixed'
+          }
+          this.boxPosition.left = offsetX
+          this.boxPosition.top = offsetY
+          document.body.appendChild(this.$refs.selectBox)
+          document.body.addEventListener('scroll', this.reloadBox)
+          window.addEventListener('resize', this.reloadBox)
+        } else {
+          this.$refs.selectBox && document.body.removeChild(this.$refs.selectBox)
+          document.body.removeEventListener('scroll', this.reloadBox)
+          window.removeEventListener('resize', this.reloadBox)
+        }
+        this.show = flag
+      },
+      hide () {
+        this.show && this.setShow(false)
+      },
+      reloadBox () {
+        this.hide()
+        this.setShow(true)
       },
       reselect (type) {
         if (type) {
@@ -170,12 +216,13 @@
   .u-address-select {
     position: relative;
     display: inline-block;
+    width: 278px;
     .uas-input {
       background: #FFFFFF;
       border: 1px solid rgba(0,0,0,0.15);
       border-radius: 2px;
       font-size: 14px;
-      width: 278px;
+      width: 100%;
       overflow: hidden;
       -ms-text-overflow: ellipsis;
       text-overflow: ellipsis;
@@ -197,96 +244,6 @@
         float: right;
         font-size: 12px;
         color: rgba(0,0,0,0.25);
-      }
-    }
-    .uas-box {
-      position: absolute;
-      left: 0;
-      top: 31px;
-      background: #fff;
-      border: 1px solid rgba(0,0,0,0.15);
-      width: 456px;
-      padding: 8px 16px;
-      border-radius: 0 4px 4px 4px;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      .uas-box-title {
-        height: 24px;
-        line-height: 24px;
-        border-bottom: 1px solid #1890FF;
-        font-size: 0;
-        .item {
-          display: inline-block;
-          $border: 1px solid rgba(0,0,0,0.15);
-          font-size: 14px;
-          height: 24px;
-          line-height: 24px;
-          padding: 0 4px;
-          margin-right: 4px;
-          border: {
-            top: $border;
-            left: $border;
-            right: $border;
-            radius: 2px;
-          }
-          cursor: pointer;
-          i {
-            font-size: 12px;
-            margin-left: 4px;
-          }
-          &.active {
-            $border-active: 1px solid #1890FF;
-            border: {
-              top: $border-active;
-              left: $border-active;
-              right: $border-active;
-              bottom: 1px solid #fff;
-            }
-          }
-        }
-        > i {
-          cursor: pointer;
-          color: rgba(0,0,0,0.45);
-          &:hover {
-            color: rgba(0,0,0,0.65);
-          }
-        }
-      }
-      .uas-box-content {
-        font-size: 0;
-        li {
-          font-size: 14px;
-          display: inline-block;
-          vertical-align: middle;
-          width: 25%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          padding-right: 16px;
-          height: 26px;
-          margin-top: 8px;
-          span {
-            display: inline-block;
-            padding: 0 5px;
-            cursor: pointer;
-            border-radius: 2px;
-            line-height: 26px;
-            &:hover {
-              background: #E6F7FF;
-            }
-          }
-          &.active {
-            span {
-              background: #1890FF;
-              color: #fff;
-            }
-          }
-          &:nth-child(4n) {
-            padding-right: 0;
-          }
-        }
       }
     }
   }

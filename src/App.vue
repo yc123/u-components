@@ -70,6 +70,7 @@
       <u-dialog v-model="showDialog" fixId="datePickerWrapper" title="测试啊啊克鲁赛德黄蜡石">
         <div slot="content">
           <u-date-picker fixId="datePickerWrapper"></u-date-picker>
+          <u-address-select fixId="datePickerWrapper"></u-address-select>
         </div>
         <template slot="footer">
           <button class="u-btn u-btn-cancel" @click="showDialog = false">取消</button>

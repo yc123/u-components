@@ -59,7 +59,7 @@
       value: {
         handler: function (val) {
           this.$nextTick(() => {
-            this.$refs.comInput.value = val
+            this.$refs.comInput.value = typeof val !== 'undefined' ? val  : ''
           })
         },
         immediate: true

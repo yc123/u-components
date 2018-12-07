@@ -394,13 +394,21 @@
           this.boxPosition.left = offsetX
           this.boxPosition.top = offsetY
           document.body.appendChild(this.$refs.pickerBox)
+          document.body.addEventListener('scroll', this.reloadDatePicker)
+          window.addEventListener('resize', this.reloadDatePicker)
         } else {
           this.$refs.pickerBox && document.body.removeChild(this.$refs.pickerBox)
+          document.body.removeEventListener('scroll', this.reloadDatePicker)
+          window.removeEventListener('resize', this.reloadDatePicker)
         }
         this.showDatePicker = flag
       },
       hideDatePicker () {
         this.showDatePicker && this.setShowDatePicker(false)
+      },
+      reloadDatePicker () {
+        this.hideDatePicker()
+        this.setShowDatePicker(true)
       }
     }
   }
