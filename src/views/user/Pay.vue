@@ -4,13 +4,107 @@
       <p class="title">填写并核对订单信息</p>
       <div class="bg-white content">
         <div class="block">
-          <p class="block-title">收货信息</p>
+          <p class="block-title">收货信息
+            <a class="fr base-color" @click="showShippingModal = true">新增收货信息</a>
+          </p>
+          <div class="block-content">
+           <!-- <div class="empty">
+              暂无收货信息，<a class="base-color">新增收货信息</a>
+            </div>-->
+            <ul class="item-list">
+              <li class="hover">
+                <button class="item-btn">张三 <i class="iconfont icon-checktriangle"></i></button>
+                广东 深圳市 南山区 科技南五路英唐大厦一楼
+                收货人：张三 12312312312
+                <span class="default-addr">默认地址</span>
+                <div class="fr operate">
+                  <a>设为默认地址</a>
+                  <a>编辑</a>
+                  <a>删除</a>
+                </div>
+              </li>
+              <li class="hover">
+                <button class="item-btn">张三 <i class="iconfont icon-checktriangle"></i></button>
+                广东 深圳市 南山区 科技南五路英唐大厦一楼
+                收货人：张三 12312312312
+                <span class="default-addr">默认地址</span>
+                <div class="fr operate">
+                  <a>设为默认地址</a>
+                  <a>编辑</a>
+                  <a>删除</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="block">
-          <p class="block-title">发票信息</p>
+          <p class="block-title">发票信息
+            <a class="fr base-color" @click="showInvoiceModal = true">新增发票信息</a>
+          </p>
+          <div class="block-content">
+            <!--<div class="empty">
+              暂无收货信息，<a class="base-color">新增收货信息</a>
+            </div>-->
+            <ul class="item-list">
+              <li>
+                <button class="item-btn">需要发票<i class="iconfont icon-checktriangle"></i></button>
+                <button class="item-btn">暂不开票<i class="iconfont icon-checktriangle"></i></button>
+              </li>
+              <li>发票列表：</li>
+              <li class="hover">
+                <button class="item-btn">射手座撒大大傻傻的 <i class="iconfont icon-checktriangle"></i></button>
+                增值税专用发票
+                <div class="fr operate">
+                  <a>设为默认</a>
+                  <a>编辑</a>
+                  <a>删除</a>
+                </div>
+              </li>
+              <li class="hover">
+                <button class="item-btn">张三 <i class="iconfont icon-checktriangle"></i></button>
+                增值税普通发票
+                <div class="fr operate">
+                  <a>设为默认</a>
+                  <a>编辑</a>
+                  <a>删除</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="block">
-          <p class="block-title">发票寄送地址</p>
+          <p class="block-title">发票寄送地址
+            <a class="fr base-color" @click="showInvoiceAddrModal = true">新增收货信息</a>
+          </p>
+          <div class="block-content">
+            <!--<div class="empty">
+              暂无收货信息，<a class="base-color">新增收货信息</a>
+            </div>-->
+            <ul class="item-list">
+              <li class="hover">
+                <button class="item-btn">张三 <i class="iconfont icon-checktriangle"></i></button>
+                广东 深圳市 南山区 科技南五路英唐大厦一楼
+                收货人：张三 12312312312
+                <span class="default-addr">默认地址</span>
+                <div class="fr operate">
+                  <a>设为默认地址</a>
+                  <a>编辑</a>
+                  <a>删除</a>
+                </div>
+              </li>
+              <li class="hover">
+                <button class="item-btn">张三 <i class="iconfont icon-checktriangle"></i></button>
+                广东 深圳市 南山区 科技南五路英唐大厦一楼
+                收货人：张三 12312312312
+                <span class="default-addr">默认地址</span>
+                <div class="fr operate">
+                  <a>设为默认地址</a>
+                  <a>编辑</a>
+                  <a>删除</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="block">
           <p class="block-title">订单信息</p>
@@ -158,17 +252,53 @@
         </div>
       </div>
     </div>
+    <u-dialog title="新增收货地址" fixId="shippingAddressFixId" v-model="showShippingModal" :width="720">
+      <shipping-address slot="content" fixId="shippingAddressFixId"></shipping-address>
+      <template slot="footer">
+        <button class="u-btn u-btn-cancel" @click="showShippingModal = false">取消</button>
+        <button class="u-btn u-btn-submit">确定</button>
+      </template>
+    </u-dialog>
+    <u-dialog title="新增开票信息" v-model="showInvoiceModal" :width="584">
+      <invoice-info slot="content"></invoice-info>
+      <template slot="footer">
+        <button class="u-btn u-btn-cancel" @click="showInvoiceModal = false">取消</button>
+        <button class="u-btn u-btn-submit">确定</button>
+      </template>
+    </u-dialog>
+    <u-dialog title="新增收票信息" fixId="invoiceAddrFixId" v-model="showInvoiceAddrModal " :width="720">
+      <invoice-address slot="content" fixId="invoiceAddrFixId"></invoice-address>
+      <template slot="footer">
+        <button class="u-btn u-btn-cancel" @click="showInvoiceAddrModal = false">取消</button>
+        <button class="u-btn u-btn-submit">确定</button>
+      </template>
+    </u-dialog>
   </div>
 </template>
 <script>
+import ShippingAddress from '@/components/pay/ShippingAddress'
+import InvoiceInfo from '@/components/pay/InvoiceInfo'
+import InvoiceAddress from '@/components/pay/InvoiceAddress'
 export default {
   data: () => ({
-    checkAll: false
-  })
+    checkAll: false,
+    // 收货地址模态框
+    showShippingModal: false,
+    // 开票信息模态框
+    showInvoiceModal: false,
+    // 收票地址模态框
+    showInvoiceAddrModal: false
+  }),
+  components: {
+    ShippingAddress,
+    InvoiceInfo,
+    InvoiceAddress
+  }
 }
 </script>
 <style lang="scss" scoped>
   @import '../../assets/css/order';
+  @import '../../assets/css/variable';
   .user-pay {
     background: #f5f5f5;
     padding: 24px 0;
@@ -182,13 +312,70 @@ export default {
       .block {
         border-bottom: 1px solid rgba(0,0,0,0.09);
         margin-bottom: 24px;
+        padding: 16px 0 32px;
         &:last-child {
           margin-bottom: 0;
           border-bottom: none;
         }
         .block-title {
-          font-size: 14px;
           font-weight: bold;
+          a {
+            font-weight: normal;
+          }
+        }
+        .block-content {
+          padding: 0 0 0 16px;
+          .empty {
+            text-align: center;
+            padding: 16px 0;
+          }
+          .item-btn {
+            min-width: 152px;
+            padding: 0 16px;
+            height: 32px;
+            border: 1px solid rgba(0,0,0,0.65);
+            border-radius: 4px;
+            position: relative;
+            background: #fff;
+            overflow: hidden;
+            margin-right: 16px;
+            i {
+              position: absolute;
+              right: -1px;
+              bottom: -1px;
+            }
+          }
+          .item-list {
+            li {
+              margin-top: 16px;
+              line-height: 32px;
+              height: 32px;
+              &.hover:hover {
+                background: rgba(0,0,0,0.04);
+              }
+              .default-addr {
+                margin-left: 16px;
+                display: inline-block;
+                vertical-align: middle;
+                padding: 4px 2px;
+                line-height: normal;
+                text-align: center;
+                background: #D8D8D8;
+                border-radius: 2px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+              }
+              .operate {
+                padding-right: 24px;
+                a {
+                  margin-left: 16px;
+                }
+              }
+            }
+          }
         }
         .pay-table {
           margin-top: 8px;

@@ -1,0 +1,25 @@
+.pay-operate-modal {
+  .content-line {
+    margin-bottom: 16px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .title {
+      width: 78px;
+      text-align: right;
+    }
+    .base-input {
+      width: 352px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .footer {
+    margin-top: 64px;
+    text-align: center;
+  }
+}
