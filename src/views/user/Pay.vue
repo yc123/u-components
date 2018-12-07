@@ -37,14 +37,14 @@
             </ul>
           </div>
         </div>
-        <div class="block">
+        <!--<div class="block">
           <p class="block-title">发票信息
             <a class="fr base-color" @click="showInvoiceModal = true">新增发票信息</a>
           </p>
           <div class="block-content">
-            <!--<div class="empty">
+            &lt;!&ndash;<div class="empty">
               暂无收货信息，<a class="base-color">新增收货信息</a>
-            </div>-->
+            </div>&ndash;&gt;
             <ul class="item-list">
               <li>
                 <button class="item-btn">需要发票<i class="iconfont icon-checktriangle"></i></button>
@@ -77,9 +77,9 @@
             <a class="fr base-color" @click="showInvoiceAddrModal = true">新增收货信息</a>
           </p>
           <div class="block-content">
-            <!--<div class="empty">
+            &lt;!&ndash;<div class="empty">
               暂无收货信息，<a class="base-color">新增收货信息</a>
-            </div>-->
+            </div>&ndash;&gt;
             <ul class="item-list">
               <li class="hover">
                 <button class="item-btn">张三 <i class="iconfont icon-checktriangle"></i></button>
@@ -105,7 +105,7 @@
               </li>
             </ul>
           </div>
-        </div>
+        </div>-->
         <div class="block">
           <p class="block-title">订单信息</p>
           <table class="base-table bg-white order-table pay-table">
@@ -259,7 +259,7 @@
         <button class="u-btn u-btn-submit">确定</button>
       </template>
     </u-dialog>
-    <u-dialog title="新增开票信息" v-model="showInvoiceModal" :width="584">
+    <!--<u-dialog title="新增开票信息" v-model="showInvoiceModal" :width="584">
       <invoice-info slot="content"></invoice-info>
       <template slot="footer">
         <button class="u-btn u-btn-cancel" @click="showInvoiceModal = false">取消</button>
@@ -272,27 +272,27 @@
         <button class="u-btn u-btn-cancel" @click="showInvoiceAddrModal = false">取消</button>
         <button class="u-btn u-btn-submit">确定</button>
       </template>
-    </u-dialog>
+    </u-dialog>-->
   </div>
 </template>
 <script>
 import ShippingAddress from '@/components/pay/ShippingAddress'
-import InvoiceInfo from '@/components/pay/InvoiceInfo'
-import InvoiceAddress from '@/components/pay/InvoiceAddress'
+// import InvoiceInfo from '@/components/pay/InvoiceInfo'
+// import InvoiceAddress from '@/components/pay/InvoiceAddress'
 export default {
   data: () => ({
     checkAll: false,
     // 收货地址模态框
-    showShippingModal: false,
-    // 开票信息模态框
-    showInvoiceModal: false,
-    // 收票地址模态框
-    showInvoiceAddrModal: false
+    showShippingModal: false
+    // // 开票信息模态框
+    // showInvoiceModal: false,
+    // // 收票地址模态框
+    // showInvoiceAddrModal: false
   }),
   components: {
-    ShippingAddress,
-    InvoiceInfo,
-    InvoiceAddress
+    ShippingAddress
+    // InvoiceInfo,
+    // InvoiceAddress
   }
 }
 </script>
