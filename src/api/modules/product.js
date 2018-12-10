@@ -37,7 +37,7 @@ const apis = {
     return req('/api/product/batchrevoke', 'post', params)
   },
   // 分页获取当前企业的产品列表
-  getMyProductsPage (params) {
+  getEnterpriseProducts (params) {
     return req('/api/product/enterprises/products/list', 'get', params)
   },
   // 分页获取指定企业的产品列表

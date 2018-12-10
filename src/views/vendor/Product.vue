@@ -258,7 +258,7 @@ export default {
       } else if (this.tab === 2) {
         params.status = this.productCode.status.revoke
       }
-      this.apis.product.getMyProductsPage(params)
+      this.apis.product.getEnterpriseProducts(params)
         .then(res => {
           this.requestDeal(res, data => {
             this.productList = data.product
