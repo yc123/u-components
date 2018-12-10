@@ -212,15 +212,15 @@ export default {
       // 品牌
       brand: '',
       // 最小包装数
-      mpq: '',
+      mpq: null,
       // 起订
-      moq: '',
+      moq: null,
       // 库存
-      reserve: '',
+      reserve: null,
       // 最小交期
-      minDelivery: '',
+      minDelivery: null,
       // 最大交期
-      maxDelivery: '',
+      maxDelivery: null,
       // 梯度价格
       ladderOffer: [
         {
@@ -230,20 +230,11 @@ export default {
         }
       ],
       // 是否可拆卖
-      detachable: ''
+      detachable: false
     },
     productCode: product,
     file: '',
-    packList: [
-      {
-        text: '塑料袋',
-        value: '塑料袋'
-      },
-      {
-        text: '纸箱',
-        value: '纸箱'
-      }
-    ],
+    packList: [],
     levels: [{
       price: '',
       count: 1
@@ -316,7 +307,7 @@ export default {
             this.updatingObj.code = product.code
           } else {
             for (let key in this.updatingObj) {
-              this.updatingObj[key] = key === 'ladderOffer' ? [{ start: 1 }] : ''
+              this.updatingObj[key] = key === 'ladderOffer' ? [{ start: 1 }] : null
             }
           }
           this.showUpdate = true
