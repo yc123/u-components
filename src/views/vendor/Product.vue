@@ -113,12 +113,6 @@
       <div slot="content" class="insert clearfix">
         <div class="fl">
           <div class="form-line">
-            <span class="title"><i class="must">*</i>类目：</span>
-            <div class="content">
-              <u-input class="base-input" placeholder="请输入品牌" v-model="updatingObj.brand"></u-input>
-            </div>
-          </div>
-          <div class="form-line">
             <span class="title"><i class="must">*</i>品牌：</span>
             <div class="content">
               <u-input class="base-input" placeholder="请输入品牌" v-model="updatingObj.brand"></u-input>
