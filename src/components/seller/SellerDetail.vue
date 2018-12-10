@@ -30,14 +30,14 @@
           <template :title="product.spec">规格：{{product.spec || '-'}}<br/> </template>
         </td>
         <td>
-          <template :title="product.brand">包装方式：{{product.brand || '-'}}<br/></template>
-          <template :title="product.model">最小包装数：{{product.model || '-'}}<br/></template>
-          <template :title="product.spec">起订：{{product.spec || '-'}}<br/></template>
-          <template :title="product.spec">库存：{{product.spec || '-'}}<br/></template>
-          <template :title="product.spec">可拆买<br/></template>
+          <template :title="product.packing">包装方式：{{product.packing || '-'}}<br/></template>
+          <template :title="product.mpq">最小包装数：{{product.mpq || '-'}}<br/></template>
+          <template :title="product.moq">起订：{{product.moq || '-'}}<br/></template>
+          <template :title="product.reserve">库存：{{product.reserve || '-'}}<br/></template>
+          <template :title="product.detachable ? '可拆买' : ''" v-if="product.detachable">可拆买<br/></template>
         </td>
         <td>
-          <template :title="product.brand">2-18天</template>
+          <template :title="`${product.minDelivery}-${product.maxDelivery}天`">{{product.minDelivery}}-{{product.maxDelivery}}天</template>
         </td>
         <td>
           <div class="com-price-level">
@@ -45,25 +45,9 @@
               <span>价格梯度(PCS)</span>
               <span>价格(¥)</span>
             </div>
-            <div class="line">
-              <span>1+</span>
-              <span>9999.999999</span>
-            </div>
-            <div class="line">
-              <span>1+</span>
-              <span>9999.999999</span>
-            </div>
-            <div class="line">
-              <span>1+</span>
-              <span>9999.999999</span>
-            </div>
-            <div class="line">
-              <span>1+</span>
-              <span>9999.999999</span>
-            </div>
-            <div class="line">
-              <span>1+</span>
-              <span>9999.999999</span>
+            <div class="line" v-for="(item, index) in product.ladderOffer" :key="index">
+              <span>{{item.start}}+</span>
+              <span>{{item.price}}</span>
             </div>
           </div>
         </td>

@@ -84,13 +84,20 @@
           </div>
         </div>
         <div class="form-line">
-          <span class="title inline-block"><i class="must">*</i>数量：</span>
+          <span class="title inline-block"><i class="must">*</i>需求数量：</span>
           <div class="content inline-block">
             <u-input reg="^\d*$" placeholder="请输入数量" v-model.number="updatingObj.amount"></u-input>
+            <span class="unit">PCS</span>
           </div>
         </div>
         <div class="form-line">
-          <span class="title inline-block"><i class="must">*</i>预计交期：</span>
+          <span class="title inline-block">预算单价：</span>
+          <div class="content inline-block">
+            <u-input reg="^\d*$" placeholder="请输入预算单价" v-model.number="updatingObj.price"></u-input>
+          </div>
+        </div>
+        <div class="form-line">
+          <span class="title inline-block">预计交期：</span>
           <div class="content inline-block">
             <u-input reg="^\d*$" class="inline-block date-input" v-model.number="updatingObj.leastDelivery"></u-input>
             -
@@ -128,6 +135,7 @@ export default {
       model: '',
       spec: '',
       amount: '',
+      price: '',
       leastDelivery: '',
       lastDelivery: '',
       deadlineDate: ''
@@ -178,6 +186,7 @@ export default {
           model: '',
           spec: '',
           amount: '',
+          price: '',
           leastDelivery: '',
           lastDelivery: '',
           deadlineDate: ''

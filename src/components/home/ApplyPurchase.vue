@@ -12,7 +12,7 @@
         <span>品牌</span>
         <span>型号</span>
         <span>规格</span>
-        <span>需求数量</span>
+        <span>需求数量(PCS)</span>
         <span>预算单价</span>
         <span>预计交期</span>
         <span>截至日期</span>
@@ -24,7 +24,7 @@
           <div :title="demand.model">{{demand.model || '-'}}</div>
           <div :title="demand.spec">{{demand.spec || '-'}}</div>
           <div :title="demand.amount">{{demand.amount || '-'}}</div>
-          <div :title="demand.amount">￥预算单价</div>
+          <div :title="demand.price">￥{{demand.price}}</div>
           <div :title="`${demand.leastDelivery}-${demand.lastDelivery}天`">{{demand.leastDelivery}}-{{demand.lastDelivery}}天</div>
           <div :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}</div>
         </li>

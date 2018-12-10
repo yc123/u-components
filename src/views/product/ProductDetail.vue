@@ -30,15 +30,15 @@
               <span class="collect"
                     :class="{active: productDetail.collectStatus=== '已收藏'}"
                     @click="isCollect(productDetail)"><i class="iconfont icon-shoucang"></i>{{productDetail.collectStatus}}</span>
-              <div class="code">HF2160-1A-12DE</div>
+              <div class="code" :title="productDetail.model">{{productDetail.model}}</div>
             </div>
             <div class="product-info clearfix">
-              <div><span>品牌 </span><span>{{productDetail.brand || '-'}}</span></div>
-              <div><span>规格 </span><span>{{productDetail.spec || '-'}}</span></div>
-              <div><span>包装方式 </span><span>包装方式</span></div>
-              <div><span>最小包装数 </span><span>包装方式</span></div>
-              <div><span>起订 </span><span>300</span></div>
-              <div><span>是否可拆买 </span><span>是</span></div>
+              <div :title="productDetail.brand"><span>品牌 </span><span>{{productDetail.brand || '-'}}</span></div>
+              <div :title="productDetail.spec"><span>规格 </span><span>{{productDetail.spec || '-'}}</span></div>
+              <div :title="productDetail.packing"><span>包装方式 </span><span>{{productDetail.packing || '-'}}</span></div>
+              <div :title="productDetail.mpq"><span>最小包装数 </span><span>{{productDetail.mpq || '-'}}</span></div>
+              <div :title="productDetail.moq"><span>起订 </span><span>{{productDetail.moq || '-'}}</span></div>
+              <div :title="productDetail.detachable ? '是' : '否'"><span>是否可拆买 </span><span>{{productDetail.detachable ? '是' : '否'}}</span></div>
             </div>
             <div class="price-grad">
               <div class="com-price-level product-level">
@@ -46,9 +46,9 @@
                   <span>价格梯度(PCS)</span>
                   <span>价格(¥)</span>
                 </div>
-                <div class="line">
-                  <span>1+</span>
-                  <span>9999.999999</span>
+                <div class="line" v-for="(item, index) in productDetail.ladderOffer" :key="index">
+                  <span>{{item.start}}+</span>
+                  <span>{{item.price}}</span>
                 </div>
               </div>
             </div>
@@ -60,12 +60,12 @@
                     <u-stepAdder>
                     </u-stepAdder>
                   </template>
-                  <div class="stock">剩余库存 <span>200000000</span></div>
+                  <div class="stock">剩余库存 <span>{{productDetail.reserve}}</span></div>
                 </div>
               </div>
               <div class="clearfix purchase-list">
                 <span>交期</span>
-                <div class="purchase-detail">5-10天</div>
+                <div class="purchase-detail">{{productDetail.minDelivery}}-{{productDetail.maxDelivery}}天</div>
               </div>
               <div class="clearfix purchase-list">
                 <span>小计</span>
