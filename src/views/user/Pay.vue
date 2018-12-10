@@ -5,36 +5,30 @@
       <div class="bg-white content">
         <div class="block">
           <p class="block-title">收货信息
-            <a class="fr base-color" @click="showShippingModal = true">新增收货信息</a>
+            <a class="fr base-color" @click="setShowShipping(true)">新增收货信息</a>
           </p>
           <div class="block-content">
-           <!-- <div class="empty">
-              暂无收货信息，<a class="base-color">新增收货信息</a>
-            </div>-->
-            <ul class="item-list">
-              <li class="hover">
-                <button class="item-btn">张三 <i class="iconfont icon-checktriangle"></i></button>
-                广东 深圳市 南山区 科技南五路英唐大厦一楼
-                收货人：张三 12312312312
-                <span class="default-addr">默认地址</span>
+            <ul class="item-list" v-if="deliveryAddr.length">
+              <li class="hover" v-for="addr in deliveryAddr" :key="addr.code">
+                <button class="item-btn">{{ addr.buyerName }} <i class="iconfont icon-checktriangle"></i></button>
+                {{ addr.province }}
+                {{ addr.city }}
+                {{ addr.district }}
+                {{ addr.addr }}
+                收货人：
+                {{ addr.buyerName }}
+                {{ addr.phone }}
+                <span class="default-addr" v-if="addr.defaultOption">默认地址</span>
                 <div class="fr operate">
-                  <a>设为默认地址</a>
-                  <a>编辑</a>
-                  <a>删除</a>
-                </div>
-              </li>
-              <li class="hover">
-                <button class="item-btn">张三 <i class="iconfont icon-checktriangle"></i></button>
-                广东 深圳市 南山区 科技南五路英唐大厦一楼
-                收货人：张三 12312312312
-                <span class="default-addr">默认地址</span>
-                <div class="fr operate">
-                  <a>设为默认地址</a>
-                  <a>编辑</a>
-                  <a>删除</a>
+                  <a v-if="!addr.defaultOption" @click="setDefaultDeliveryAddr(addr)">设为默认地址</a>
+                  <a @click="setShowShipping(true, addr)">编辑</a>
+                  <a @click="deleteShipping(addr)">删除</a>
                 </div>
               </li>
             </ul>
+            <div class="empty" v-else>
+              暂无收货信息，<a class="base-color" @click="setShowShipping(true)">新增收货信息</a>
+            </div>
           </div>
         </div>
         <!--<div class="block">
@@ -253,10 +247,14 @@
       </div>
     </div>
     <u-dialog title="新增收货地址" fixId="shippingAddressFixId" v-model="showShippingModal" :width="720">
-      <shipping-address slot="content" fixId="shippingAddressFixId"></shipping-address>
+      <shipping-address
+        slot="content"
+        fixId="shippingAddressFixId"
+        :addr="updatingDeliveryAddr"
+        ref="shippingAddress"></shipping-address>
       <template slot="footer">
         <button class="u-btn u-btn-cancel" @click="showShippingModal = false">取消</button>
-        <button class="u-btn u-btn-submit">确定</button>
+        <button class="u-btn u-btn-submit" @click="submitShippingAddressEdit">确定</button>
       </template>
     </u-dialog>
     <!--<u-dialog title="新增开票信息" v-model="showInvoiceModal" :width="584">
@@ -282,6 +280,8 @@ import ShippingAddress from '@/components/pay/ShippingAddress'
 export default {
   data: () => ({
     checkAll: false,
+    deliveryAddr: [],
+    updatingDeliveryAddr: null,
     // 收货地址模态框
     showShippingModal: false
     // // 开票信息模态框
@@ -293,6 +293,77 @@ export default {
     ShippingAddress
     // InvoiceInfo,
     // InvoiceAddress
+  },
+  created () {
+    this.getDeliveryAddrList()
+  },
+  methods: {
+    // 获取收货地址列表
+    getDeliveryAddrList () {
+      this.apis.trade.getDeliveryAddrList().then(res => {
+        this.requestDeal(res, data => {
+          this.deliveryAddr = data.deliveryAddr
+        })
+      })
+    },
+    // 设置收货地址的展示
+    setShowShipping (flag, obj) {
+      this.showShippingModal = flag
+      if (obj) {
+        this.updatingDeliveryAddr = obj
+      }
+    },
+    // 删除收货地址
+    deleteShipping (addr) {
+      this.$confirm('确定要删除此收货地址吗？').then(() => {
+        this.apis.trade.delDeliveryAddr({ code: addr.code }).then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('删除成功')
+            this.getDeliveryAddrList()
+          })
+        }, err => {
+          this.errDeal(err, '删除失败')
+        })
+      }, () => {})
+    },
+    // 校验收货地址
+    checkShippingAddress (obj) {
+      for (let key in obj) {
+        if (key !== 'defaultOption' && !obj[key]) {
+          this.$message.info('请填写完整信息')
+          return false
+        }
+      }
+      return true
+    },
+    // 编辑/新增收货地址
+    submitShippingAddressEdit () {
+      let addr = this.$refs.shippingAddress.addrObj
+      if (this.checkShippingAddress(this.$refs.shippingAddress.addrObj)) {
+        this.apis.trade[addr.code ? 'modifyDeliveryAddr' : 'addDeliveryAddr']({ deliveryAddr: this.$refs.shippingAddress.addrObj })
+          .then(res => {
+            this.requestDeal(res, () => {
+              this.$message.success(`${addr.code ? '修改' : '新增'}地址成功`)
+              this.setShowShipping(false)
+              this.getDeliveryAddrList()
+            })
+          }, err => {
+            this.errDeal(err, `${addr.code ? '修改' : '新增'}地址失败`)
+          })
+      }
+    },
+    // 设置默认收货地址
+    setDefaultDeliveryAddr (addr) {
+      this.apis.trade.defaultDeliveryAddr({ code: addr.code })
+        .then(res => {
+          this.requestDeal(res, () => {
+            this.$message.success('设置默认地址成功')
+            this.getDeliveryAddrList()
+          })
+        }, err => {
+          this.errDeal(err, '设置默认地址失败')
+        })
+    }
   }
 }
 </script>

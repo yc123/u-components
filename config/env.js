@@ -8,9 +8,12 @@ const demandUrl = isProdMode ? 'https://malldemandrest.usoftchina.com' : 'https:
 
 const productUrl = isProdMode ? 'https://mallproductrest.usoftchina.com' : 'https://mallproductrest.uuzcc.cn'
 
+const tradeUrl = isProdMode ? 'https://malltraderest.usoftchina.com' : 'https://malltraderest.uuzcc.cn'
+
 export default {
   ssoUrl: ssoUrl,
   sellerUrl: sellerUrl,
   demandUrl: demandUrl,
-  productUrl: productUrl
+  productUrl: productUrl,
+  tradeUrl: tradeUrl
 }

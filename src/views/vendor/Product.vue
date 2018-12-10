@@ -121,27 +121,27 @@
           <div class="form-line">
           <span class="title">最小包装数：</span>
           <div class="content">
-            <u-input class="base-input" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+            <u-input class="base-input" placeholder="请输入最小包装数" v-model.number="updatingObj.mpq"></u-input>
           </div>
         </div>
           <div class="form-line">
             <span class="title">库存(PCS)：</span>
             <div class="content">
-              <u-input class="base-input" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+              <u-input class="base-input" placeholder="请输入库存" v-model.number="updatingObj.reserve"></u-input>
             </div>
           </div>
           <div class="form-line">
             <span class="title">交期(天)：</span>
             <div class="content">
-              <u-input class="date-input inline-block" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+              <u-input class="date-input inline-block" v-model.number="updatingObj.minDelivery"></u-input>
               -
-              <u-input class="date-input inline-block" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+              <u-input class="date-input inline-block" v-model.number="updatingObj.maxDelivery"></u-input>
             </div>
           </div>
           <div class="form-line">
             <span class="title">可拆卖：</span>
             <div class="content">
-              <u-switch></u-switch>
+              <u-switch v-model="updatingObj.detachable"></u-switch>
             </div>
           </div>
         </div>
@@ -161,13 +161,13 @@
           <div class="form-line">
             <span class="title"><i class="must">*</i>起订：</span>
             <div class="content">
-              <u-input class="base-input" placeholder="请输入规格" v-model="updatingObj.spec"></u-input>
+              <u-input class="base-input" placeholder="请输入起订数量" v-model.number="updatingObj.moq"></u-input>
             </div>
           </div>
           <div class="form-line">
             <span class="title">包装方式：</span>
             <div class="content">
-              <u-select class="base-input" :list="packList"></u-select>
+              <u-select class="base-input" :list="packList" v-model="updatingObj.packing"></u-select>
             </div>
           </div>
           <div class="form-line price-level-line">
@@ -178,12 +178,12 @@
                   <span class="item">阶梯数(PCS)</span>
                   <span class="item">价格(¥)</span>
                 </div>
-                <div class="line" v-for="(level, index) in levels" :key="index">
-                  <input type="text" v-model="level.count" :readonly="index === 0" class="level-input item">
-                  <input type="text" v-model="level.price" class="level-input item">
+                <div class="line" v-for="(level, index) in updatingObj.ladderOffer" :key="index">
+                  <input type="text" v-model.number="level.start" :readonly="index === 0" class="level-input item">
+                  <input type="text" v-model.number="level.price" class="level-input item">
                   <div class="operate">
                     <i class="iconfont icon-jian" v-if="index > 0" @click="setLevel(false, index)"></i>
-                    <i class="iconfont icon-jia" v-if="index === levels.length - 1 && index < 4" @click="setLevel(true)"></i>
+                    <i class="iconfont icon-jia" v-if="index === updatingObj.ladderOffer.length - 1 && index < 4" @click="setLevel(true)"></i>
                   </div>
                 </div>
               </div>
@@ -221,9 +221,32 @@ export default {
     // 展示单个录入/修改产品框
     showUpdate: false,
     updatingObj: {
+      // 型号
       model: '',
+      // 规格
       spec: '',
-      brand: ''
+      // 品牌
+      brand: '',
+      // 最小包装数
+      mpq: '',
+      // 起订
+      moq: '',
+      // 库存
+      reserve: '',
+      // 最小交期
+      minDelivery: '',
+      // 最大交期
+      maxDelivery: '',
+      // 梯度价格
+      ladderOffer: [
+        {
+          start: 1,
+          end: null,
+          price: null
+        }
+      ],
+      // 是否可拆卖
+      detachable: ''
     },
     productCode: product,
     file: '',
@@ -301,17 +324,34 @@ export default {
         }
         this.updatingObj.code = product.code
       } else {
-        this.updatingObj = {
-          brand: '',
-          model: '',
-          spec: ''
+        for (let key in this.updatingObj) {
+          this.updatingObj[key] = key === 'ladderOffer' ? [{ start: 1 }] : ''
         }
       }
       this.showUpdate = true
     },
+    // 处理梯度价格
+    dealLadderOffer () {
+      if (this.updatingObj.ladderOffer.length > 1 || (this.updatingObj.ladderOffer.length === 1 && this.updatingObj.ladderOffer[0].price)) {
+        for (let i = 0; i < this.updatingObj.ladderOffer.length; i++) {
+          if (i !== this.updatingObj.ladderOffer.length - 1) {
+            // 取下一梯度的起始数量-1
+            this.updatingObj.ladderOffer[i].end = this.updatingObj.ladderOffer[i + 1].start - 1
+          } else {
+            // 最大库存不超过10亿
+            this.updatingObj.ladderOffer[i].end = 999999999
+          }
+        }
+        return this.updatingObj.ladderOffer
+      } else {
+        return null
+      }
+    },
     submitUpdate () {
-      if (this.updatingObj.brand && this.updatingObj.model && this.updatingObj.spec) {
-        this.apis.product.addOrUpdateProduct(this.updatingObj).then(res => {
+      if (this.updatingObj.brand && this.updatingObj.model && this.updatingObj.moq) {
+        let obj = JSON.parse(JSON.stringify(this.updatingObj))
+        obj.ladderOffer = this.dealLadderOffer()
+        this.apis.product.addOrUpdateProduct({ product: obj }).then(res => {
           this.requestDeal(res, () => {
             this.$message.success(this.updatingObj.code ? '修改成功' : '新增成功')
             this.loadData()
@@ -438,12 +478,13 @@ export default {
     },
     setLevel (isAdd, index) {
       if (isAdd) {
-        this.levels.push({
-          price: '',
-          count: ''
+        this.updatingObj.ladderOffer.push({
+          price: null,
+          start: null,
+          end: null
         })
       } else {
-        this.levels.splice(index, 1)
+        this.updatingObj.ladderOffer.splice(index, 1)
       }
     }
   }

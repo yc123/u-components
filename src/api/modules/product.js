@@ -6,7 +6,6 @@ const req = (url, method, params, config) => {
 }
 
 const apis = {
-  // product
   // 上传或修改产品
   addOrUpdateProduct (params) {
     return req('/api/product/save', 'post', params)
