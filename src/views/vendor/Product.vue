@@ -487,11 +487,22 @@ export default {
     },
     setLevel (isAdd, index) {
       if (isAdd) {
-        this.updatingObj.ladderOffer.push({
-          price: null,
-          start: null,
-          end: null
-        })
+        let valid = true
+        for (let i = 0; i < this.updatingObj.ladderOffer.length; i++) {
+          if (!this.updatingObj.ladderOffer[i].price || !this.updatingObj.ladderOffer[i].start) {
+            valid = false
+            break
+          }
+        }
+        if (valid) {
+          this.updatingObj.ladderOffer.push({
+            price: null,
+            start: null,
+            end: null
+          })
+        } else {
+          this.$message.info('请填写完整信息')
+        }
       } else {
         this.updatingObj.ladderOffer.splice(index, 1)
       }
