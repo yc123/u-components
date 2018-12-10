@@ -79,6 +79,10 @@ const apis = {
   // 通过产品编号取消收藏
   revokeCollectByProduct (params) {
     return req('/api/product/revokecollect/productcode', 'post', params)
+  },
+  // 获取全部包装方式
+  getAllPacking (params) {
+    return req('/api/product/packing/getAll', 'get', params)
   }
 }
 

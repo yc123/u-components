@@ -302,17 +302,26 @@ export default {
     * @product: 修改的产品
     * */
     updateItem (product) {
-      if (product) {
-        for (let key in this.updatingObj) {
-          this.updatingObj[key] = product[key]
-        }
-        this.updatingObj.code = product.code
-      } else {
-        for (let key in this.updatingObj) {
-          this.updatingObj[key] = key === 'ladderOffer' ? [{ start: 1 }] : ''
-        }
-      }
-      this.showUpdate = true
+      this.apis.product.getAllPacking().then(res => {
+        this.requestDeal(res, data => {
+          this.packList = data.packing
+          this.packList.forEach(item => {
+            item.text = item.name
+            item.value = item.name
+          })
+          if (product) {
+            for (let key in this.updatingObj) {
+              this.updatingObj[key] = product[key]
+            }
+            this.updatingObj.code = product.code
+          } else {
+            for (let key in this.updatingObj) {
+              this.updatingObj[key] = key === 'ladderOffer' ? [{ start: 1 }] : ''
+            }
+          }
+          this.showUpdate = true
+        })
+      })
     },
     // 处理梯度价格
     dealLadderOffer () {
