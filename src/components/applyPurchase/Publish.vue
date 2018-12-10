@@ -30,18 +30,19 @@
             <u-input placeholder="请输入数量"
                      reg="^\d*$"
                      v-model="publishObj.amount"></u-input>
+            <span class="unit">PCS</span>
           </div>
         </div>
         <div class="form-line">
-          <span class="title inline-block"><i class="must">*</i>预算单价：</span>
+          <span class="title inline-block">预算单价：</span>
           <div class="content inline-block">
-            <u-input placeholder="请输入数量"
+            <u-input placeholder="请输入预算单价"
                      reg="^\d*$"
-                     v-model="publishObj.amount"></u-input>
+                     v-model="publishObj.price"></u-input>
           </div>
         </div>
         <div class="form-line">
-          <span class="title inline-block"><i class="must">*</i>预计交期：</span>
+          <span class="title inline-block">预计交期：</span>
           <div class="content inline-block">
             <u-input class="inline-block date-input"
                      placeholder="请输入"
@@ -71,8 +72,8 @@
         <th width="15%">买家名称</th>
         <th width="16%">品牌</th>
         <th width="17%">型号</th>
-        <th width="17%">规格</th>
-        <th width="9%">需求数量</th>
+        <th width="14%">规格</th>
+        <th width="12%">需求数量(PCS)</th>
         <th width="8%">预算单价</th>
         <th width="8%">预计交期</th>
         <th width="10%">截止日期</th>
@@ -85,7 +86,7 @@
         <td :title="demand.model">{{demand.model || '-'}}</td>
         <td :title="demand.spec">{{demand.spec || '-'}}</td>
         <td :title="demand.amount">{{demand.amount || '-'}}</td>
-        <td :title="demand.amount">预算单价</td>
+        <td :title="demand.price">￥{{demand.price}}</td>
         <td :title="`${demand.leastDelivery}-${demand.lastDelivery}天`">{{demand.leastDelivery}} - {{demand.lastDelivery}}天</td>
         <td :title="demand.deadlineDate">{{demand.deadlineDate || '-'}}</td>
       </tr>
@@ -114,6 +115,7 @@ export default {
       model: '',
       spec: '',
       amount: '',
+      price: '',
       leastDelivery: '',
       lastDelivery: '',
       deadlineDate: ''
@@ -138,6 +140,7 @@ export default {
     },
     publish () {
       if (this.publishObj.brand && this.publishObj.model && this.publishObj.amount && this.publishObj.leastDelivery && this.publishObj.lastDelivery && this.publishObj.deadlineDate) {
+        debugger
         this.apis.demand.addDemand({ demand: this.publishObj })
           .then(res => {
             this.requestDeal(res, () => {

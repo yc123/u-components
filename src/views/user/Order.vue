@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  import Order from '@/components/order/Order.vue'
-  export default {
-    name: 'seller',
-    components: {
-      Order
-    }
+import Order from '@/components/order/Order.vue'
+export default {
+  name: 'seller',
+  components: {
+    Order
   }
+}
 </script>
