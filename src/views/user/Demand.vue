@@ -86,8 +86,9 @@
         <div class="form-line">
           <span class="title inline-block"><i class="must">*</i>需求数量：</span>
           <div class="content inline-block">
-            <u-input reg="^\d*$" placeholder="请输入数量" v-model.number="updatingObj.amount"></u-input>
-            <span class="unit">PCS</span>
+            <u-input reg="^\d*$" placeholder="请输入数量" v-model.number="updatingObj.amount">
+              <i slot="append-icon">PCS</i>
+            </u-input>
           </div>
         </div>
         <div class="form-line">

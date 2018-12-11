@@ -29,8 +29,9 @@
           <div class="content inline-block">
             <u-input placeholder="请输入数量"
                      reg="^\d*$"
-                     v-model="publishObj.amount"></u-input>
-            <span class="unit">PCS</span>
+                     v-model="publishObj.amount">
+              <i slot="append-icon">PCS</i>
+            </u-input>
           </div>
         </div>
         <div class="form-line">
