@@ -1,7 +1,7 @@
 {
   "name": "u-components",
   "description": "usoft common components",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "author": "yc_1209 <892541788@qq.com>",
   "license": "MIT",
   "main": "dist/u-components.js",
@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "u-components": "^1.0.5",
     "vue": "^2.5.11"
   },
   "browserslist": [

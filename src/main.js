@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import uComps from './lib/index'
-let {
+import {
   UDatePicker,
   USelect,
   UPager,
@@ -19,7 +18,7 @@ let {
   UAddressSelect,
   Message,
   Confirm
-} = uComps
+} from './lib/index'
 
 Vue.use(UDatePicker)
 Vue.use(USelect)
