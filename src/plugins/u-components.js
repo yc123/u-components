@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import uComps from 'u-components'
 import 'u-components/src/assets/css/app.scss'
-let {
+import {
   UDatePicker,
   USelect,
   UPager,
@@ -18,7 +17,7 @@ let {
   UAddressSelect,
   Message,
   Confirm
-} = uComps
+} from 'u-components'
 
 Vue.use(UDatePicker)
 Vue.use(USelect)
