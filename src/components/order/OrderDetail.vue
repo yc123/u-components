@@ -142,7 +142,17 @@
 </template>
 <script>
 export default {
-  data: () => ({})
+  data: () => ({
+    orderDetail: []
+  }),
+  created () {
+    this.apis.trade.buyerGetOrderDetail({ code: this.$route.params.code })
+      .then(res => {
+        this.requestDeal(res, data => {
+          this.orderDetail = data.order
+        })
+      })
+  }
 }
 </script>
 <style lang="scss" scoped>

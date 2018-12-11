@@ -25,6 +25,22 @@ const apis = {
   // 获取收货地址列表
   getDeliveryAddrList (params) {
     return req(`/api/trade/delivery/addr/get`, 'get', params)
+  },
+  // 买家分页查询订单列表
+  buyerPageOrderList (params) {
+    return req(`/api/trade/order/buyer/list/get`, 'get', params)
+  },
+  // 买家查询订单详情
+  buyerGetOrderDetail (params) {
+    return req(`/api/trade/order/buyer/detail/get`, 'get', params)
+  },
+  // 卖家分页查询订单列表
+  sellerPageOrderList (params) {
+    return req(`/api/trade/order/seller/list/get`, 'get', params)
+  },
+  // 卖家查询订单详情
+  sellerGetOrderDetail (params) {
+    return req(`/api/trade/order/seller/detail/get`, 'get', params)
   }
 }
 

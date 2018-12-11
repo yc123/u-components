@@ -16,23 +16,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr class="en-info">
+      <tr class="en-info" v-for="order in orderList" :key="order.code">
         <td colspan="7">
-          <span class="order-number">订单号：<a href="">12131241241411</a></span>
+          <span class="order-number" v-for="item in order.orderProduct" :key="item.code">订单号：<router-link :to="`order/${order.code}`">{{item.orderCode}}</router-link></span>
           <div class="fr">
-            <span>哈哈哈哈哈哈哈哈</span>
-            <i class="iconfont icon-shouji"></i> 1133333339
-            <i class="iconfont icon-dianhua"></i> 0755-8888999999
-          </div>
-        </td>
-      </tr>
-      <tr class="en-info">
-        <td colspan="7">
-          <span class="order-number">订单号：<a href="">12131241241411</a></span>
-          <div class="fr">
-            <span>哈哈哈哈哈哈哈哈</span>
-            <i class="iconfont icon-shouji"></i> 1133333339
-            <i class="iconfont icon-dianhua"></i> 0755-8888999999
+            <span>{{order.sellerName}}</span>
+            <i class="iconfont icon-shouji"></i> {{order.sellerAdmMobile}}
+            <i class="iconfont icon-dianhua"></i> {{order.sellerTelephone}}
           </div>
         </td>
       </tr>
@@ -42,7 +32,42 @@
 </template>
 <script>
 export default {
-  data: () => ({})
+  data: () => ({
+    pager: {
+      page: 1,
+      count: 0,
+      size: 10
+    },
+    orderList: []
+  }),
+  created () {
+    let path = this.$route.path
+    if (path === '/user/order') {
+      this.loadBuyerData()
+    } else if (path === '/vendor/order') {
+      this.loadVendorData()
+    }
+  },
+  methods: {
+    loadBuyerData () {
+      this.apis.trade.buyerPageOrderList({ pageSize: this.pager.size, pageNumber: this.pager.page })
+        .then(res => {
+          this.requestDeal(res, data => {
+            this.orderList = data.order
+            this.pager.count = data.pagingInfo.totalCount
+          })
+        })
+    },
+    loadVendorData () {
+      this.apis.trade.sellerPageOrderList({ pageSize: this.pager.size, pageNumber: this.pager.page })
+        .then(res => {
+          this.requestDeal(res, data => {
+            this.orderList = data.order
+            this.pager.count = data.pagingInfo.totalCount
+          })
+        })
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

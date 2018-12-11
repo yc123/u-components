@@ -44,7 +44,7 @@
           <template :title="demand.amount">{{demand.amount || '-'}}<br/></template>
         </td>
         <td>
-          <template :title="demand.amount">￥预算单价<br/></template>
+          <template :title="demand.price">￥{{demand.price}}<br/></template>
         </td>
         <td>
           <template :title="`${demand.leastDelivery}-${demand.lastDelivery}天`">{{`${demand.leastDelivery}-${demand.lastDelivery}天`}}<br/></template>
@@ -133,11 +133,11 @@ export default {
     updatingObj: {
       brand: '',
       model: '',
-      spec: '',
+      spec: null,
       amount: '',
-      price: '',
-      leastDelivery: '',
-      lastDelivery: '',
+      price: null,
+      leastDelivery: null,
+      lastDelivery: null,
       deadlineDate: ''
     }
   }),
@@ -184,11 +184,11 @@ export default {
         this.updatingObj = {
           brand: '',
           model: '',
-          spec: '',
+          spec: null,
           amount: '',
-          price: '',
-          leastDelivery: '',
-          lastDelivery: '',
+          price: null,
+          leastDelivery: null,
+          lastDelivery: null,
           deadlineDate: ''
         }
       }
@@ -197,7 +197,7 @@ export default {
     // 新增/修改校验
     check () {
       for (let key in this.updatingObj) {
-        if (key !== 'spec' && !this.updatingObj[key]) {
+        if (key !== 'spec' && key !== 'price' && key !== 'leastDelivery' && key !== 'lastDelivery' && !this.updatingObj[key]) {
           this.$message.info('请输入必填项')
           return false
         }

@@ -113,11 +113,11 @@ export default {
     publishObj: {
       brand: '',
       model: '',
-      spec: '',
+      spec: null,
       amount: '',
-      price: '',
-      leastDelivery: '',
-      lastDelivery: '',
+      price: null,
+      leastDelivery: null,
+      lastDelivery: null,
       deadlineDate: ''
     },
     demandList: []
@@ -139,7 +139,7 @@ export default {
       this.pager.size = size
     },
     publish () {
-      if (this.publishObj.brand && this.publishObj.model && this.publishObj.amount && this.publishObj.leastDelivery && this.publishObj.lastDelivery && this.publishObj.deadlineDate) {
+      if (this.publishObj.brand && this.publishObj.model && this.publishObj.amount && this.publishObj.deadlineDate) {
         debugger
         this.apis.demand.addDemand({ demand: this.publishObj })
           .then(res => {
