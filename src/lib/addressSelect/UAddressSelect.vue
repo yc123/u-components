@@ -2,9 +2,9 @@
   <div class="u-address-select" ref="uAddressSelect" @click.stop>
     <div class="uas-input"
          :class="{'u-placeholder' : !done, 'hide-bottom-border': show}"
-         :title="done ? `${currentAddress.province}/${currentAddress.city}/${currentAddress.area}` : ''"
+         :title="done ? `${currentAddress.province}/${currentAddress.city}/${currentAddress.district}` : ''"
          @click="setShow(!show)">
-      {{done ? `${currentAddress.province}/${currentAddress.city}/${currentAddress.area}` : '-请选择地区-'}}
+      {{done ? `${currentAddress.province}/${currentAddress.city}/${currentAddress.district}` : '-请选择地区-'}}
       <i class="iconfont icon-arrow-down"></i>
     </div>
     <div class="u-address-box" v-show="show" @click.stop ref="selectBox" :style="{'left': `${boxPosition.left}px`, 'top': `${boxPosition.top}px`, 'position': boxPosition.position}">
@@ -35,7 +35,7 @@
         currentAddress: {
           province: null,
           city: null,
-          area: null
+          district: null
         },
         show: false,
         activeObj: {
@@ -69,9 +69,9 @@
             for (let key in val) {
               this.currentAddress[key] = val[key]
             }
-            if (this.currentAddress.area) {
-              this.activeObj.type = 'area'
-              this.activeObj.item = this.currentAddress.area
+            if (this.currentAddress.district) {
+              this.activeObj.type = 'district'
+              this.activeObj.item = this.currentAddress.district
             }
           }
         },
@@ -92,7 +92,7 @@
         return this.currentAddress.province && this.currentAddress.city
       },
       done () {
-        return this.currentAddress.province && this.currentAddress.city && this.currentAddress.area
+        return this.currentAddress.province && this.currentAddress.city && this.currentAddress.district
       },
       province () {
         let province = []
@@ -129,15 +129,15 @@
     methods: {
       selectProvince (item) {
         this.currentAddress.city = null
-        this.currentAddress.area = null
+        this.currentAddress.district = null
         this.currentAddress.province = item
       },
       selectCity (item) {
-        this.currentAddress.area = null
+        this.currentAddress.district = null
         this.currentAddress.city = item
       },
       selectArea (item) {
-        this.currentAddress.area = item
+        this.currentAddress.district = item
         this.emitSelect()
       },
       setItem (item) {
@@ -200,8 +200,8 @@
           this.activeObj.item = this.currentAddress[type]
         } else {
           this.clearReselect()
-          if (this.currentAddress.area) {
-            this.activeObj.item = this.currentAddress.area
+          if (this.currentAddress.district) {
+            this.activeObj.item = this.currentAddress.district
           }
         }
       },

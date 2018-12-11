@@ -7,7 +7,10 @@
            :placeholder="placeholder"
            :readonly="readonly"
            @input="onInput($event)">
-    <i class="iconfont icon-close" v-if="clearable" @click.prevent="clear"></i>
+    <div class="append-icon cursor-default">
+      <i class="iconfont icon-close clear" v-if="clearable" @click.prevent="clear"></i>
+      <slot name="append-icon"></slot>
+    </div>
   </div>
 </template>
 <script>
@@ -112,15 +115,17 @@
     $base-color: #1890FF;
     $err-color: #F5222D;
     position: relative;
-    i {
+    .append-icon {
       position: absolute;
       right: 10px;
       top: 0;
       line-height: 32px;
-      cursor: pointer;
-      color: rgba(0,0,0,.25);
-      &:hover {
-        color: rgba(0,0,0,.45);
+      i {
+        color: rgba(0,0,0,.25);
+        &.clear:hover {
+          color: rgba(0,0,0,.45);
+          cursor: pointer;
+        }
       }
     }
     .base-input {

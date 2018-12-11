@@ -18,7 +18,9 @@
     <div class="comps">
       <p>input：</p>
       <p>model：{{inputModel}}</p>
-      <u-input v-model="inputModel" :clearable="true"></u-input>
+      <u-input v-model="inputModel" :clearable="true">
+        <!--<i slot="append-icon">PCS</i>-->
+      </u-input>
     </div>
     <div class="comps">
       <p>textarea：</p>
