@@ -165,6 +165,13 @@
       fixId: {
         type: String,
         default: ''
+      },
+      /*
+      * 限制
+      * */
+      pickerOptions: {
+        type: Object,
+        default: () => ({})
       }
     },
     watch: {
@@ -212,6 +219,7 @@
       * @currentMonthDays：本月天数
       * */
       initDays (lastMonthDays, currentMonthDays) {
+        let year_month_template = this.dateObj.year + '-' + this.dateObj.month + '-'
         // 初始值当前显示的月
         // 从0开始要+1
         let current = 1 - (this.dateObj.weekDate - (this.dateObj.day % 7 - 1))
@@ -223,12 +231,13 @@
           }
           let now = new Date()
           let selectedDate = new Date(this.value)
-          this.daysArrs[parseInt(i / 7)].push({
+          let dayObj = {
             value: current < 1 ? (lastMonthDays + current) : current > currentMonthDays ? (Math.abs(current - currentMonthDays)) : current,
             active: selectedDate.getFullYear() === this.dateObj.year && selectedDate.getMonth() + 1 === this.dateObj.month && selectedDate.getDate() === current,
-            disabled: current < 1 || current > currentMonthDays,
             isToday: current === now.getDate() && this.dateObj.month === now.getMonth() + 1 && this.dateObj.year === now.getFullYear()
-          })
+          }
+          dayObj.disabled = (current < 1 || current > currentMonthDays) || (dayObj.value && this.pickerOptions.disabledDate && this.pickerOptions.disabledDate(new Date(year_month_template + dayObj.value + ' 23:59:59').getTime()))
+          this.daysArrs[parseInt(i / 7)].push(dayObj)
           current++
         }
       },
@@ -417,7 +426,7 @@
   .u-date-picker {
     position: relative;
     width: 280px;
-    $base-color: #1890FF;
+    $base-color: #3597D5;
     .u-dp-input {
       width: 100%;
       height: 32px;

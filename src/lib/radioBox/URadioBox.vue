@@ -29,14 +29,14 @@
       // 单选框的值
       radioValue: {},
       // 单选框当前选中的值，做初始化用
-      checkedValue: {},
+      value: {},
       disabled: {
         default: false,
         type: Boolean
       }
     },
     watch: {
-      checkedValue: {
+      value: {
         handler: function (val) {
           this.$nextTick(() => {
             this.$refs[this.radioId].checked = val === this.radioValue
@@ -56,6 +56,9 @@
   .com-radio-wrap {
     margin: 0;
     display: inline-block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     font-weight: normal;
     input {
@@ -70,7 +73,7 @@
         }
         .icon-radiobuttonon {
           display: none;
-          color: #1890FF;
+          color: #3597D5;
         }
       }
       &:checked + label {

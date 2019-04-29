@@ -15,7 +15,7 @@
     </template>
     <input type="file" :style="{ width: `${width}px`, height: `${height}px` }" ref="fileUpload" :accept="accept" :multiple="multiple"  @change="upload($event)">
     <div class="hover-show" :title="fileName" :style="{ width: `${width}px`, height: `${height}px` }">
-      <i class="iconfont icon-search" :class="{readonly: readonly}" @click="showPreviewImg"></i>
+      <i class="iconfont icon-search" @click="showPreviewImg" v-if="preview"></i>
       <div class="option" v-if="!readonly" :style="{ height: `${24 / 125 * height}px`, lineHeight: `${24 / 125 * height}px` }">
         <a class="inline-block option-btn" @click="reUpload">替换</a>
         <a class="inline-block option-btn" @click="deleteImg">删除</a>
@@ -23,7 +23,7 @@
     </div>
     <div class="img-modal" v-if="showImg">
       <div class="img-modal-wrap">
-        <i class="iconfont icon-guanbi" @click="showImg = false"></i>
+        <i class="iconfont icon-close" @click="showImg = false"></i>
         <img :src="imgUrl" alt="">
       </div>
     </div>
@@ -77,6 +77,10 @@
         default: false,
         type: Boolean
       },
+      preview: {
+        default: true,
+        type: Boolean
+      },
       // 图片上传区域整体宽度
       width: {
         default: 125,
@@ -89,11 +93,13 @@
       },
       // 文件上传的url
       uploadFileUrl: {
-        type: String
+        type: String,
+        default: 'https://filerest.uuzcc.cn/file/upload'
       },
       // 图片上传的url
       uploadImgUrl: {
-        type: String
+        type: String,
+        default: 'https://filerest.uuzcc.cn/image/upload'
       },
       postParams: {
         default: null,
@@ -219,7 +225,11 @@
       },
       isPicture (url) {
         url = url.toLowerCase()
-        return this.endWith(url, '.jpg') || this.endWith(url, '.jpeg') || this.endWith(url, '.png')
+        return this.endWith(url, '.jpg')
+          || this.endWith(url, '.jpeg')
+          || this.endWith(url, '.png')
+          || this.endWith(url, '.gif')
+          || this.endWith(url, '.bmp')
       }
     }
   }
@@ -268,9 +278,9 @@
         -o-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         cursor: pointer;
-        &.readonly {
+        /*&.readonly {
           margin-top: -20px;
-        }
+        }*/
       }
       .option {
         position: absolute;
@@ -358,6 +368,9 @@
       color: #fff;
       z-index: 1;
       cursor: default;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
       user-select: none;
     }
     .upload-preview {

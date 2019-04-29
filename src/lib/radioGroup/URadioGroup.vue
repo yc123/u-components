@@ -8,7 +8,7 @@
       :radioName="radioName"
       :radioId="`${radioName}_${index}`"
       :radioValue="item.value"
-      :checkedValue="value"
+      :value="value"
       :disabled="item.disabled"
       @input="onCheckChange"
     >{{item.label}}</u-radio-box>

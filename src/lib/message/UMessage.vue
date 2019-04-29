@@ -73,7 +73,7 @@
       }
       &.error {
         font-size: 14px;
-        color: #F5222D;
+        color: #DB3725;
       }
       &.info {
         color: #FAAD14;

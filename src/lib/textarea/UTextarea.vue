@@ -5,6 +5,8 @@
       :class="{error: !isValid}"
       class="base-textarea"
       :placeholder="placeholder"
+      @blur="onBlur"
+      @keyup.enter="enterEvent"
       @input="onInput($event)">
   </textarea>
     <i class="counter" v-if="maxLength">{{lastValue.length}}/{{maxLength}}字</i>
@@ -46,20 +48,32 @@
       placeholder: {
         type: String,
         default: ''
+      },
+      //验证
+      rule: {
+        type: Object,
+        default () {
+          return {}
+        }
       }
     },
     watch: {
       value: {
         handler: function (val) {
           this.$nextTick(() => {
-            this.$refs.comTextarea.value = val
-            this.lastValue = val
+            this.$refs.comTextarea.value = val || ''
+            this.lastValue = val || ''
           })
         },
         immediate: true
       }
     },
     methods: {
+      // 监听回车
+      enterEvent (e) {
+        let target = e.target || e.srcElement
+        target.blur()
+      },
       onInput (e) {
         // 输入限制正则校验
         if (this.reg) {
@@ -80,13 +94,27 @@
         }
         this.$emit('input', e.target.value)
         this.lastValue = e.target.value
+      },
+      customRuleCallback (error) {
+        if (error) {
+          this.isValid = false
+        } else {
+          this.isValid = true
+        }
+      },
+      // 失焦校验
+      onBlur (e) {
+        if (this.rule.trigger === 'blur') {
+          debugger
+          this.rule.validator(this.rule, e.target.value, this.customRuleCallback)
+        }
       }
     }
   }
 </script>
 <style lang="scss" scoped>
-  $base-color: #1890FF;
-  $err-color: #F5222D;
+  $base-color: #3597D5;
+  $err-color: #DB3725;
   .com-textarea-box {
     position: relative;
     height: 88px;

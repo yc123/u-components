@@ -39,7 +39,7 @@
       font-size: 36px;
       cursor: pointer;
       &.icon-switch-ON {
-        color: #1890FF;
+        color: #3597D5;
       }
       &.icon-switch-OFF {
         color: rgba(0,0,0,0.25);

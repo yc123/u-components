@@ -8,7 +8,7 @@
       <div class="ubt-content">
         <slot name="content"></slot>
       </div>
-      <div class="ubt-footer u-btn-wrap">
+      <div class="ubt-footer u-btn-wrap" v-if="$slots.footer">
         <slot name="footer"></slot>
       </div>
     </div>
@@ -55,6 +55,7 @@
   .u-dialog {
     max-height: calc(90vh);
     overflow-y: auto;
+    overflow-x: hidden;
     margin: 0 auto;
     position: absolute;
     top: 50%;
@@ -75,6 +76,7 @@
       color: rgba(0,0,0,0.85);
       padding: 0 24px;
       position: relative;
+      font-weight: bold;
       i {
         color: rgba(0,0,0,.45);
         cursor: pointer;

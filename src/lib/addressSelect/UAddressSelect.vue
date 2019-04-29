@@ -54,6 +54,10 @@
       fixId: {
         type: String,
         default: ''
+      },
+      flexId: {
+        type: String,
+        default: ''
       }
     },
     mounted () {
@@ -168,6 +172,13 @@
             let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
             offsetY = this.$refs.uAddressSelect.offsetTop - scrolled + this.$refs.uAddressSelect.clientHeight - 2
             offsetX = this.$refs.uAddressSelect.offsetLeft
+            if (this.flexId) {
+              let obj = document.getElementById(this.flexId)
+              let boxRect = obj.getBoundingClientRect()
+              // rect计算需要补充scrolled高度
+              offsetY += boxRect.y + scrolled
+              offsetX += boxRect.x
+            }
             this.boxPosition.position = 'absolute'
           } else {
             let obj = document.getElementById(this.fixId)

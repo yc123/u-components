@@ -43,19 +43,30 @@
       value: {
         type: Array,
         default: () => []
+      },
+      onlyValue: {
+        type: Boolean,
+        default: false
+      },
+      // 是否反选
+      reserve: {
+        type: Boolean,
+        default: false
       }
     },
     watch: {
       value: {
         handler: function (val) {
-          if (val && val.length) {
-            val.forEach((valueItem) => {
-              let findObj = this.items.find(item => valueItem[this.itemValue] === item[this.itemValue])
-              if (findObj) {
-                this.$set(findObj, 'checked', true)
-              }
-            })
-          }
+          let emptyValue = val && val.length > 0
+          this.items.forEach((item) => {
+            let findObj
+            if (!this.reserve) {
+              findObj = emptyValue && val.find(valueItem => valueItem === item[this.itemValue] || valueItem[this.itemValue] === item[this.itemValue])
+            } else {
+              findObj = !emptyValue || val.every(valueItem => valueItem !== item[this.itemValue] && valueItem[this.itemValue] !== item[this.itemValue])
+            }
+            this.$set(item, 'checked', Boolean(findObj))
+          })
         },
         immediate: true
       }
@@ -64,8 +75,8 @@
       onCheckChange () {
         let checkedArr = []
         this.items.forEach(item => {
-          // item.checked && checkedArr.push(this.itemValue ? item[this.itemValue] : item)
-          item.checked && checkedArr.push(item)
+            ((!this.reserve && item.checked) || (this.reserve && !item.checked)) && !item.disabled && checkedArr.push(this.onlyValue ? item[this.itemValue] : item)
+          // item.checked && checkedArr.push(item)
         })
         this.$emit('input', checkedArr)
       }

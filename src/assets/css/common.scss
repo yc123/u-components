@@ -17,7 +17,17 @@ ul.list-inline {
 .fr {
   float: right;
 }
-
+.clearFloat {
+  &::before {
+    display: table;
+    content: " ";
+  }
+  &::after {
+    display: table;
+    content: " ";
+    clear: both;
+  }
+}
 ::-webkit-input-placeholder {
   color: rgba(0,0,0,0.25);
 }
@@ -30,27 +40,55 @@ ul.list-inline {
 :-ms-input-placeholder {
   color: rgba(0,0,0,0.25);
 }
-$base-color: #1890FF;
+$base-color: #3597D5;
 .u-btn {
   display: inline-block;
   background: #FFFFFF;
   border-radius: 4px;
   font-size: 14px;
-  text-align: left;
+  text-align: center;
   height: 32px;
   line-height: 30px;
   padding: 0 16px;
+  // 普通按钮
   &.u-btn-cancel {
     border: 1px solid #D9D9D9;
     &:hover {
-      color: $base-color;
-      border-color: $base-color;
+      background: #F2F3F7;
     }
   }
+  // 主按钮
   &.u-btn-submit {
     background: $base-color;
     border: 1px solid $base-color;
     color: #fff;
+    &:hover {
+      background: #3BA9ED;
+      border-color: #3BA9ED;
+    }
+  }
+  // 次按钮
+  &.u-btn-sub {
+    border: 1px solid $base-color;
+    color: $base-color;
+    background: #F4F7FE;
+    &:hover {
+      background: #3BA9ED;
+      border-color: #3BA9ED;
+      color: #fff;
+    }
+  }
+  &[disabled] {
+    border-color: rgba(0, 0, 0, .09) !important;
+    background: rgba(0, 0, 0, .04) !important;
+    color: rgba(0, 0, 0, .25) !important;
+    cursor: not-allowed;
+  }
+  // 小尺寸
+  &.u-btn-small {
+    padding: 0 8px;
+    height: 24px;
+    line-height: 22px;
   }
 }
 
@@ -116,7 +154,7 @@ $base-color: #1890FF;
           border: none;
         }
         &:hover {
-          background: #E6F7FF;
+          background: #E6F0FF;
         }
       }
     }
@@ -179,7 +217,7 @@ $base-color: #1890FF;
               color: rgba(0,0,0,0.25);
             }
             &:hover {
-              background: #E6F7FF;
+              background: #EBF7FF;
             }
             &.today {
               opacity: 0.8;
@@ -232,7 +270,7 @@ $base-color: #1890FF;
   .uas-box-title {
     height: 24px;
     line-height: 24px;
-    border-bottom: 1px solid #1890FF;
+    border-bottom: 1px solid $base-color;
     font-size: 0;
     .item {
       display: inline-block;
@@ -254,7 +292,7 @@ $base-color: #1890FF;
         margin-left: 4px;
       }
       &.active {
-        $border-active: 1px solid #1890FF;
+        $border-active: 1px solid $base-color;
         border: {
           top: $border-active;
           left: $border-active;
@@ -291,12 +329,12 @@ $base-color: #1890FF;
         border-radius: 2px;
         line-height: 26px;
         &:hover {
-          background: #E6F7FF;
+          background: #EBF7FF;
         }
       }
       &.active {
         span {
-          background: #1890FF;
+          background: $base-color;
           color: #fff;
         }
       }

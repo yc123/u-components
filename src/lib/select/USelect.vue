@@ -1,11 +1,11 @@
 <template>
-  <div class="com-select" @click.stop="setShowSelect(!showSelect)">
+  <div class="com-select" @click.stop="setShowSelect($event, !showSelect)">
     <template v-if="selectedIndex > -1">
       {{list[selectedIndex].text}}
     </template>
     <span class="u-placeholder" v-else>{{ placeholder }}</span>
     <i class="iconfont icon-arrow-down"></i>
-    <ul v-show="showSelect">
+    <ul class="u-select-ul" v-show="!onlyOne && showSelect" v-if="(list && list.length > 1) || (list.length === 1 && selectedIndex !== 0)">
       <li @click.stop="setSelect(item, index)" v-for="(item, index) in list" v-show="index !== selectedIndex" v-text="item.text"></li>
     </ul>
   </div>
@@ -17,6 +17,10 @@
       list: {
         default: () => [],
         type: Array
+      },
+      onlyOne: {
+        type: Boolean,
+        default: false
       },
       value: {},
       placeholder: {
@@ -49,16 +53,29 @@
       window.removeEventListener('click', this.clearShowSelect, false)
     },
     methods: {
-      setShowSelect (flag) {
-        this.showSelect = flag
+      setShowSelect (event, flag) {
+        if (this.onlyOne) {
+          event = event || {}
+          let selects = [...document.getElementsByClassName('com-select')]
+          selects.forEach((el, index) => {
+            if (el !== (event.target || event.srcElement)) {
+              el.querySelector('.u-select-ul').style.display = 'none'
+            } else {
+              el.querySelector('.u-select-ul').style.display = 'block'
+            }
+          })
+        } else {
+          this.showSelect = flag
+        }
+
       },
       setSelect (item, index) {
         this.$emit('input', item.value)
         this.selectedIndex = index
-        this.setShowSelect(false)
+        this.setShowSelect(null, false)
       },
       clearShowSelect () {
-        this.setShowSelect(false)
+        this.setShowSelect(null, false)
       }
     }
   }
@@ -80,7 +97,8 @@
     i {
       font-size: 12px;
       color: rgba(0,0,0,0.25);
-      float: right;
+      position: absolute;
+      right: 12px;
     }
     ul {
       position: absolute;
@@ -100,7 +118,7 @@
         padding: 0 12px;
         cursor: pointer;
         &:hover {
-          background: #E6F7FF;
+          background: #EDF2F5;
         }
       }
     }

@@ -23,6 +23,7 @@
       </li>
     </ul>
     <u-select class="inline-block size-select"
+              v-if="!hideSize"
               v-model="bindingSize"
               :list="pageSizeList"
               @input="changeSize"
@@ -101,7 +102,12 @@
         type: Number,
         default: 10
       },
-      value: {}
+      value: {},
+      // 是否隐藏尺寸的显示
+      hideSize: {
+        type: Boolean,
+        default: false
+      }
     },
     methods: {
       initPagerList () {
@@ -196,7 +202,7 @@
 
 <style lang="scss" scoped>
   .com-pager-wrap {
-    $base-color: #1890FF;
+    $base-color: #3597D5;
     margin: 40px 0;
     text-align: right;
     padding-right: 20px;
@@ -212,6 +218,9 @@
         border-radius: 4px;
         text-align: center;
         cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
         user-select: none;
         margin-right: 8px;
         padding: 0 12px;
@@ -237,10 +246,10 @@
           }
         }
         &:hover {
-          background: #e6f7ff;
+          background: #EDF2F5;
         }
         &.active {
-          background: $base-color;
+          background: #4B6075;
           color: #fff;
         }
       }

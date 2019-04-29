@@ -15,11 +15,14 @@
       boxId: {
         default: 'checkAll'
       },
-      value: {},
+      value: {default: false, type: Boolean},
       disabled: {
         default: false,
         type: Boolean
       }
+    },
+    created () {
+      console.log(this.value)
     },
     watch: {
       value: {
@@ -52,7 +55,7 @@
         margin: 0;
         .icon-check-box {
           display: none;
-          color: #1890FF;
+          color: #3597D5;
         }
         .icon-check-box-outline-blank {
           color: #D9D9D9;

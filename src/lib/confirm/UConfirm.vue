@@ -63,8 +63,9 @@
       line-height: 24px;
       position: relative;
       text-align: center;
+      font-weight: bold;
       i {
-        color: #F5222D;
+        color: #DB3725;
         font-size: 22px;
         margin-right: 10px;
       }
